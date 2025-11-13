@@ -1,0 +1,2768 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistemas de Numeração e Conversão entre Bases</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1, h2, h3, h4 {
+            color: #0056b3;
+        }
+        pre {
+            background-color: #e9e9e9;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            white-space: pre-wrap; /* Para quebra de linha em pre */
+            word-wrap: break-word; /* Para quebra de linha em pre */
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+        ol {
+            list-style-type: decimal;
+            margin-left: 20px;
+        }
+        .math-expr {
+            font-family: 'Times New Roman', serif;
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+        .step {
+            margin-bottom: 15px;
+            padding-left: 10px;
+            border-left: 3px solid #007bff;
+        }
+        .highlight {
+            background-color: #e0ffe0;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .example-box {
+            border: 1px solid #ccc;
+            padding: 15px;
+            margin: 15px 0;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        .solution-box {
+            border: 1px solid #007bff;
+            padding: 15px;
+            margin: 15px 0;
+            background-color: #e6f2ff;
+            border-radius: 5px;
+        }
+        .exercise-list li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sistemas de Numeração e Conversão entre Bases</h1>
+        <p>Prof. Mario F. G. Boaratti <br> 2025/2</p>
+
+        <p>Nós, humanos, estamos acostumados a trabalhar com o <strong>sistema decimal</strong>, que possui 10 dígitos distintos: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9. A base 10 significa que cada posição de um dígito em um número representa uma potência de 10.</p>
+        <p>Já os computadores modernos operam com o <strong>sistema binário</strong>, que utiliza apenas 2 dígitos: 0 e 1. A base 2 implica que cada posição representa uma potência de 2.</p>
+        <ul>
+            <li>Podemos relacionar o bit <strong>1</strong> com conceitos como: Ligado, Verdadeiro, Sim.</li>
+            <li>Podemos relacionar o bit <strong>0</strong> com conceitos como: Desligado, Falso, Não.</li>
+        </ul>
+
+        <h2>Representação de um Número Qualquer</h2>
+        <p>Dado um número inteiro <span class="math-expr">N</span> em uma base <span class="math-expr">b</span>, podemos representá-lo pela <strong>decomposição de um número natural</strong> da seguinte forma:</p>
+        <pre class="math-expr">(N)<sub>b</sub> = A<sub>n</sub> &times; b<sup>n</sup> + A<sub>n-1</sub> &times; b<sup>n-1</sup> + A<sub>n-2</sub> &times; b<sup>n-2</sup> + ... + A<sub>1</sub> &times; b<sup>1</sup> + A<sub>0</sub> &times; b<sup>0</sup></pre>
+        <p>Onde <span class="math-expr">A<sub>i</sub></span> são os dígitos do número e <span class="math-expr">b<sup>i</sup></span> são as potências da base.</p>
+
+        <div class="example-box">
+            <h3>Exemplo em Decimal:</h3>
+            <p><span class="math-expr">(1234)<sub>10</sub> = 1 &times; 10<sup>3</sup> + 2 &times; 10<sup>2</sup> + 3 &times; 10<sup>1</sup> + 4 &times; 10<sup>0</sup></span></p>
+            <p>Isso equivale a:</p>
+            <p><span class="math-expr">(1234)<sub>10</sub> = 1000 + 200 + 30 + 4</span></p>
+        </div>
+
+        <p>O número <span class="math-expr">N</span> na base <span class="math-expr">b</span> é, portanto, dado pelos seus coeficientes <span class="math-expr">A<sub>n</sub>, A<sub>n-1</sub>, A<sub>n-2</sub>, ..., A<sub>0</sub></span>, e pode ser representado de forma compacta:</p>
+        <pre class="math-expr">(N)<sub>b</sub> = (A<sub>n</sub> A<sub>n-1</sub> A<sub>n-2</sub> ... A<sub>0</sub>)<sub>b</sub></pre>
+
+        <h3>Quando o número possuir parte fracionária:</h3>
+        <p>A representação se estende para potências negativas da base:</p>
+        <pre class="math-expr">(N)<sub>b</sub> = A<sub>n</sub> &times; b<sup>n</sup> + A<sub>n-1</sub> &times; b<sup>n-1</sup> + ... + A<sub>1</sub> &times; b<sup>1</sup> + A<sub>0</sub> &times; b<sup>0</sup> + A<sub>-1</sub> &times; b<sup>-1</sup> + A<sub>-2</sub> &times; b<sup>-2</sup> + ...</pre>
+        <p>Onde a parte antes da vírgula é a "Parte inteira" e a parte após a vírgula é a "parte fracionária".</p>
+
+        <div class="example-box">
+            <h3>Exemplo: O número <span class="math-expr">1234.567<sub>10</sub></span> em decimal se decompõe como:</h3>
+            <p><span class="math-expr">1 &times; 10<sup>3</sup> + 2 &times; 10<sup>2</sup> + 3 &times; 10<sup>1</sup> + 4 &times; 10<sup>0</sup> + 5 &times; 10<sup>-1</sup> + 6 &times; 10<sup>-2</sup> + 7 &times; 10<sup>-3</sup></span></p>
+            <p>Ou seja:</p>
+            <p><span class="math-expr">1000 + 200 + 30 + 4 + 0.5 + 0.06 + 0.007</span></p>
+        </div>
+
+        <h2>Representações em Várias Bases Diferentes</h2>
+        <p>A tabela a seguir mostra como os primeiros números decimais são representados em hexadecimal, octal e binário:</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>DECIMAL</th>
+                    <th>HEXA</th>
+                    <th>OCTAL</th>
+                    <th>BINÁRIO</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>0</td><td>0</td><td>0</td><td>0000</td></tr>
+                <tr><td>1</td><td>1</td><td>1</td><td>0001</td></tr>
+                <tr><td>2</td><td>2</td><td>2</td><td>0010</td></tr>
+                <tr><td>3</td><td>3</td><td>3</td><td>0011</td></tr>
+                <tr><td>4</td><td>4</td><td>4</td><td>0100</td></tr>
+                <tr><td>5</td><td>5</td><td>5</td><td>0101</td></tr>
+                <tr><td>6</td><td>6</td><td>6</td><td>0110</td></tr>
+                <tr><td>7</td><td>7</td><td>7</td><td>0111</td></tr>
+                <tr><td>8</td><td>8</td><td>10</td><td>1000</td></tr>
+                <tr><td>9</td><td>9</td><td>11</td><td>1001</td></tr>
+                <tr><td>10</td><td>A</td><td>12</td><td>1010</td></tr>
+                <tr><td>11</td><td>B</td><td>13</td><td>1011</td></tr>
+                <tr><td>12</td><td>C</td><td>14</td><td>1100</td></tr>
+                <tr><td>13</td><td>D</td><td>15</td><td>1101</td></tr>
+                <tr><td>14</td><td>E</td><td>16</td><td>1110</td></tr>
+                <tr><td>15</td><td>F</td><td>17</td><td>1111</td></tr>
+                <tr><td>16</td><td>10</td><td>20</td><td>10000</td></tr>
+                <tr><td>17</td><td>11</td><td>21</td><td>10001</td></tr>
+            </tbody>
+        </table>
+
+        <p>No sistema binário, usando <span class="math-expr">n</span> bits, podemos representar <span class="math-expr">2<sup>n</sup></span> combinações diferentes:</p>
+        <ul>
+            <li>1 bit: <span class="math-expr">2<sup>1</sup> = 2</span> combinações</li>
+            <li>2 bits: <span class="math-expr">2<sup>2</sup> = 4</span> combinações</li>
+            <li>3 bits: <span class="math-expr">2<sup>3</sup> = 8</span> combinações</li>
+            <li>4 bits: <span class="math-expr">2<sup>4</sup> = 16</span> combinações</li>
+            <li>5 bits: <span class="math-expr">2<sup>5</sup> = 32</span> combinações</li>
+            <li>6 bits: <span class="math-expr">2<sup>6</sup> = 64</span> combinações</li>
+            <li>7 bits: <span class="math-expr">2<sup>7</sup> = 128</span> combinações</li>
+            <li>8 bits: <span class="math-expr">2<sup>8</sup> = 256</span> combinações</li>
+            <li>9 bits: <span class="math-expr">2<sup>9</sup> = 512</span> combinações</li>
+            <li>10 bits: <span class="math-expr">2<sup>10</sup> = 1024</span> combinações</li>
+            <li>E assim por diante...</li>
+        </ul>
+
+        <h2>Conversão entre Bases</h2>
+
+        <h3>Conversão de uma Base <span class="math-expr">b</span> para a Base Decimal</h3>
+        <p>Para converter um número de qualquer base <span class="math-expr">b</span> para a base 10 (decimal), basta utilizar a fórmula de decomposição que vimos anteriormente: multiplicar cada dígito pela potência da base correspondente à sua posição e somar os resultados.</p>
+
+        <div class="example-box">
+            <h4>Exemplo: Converter <span class="math-expr">(10110111)<sub>2</sub></span> para a base 10</h4>
+            <pre class="math-expr">(N)<sub>10</sub> = 1&times;2<sup>7</sup> + 0&times;2<sup>6</sup> + 1&times;2<sup>5</sup> + 1&times;2<sup>4</sup> + 0&times;2<sup>3</sup> + 1&times;2<sup>2</sup> + 1&times;2<sup>1</sup> + 1&times;2<sup>0</sup></pre>
+            <pre class="math-expr">(N)<sub>10</sub> = 128 + 0 + 32 + 16 + 0 + 4 + 2 + 1</pre>
+            <pre class="math-expr">(N)<sub>10</sub> = (183)<sub>10</sub></pre>
+        </div>
+
+        <div class="example-box">
+            <h4>Exemplo: Converter <span class="math-expr">(667)<sub>8</sub></span> para a base 10</h4>
+            <pre class="math-expr">(N)<sub>10</sub> = 6&times;8<sup>2</sup> + 6&times;8<sup>1</sup> + 7&times;8<sup>0</sup></pre>
+            <pre class="math-expr">= 384 + 48 + 7</pre>
+            <pre class="math-expr">= (439)<sub>10</sub></pre>
+        </div>
+
+        <div class="example-box">
+            <h4>Exemplo: Converter <span class="math-expr">(5F2A)<sub>16</sub></span> para a base 10</h4>
+            <p>Lembre-se que em hexadecimal, F = 15 e A = 10.</p>
+            <pre class="math-expr">(N)<sub>10</sub> = 5&times;16<sup>3</sup> + F&times;16<sup>2</sup> + 2&times;16<sup>1</sup> + A&times;16<sup>0</sup></pre>
+            <pre class="math-expr">= 5&times;16<sup>3</sup> + 15&times;16<sup>2</sup> + 2&times;16<sup>1</sup> + 10&times;16<sup>0</sup></pre>
+            <pre class="math-expr">= 20480 + 3840 + 32 + 10</pre>
+            <pre class="math-expr">= (24362)<sub>10</sub></pre>
+        </div>
+
+        <h3>Conversão da Base Decimal para uma Base <span class="math-expr">b</span></h3>
+        <p>Para converter um número da base 10 para qualquer outra base, podemos usar diferentes métodos, dependendo se a parte é inteira ou fracionária.</p>
+
+        <h4>Regra 1: Divisões Sucessivas (Para a Parte Inteira de um Número Decimal)</h4>
+        <p>Este método consiste em:</p>
+        <ol>
+            <li>Dividir o número decimal pela base desejada.</li>
+            <li>Registrar o resto da divisão.</li>
+            <li>Usar o quociente da divisão anterior como o novo número a ser dividido.</li>
+            <li>Repetir os passos 1-3 até que o quociente seja 0.</li>
+            <li>O número na nova base é formado pelos restos das divisões, lidos do último para o primeiro (de baixo para cima).</li>
+        </ol>
+
+        <div class="example-box">
+            <h4>Exemplo 1: Converter <span class="math-expr">439<sub>10</sub></span> para a base 2 (binário)</h4>
+            <pre>
+439 &divide; 2 = 219  Resto 1 (A<sub>0</sub>)
+219 &divide; 2 = 109  Resto 1 (A<sub>1</sub>)
+109 &divide; 2 = 54   Resto 1 (A<sub>2</sub>)
+54  &divide; 2 = 27   Resto 0 (A<sub>3</sub>)
+27  &divide; 2 = 13   Resto 1 (A<sub>4</sub>)
+13  &divide; 2 = 6    Resto 1 (A<sub>5</sub>)
+6   &divide; 2 = 3    Resto 0 (A<sub>6</sub>)
+3   &divide; 2 = 1    Resto 1 (A<sub>7</sub>)
+1   &divide; 2 = 0    Resto 1 (A<sub>8</sub>)
+            </pre>
+            <p>Lendo os restos de baixo para cima, obtemos: <span class="math-expr">(439)<sub>10</sub> = (110110111)<sub>2</sub></span></p>
+        </div>
+
+        <div class="solution-box">
+            <h4>Resolução: Faça você: Converter <span class="math-expr">722<sub>10</sub></span> para binário</h4>
+            <p>Vamos aplicar o método das divisões sucessivas:</p>
+            <pre>
+722 &divide; 2 = 361  Resto 0
+361 &divide; 2 = 180  Resto 1
+180 &divide; 2 = 90   Resto 0
+90  &divide; 2 = 45   Resto 0
+45  &divide; 2 = 22   Resto 1
+22  &divide; 2 = 11   Resto 0
+11  &divide; 2 = 5    Resto 1
+5   &divide; 2 = 2    Resto 1
+2   &divide; 2 = 1    Resto 0
+1   &divide; 2 = 0    Resto 1
+            </pre>
+            <p>Lendo os restos de baixo para cima, o resultado é: <span class="highlight"><span class="math-expr">(722)<sub>10</sub> = (1011010010)<sub>2</sub></span></span></p>
+        </div>
+
+        <h4>Regra 2: Decomposição do Número (Para a Parte Inteira de um Número Decimal)</h4>
+        <p>Esta é uma forma alternativa de converter decimal para binário, focando na subtração de potências de 2. É especialmente útil para entender a representação posicional.</p>
+        <ol>
+            <li>Liste as potências de 2 (..., <span class="math-expr">2<sup>10</sup>=1024</span>, <span class="math-expr">2<sup>9</sup>=512</span>, <span class="math-expr">2<sup>8</sup>=256</span>, <span class="math-expr">2<sup>7</sup>=128</span>, <span class="math-expr">2<sup>6</sup>=64</span>, <span class="math-expr">2<sup>5</sup>=32</span>, <span class="math-expr">2<sup>4</sup>=16</span>, <span class="math-expr">2<sup>3</sup>=8</span>, <span class="math-expr">2<sup>2</sup>=4</span>, <span class="math-expr">2<sup>1</sup>=2</span>, <span class="math-expr">2<sup>0</sup>=1</span>).</li>
+            <li>Comece com a maior potência de 2 que é menor ou igual ao número decimal.</li>
+            <li>Se a potência de 2 couber no número, coloque um <span class="highlight">1</span> no bit correspondente e subtraia essa potência do número.</li>
+            <li>Se a potência de 2 não couber, coloque um <span class="highlight">0</span> no bit correspondente e mantenha o número.</li>
+            <li>Continue para a próxima potência de 2 menor, repetindo os passos 3 e 4 até chegar a <span class="math-expr">2<sup>0</sup></span>.</li>
+        </ol>
+
+        <div class="example-box">
+            <h4>Exemplo 2: Converter <span class="math-expr">179<sub>10</sub></span> para binário pela Regra 2</h4>
+            <p>Potências de 2: 1024, 512, 256, 128, 64, 32, 16, 8, 4, 2, 1</p>
+            <pre>
+Número: 179
+
+2<sup>7</sup> (128): 179 - 128 = 51   -> Bit 2<sup>7</sup> é 1
+2<sup>6</sup> (64):  51 < 64          -> Bit 2<sup>6</sup> é 0
+2<sup>5</sup> (32):  51 - 32 = 19   -> Bit 2<sup>5</sup> é 1
+2<sup>4</sup> (16):  19 - 16 = 3    -> Bit 2<sup>4</sup> é 1
+2<sup>3</sup> (8):   3 < 8            -> Bit 2<sup>3</sup> é 0
+2<sup>2</sup> (4):   3 < 4            -> Bit 2<sup>2</sup> é 0
+2<sup>1</sup> (2):   3 - 2 = 1    -> Bit 2<sup>1</sup> é 1
+2<sup>0</sup> (1):   1 - 1 = 0    -> Bit 2<sup>0</sup> é 1
+            </pre>
+            <p>O resultado é: <span class="highlight"><span class="math-expr">(179)<sub>10</sub> = (10110011)<sub>2</sub></span></span></p>
+        </div>
+
+        <h3>Quando o número decimal possuir parte fracionária?</h3>
+        <p>Para a parte fracionária, existem dois métodos principais, análogos às regras para a parte inteira.</p>
+
+        <h4>Regra 1 (para a Parte Fracionária): Multiplicações Sucessivas</h4>
+        <p>Este método consiste em:</p>
+        <ol>
+            <li>Multiplicar a parte fracionária por 2.</li>
+            <li>A parte inteira do resultado (sempre 0 ou 1) será o próximo bit binário.</li>
+            <li>A nova parte fracionária (o que sobrou após remover a parte inteira) é usada para a próxima multiplicação.</li>
+            <li>Repetir os passos 1-3 até que a parte fracionária se torne 0 ou até atingir a precisão desejada.</li>
+        </ol>
+
+        <div class="example-box">
+            <h4>Exemplo 4: Converter <span class="math-expr">4.375<sub>10</sub></span> para a base 2</h4>
+            <p>Primeiro, separamos a parte inteira e a parte fracionária: <span class="math-expr">4</span> e <span class="math-expr">0.375</span>.</p>
+            <p><strong>Conversão da Parte Inteira (<span class="math-expr">4<sub>10</sub></span> para binário) usando Regra 1 (divisões):</strong></p>
+            <pre>
+4 &divide; 2 = 2  Resto 0
+2 &divide; 2 = 1  Resto 0
+1 &divide; 2 = 0  Resto 1
+            </pre>
+            <p>Parte inteira em binário: <span class="math-expr">(100)<sub>2</sub></span>.</p>
+            <p><strong>Conversão da Parte Fracionária (<span class="math-expr">0.375<sub>10</sub></span> para binário) usando Regra 1 (multiplicações):</strong></p>
+            <pre>
+0.375 &times; 2 = 0.75  -> Parte Inteira = 0 (A<sub>-1</sub>)
+0.75  &times; 2 = 1.5   -> Parte Inteira = 1 (A<sub>-2</sub>)
+0.5   &times; 2 = 1.0   -> Parte Inteira = 1 (A<sub>-3</sub>)
+            </pre>
+            <p>Parte fracionária em binário: <span class="math-expr">(0.011)<sub>2</sub></span>.</p>
+            <p>Portanto, o número completo é: <span class="highlight"><span class="math-expr">(4.375)<sub>10</sub> = (100.011)<sub>2</sub></span></span></p>
+            <p><strong>Obs.:</strong> Se a parte fracionária termina em .5 (ou uma combinação de potências negativas de 2 que somam 0.5), ela poderá convergir para zero. Caso contrário, a conversão pode ser infinita, e a escolha de quando parar depende da precisão desejada.</p>
+        </div>
+
+        <h4>Regra 2 (para a Parte Fracionária): Decomposição por Subtração de Potências Negativas de 2</h4>
+        <p>Este método é o foco do seu exercício e consiste em subtrair sucessivamente as maiores potências negativas de 2 que cabem no valor restante. Se uma potência de 2 couber, o bit correspondente é 1; caso contrário, é 0.</p>
+        <p>Vamos listar as primeiras potências negativas de 2 e seus valores decimais novamente, pois são fundamentais:</p>
+        <ul>
+            <li><span class="math-expr">2<sup>-1</sup> = 0.5</span></li>
+            <li><span class="math-expr">2<sup>-2</sup> = 0.25</span></li>
+            <li><span class="math-expr">2<sup>-3</sup> = 0.125</span></li>
+            <li><span class="math-expr">2<sup>-4</sup> = 0.0625</span></li>
+            <li><span class="math-expr">2<sup>-5</sup> = 0.03125</span></li>
+            <li><span class="math-expr">2<sup>-6</sup> = 0.015625</span></li>
+            <li><span class="math-expr">2<sup>-7</sup> = 0.0078125</span></li>
+            <li><span class="math-expr">2<sup>-8</sup> = 0.00390625</span></li>
+            <li><span class="math-expr">2<sup>-9</sup> = 0.001953125</span></li>
+            <li><span class="math-expr">2<sup>-10</sup> = 0.0009765625</span></li>
+            <li>E assim por diante...</li>
+        </ul>
+
+        <div class="example-box">
+            <h4>Exemplo 5: Converter <span class="math-expr">22.125<sub>10</sub></span> para binário pela Regra 2</h4>
+            <p>Separamos a parte inteira (<span class="math-expr">22</span>) e a parte fracionária (<span class="math-expr">0.125</span>).</p>
+            <p><strong>Conversão da Parte Inteira (<span class="math-expr">22<sub>10</sub></span> para binário) usando Regra 2 (decomposição):</strong></p>
+            <pre>
+Potências de 2 (inteiras): ..., 32, 16, 8, 4, 2, 1
+
+22
+2<sup>4</sup> (16):  22 - 16 = 6    -> Bit 2<sup>4</sup> é 1
+2<sup>3</sup> (8):   6 < 8            -> Bit 2<sup>3</sup> é 0
+2<sup>2</sup> (4):   6 - 4 = 2    -> Bit 2<sup>2</sup> é 1
+2<sup>1</sup> (2):   2 - 2 = 0    -> Bit 2<sup>1</sup> é 1
+2<sup>0</sup> (1):   0 < 1            -> Bit 2<sup>0</sup> é 0
+            </pre>
+            <p>Parte inteira em binário: <span class="math-expr">(10110)<sub>2</sub></span>.</p>
+            <p><strong>Conversão da Parte Fracionária (<span class="math-expr">0.125<sub>10</sub></span> para binário) usando Regra 2 (subtração de potências negativas):</strong></p>
+            <pre>
+Número: 0.125
+
+2<sup>-1</sup> (0.5):   0.125 < 0.5   -> Bit 2<sup>-1</sup> é 0
+2<sup>-2</sup> (0.25):  0.125 < 0.25  -> Bit 2<sup>-2</sup> é 0
+2<sup>-3</sup> (0.125): 0.125 - 0.125 = 0   -> Bit 2<sup>-3</sup> é 1
+            </pre>
+            <p>Parte fracionária em binário: <span class="math-expr">(0.001)<sub>2</sub></span>.</p>
+            <p>Portanto, o número completo é: <span class="highlight"><span class="math-expr">(22.125)<sub>10</sub> = (10110.001)<sub>2</sub></span></span></p>
+        </div>
+
+        <div class="example-box">
+            <h4>Exemplo 6: Converter <span class="math-expr">22.8125<sub>10</sub></span> para binário pela Regra 2</h4>
+            <p>Separamos a parte inteira (<span class="math-expr">22</span>) e a parte fracionária (<span class="math-expr">0.8125</span>).</p>
+            <p><strong>A parte inteira <span class="math-expr">22<sub>10</sub></span> já sabemos que é <span class="math-expr">(10110)<sub>2</sub></span>.</strong></p>
+            <p><strong>Conversão da Parte Fracionária (<span class="math-expr">0.8125<sub>10</sub></span> para binário) usando Regra 2 (subtração de potências negativas):</strong></p>
+            <pre>
+Número: 0.8125
+
+2<sup>-1</sup> (0.5):   0.8125 - 0.5 = 0.3125   -> Bit 2<sup>-1</sup> é 1
+2<sup>-2</sup> (0.25):  0.3125 - 0.25 = 0.0625  -> Bit 2<sup>-2</sup> é 1
+2<sup>-3</sup> (0.125): 0.0625 < 0.125   -> Bit 2<sup>-3</sup> é 0
+2<sup>-4</sup> (0.0625): 0.0625 - 0.0625 = 0   -> Bit 2<sup>-4</sup> é 1
+            </pre>
+            <p>Parte fracionária em binário: <span class="math-expr">(0.1101)<sub>2</sub></span>.</p>
+            <p>Portanto, o número completo é: <span class="highlight"><span class="math-expr">(22.8125)<sub>10</sub> = (10110.1101)<sub>2</sub></span></span></p>
+        </div>
+
+        <div class="solution-box">
+            <h3>Resolução Detalhada do Exercício Proposto: Converta o nº <span class="math-expr">0.123<sub>10</sub></span> da base decimal para binário pela Regra 2, parando no 10º bit.</h3>
+            <p>Vamos aplicar a Regra 2 (subtração de potências negativas de 2) à parte fracionária <span class="math-expr">0.123</span>.</p>
+            <ol>
+                <li class="step">
+                    <strong>Comece com o número decimal fracionário:</strong> <span class="math-expr">0.123</span>
+                </li>
+                <li class="step">
+                    <strong>Analise a primeira potência negativa de 2 (<span class="math-expr">2<sup>-1</sup> = 0.5</span>):</strong>
+                    <ul>
+                        <li>O número <span class="math-expr">0.123</span> é maior ou igual a <span class="math-expr">0.5</span>? Não.</li>
+                        <li>Portanto, o primeiro bit após a vírgula é <span class="highlight">0</span>.</li>
+                        <li>Valor restante: <span class="math-expr">0.123</span></li>
+                    </ul>
+                </li>
+                <li class="step">
+                    <strong>Analise a segunda potência negativa de 2 (<span class="math-expr">2<sup>-2</sup> = 0.25</span>):</strong>
+                    <ul>
+                        <li>O número <span class="math-expr">0.123</span> é maior ou igual a <span class="math-expr">0.25</span>? Não.</li>
+                        <li>Portanto, o segundo bit após a vírgula é <span class="highlight">0</span>.</li>
+                        <li>Valor restante: <span class="math-expr">0.123</span></li>
+                    </ul>
+                </li>
+                <li class="step">
+                    <strong>Analise a terceira potência negativa de 2 (<span class="math-expr">2<sup>-3</sup> = 0.125</span>):</strong>
+                    <ul>
+                        <li>O número <span class="math-expr">0.123</span> é maior ou igual a <span class="math-expr">0.125</span>? Não.</li>
+                        <li>Portanto, o terceiro bit após a vírgula é <span class="highlight">0</span>.</li>
+                        <li>Valor restante: <span class="math-expr">0.123</span></li>
+                    </ul>
+                </li>
+                <li class="step">
+                    <strong>Analise a quarta potência negativa de 2 (<span class="math-expr">2<sup>-4</sup> = 0.0625</span>):</strong>
+                    <ul>
+                        <li>O número <span class="math-expr">0.123</span> é maior ou igual a <span class="math-expr">0.0625</span>? Sim.</li>
+                        <li>Portanto, o quarto bit após a vírgula é <span class="highlight">1</span>.</li>
+                        <li>Subtraímos <span class="math-expr">0.0625</span> do valor restante: <span class="math-expr">0.123 - 0.0625 = 0.0605</span>.</li>
+                        <li>Valor restante: <span class="math-expr">0.0605</span></li>
+                    </ul>
+                </li>
+                <li class="step">
+                    <strong>Analise a quinta potência negativa de 2 (<span class="math-expr">2<sup>-5</sup> = 0.03125</span>):</strong>
+                    <ul>
+                        <li>O número <span class="math-expr">0.0605</span> é maior ou igual a <span class="math-expr">0.03125</span>? Sim.</li>
+                        <li>Portanto, o quinto bit após a vírgula é <span class="highlight">1</span>.</li>
+                        <li>Subtraímos <span class="math-expr">0.03125</span> do valor restante: <span class="math-expr">0.0605 - 0.03125 = 0.02925</span>.</li>
+                        <li>Valor restante: <span class="math-expr">0.02925</span></li>
+                    </ul>
+                </li>
+                <li class="step">
+                    <strong>Analise a sexta potência negativa de 2 (<span class="math-expr">2<sup>-6</sup> = 0.015625</span>):</strong>
+                    <ul>
+                        <li>O número <span class="math-expr">0.02925</span> é maior ou igual a <span class="math-expr">0.015625</span>? Sim.</li>
+                        <li>Portanto, o sexto bit após a vírgula é <span class="highlight">1</span>.</li>
+                        <li>Subtraímos <span class="math-expr">0.015625</span> do valor restante: <span class="math-expr">0.02925 - 0.015625 = 0.013625</span>.</li>
+                        <li>Valor restante: <span class="math-expr">0.013625</span></li>
+                    </ul>
+                </li>
+                <li class="step">
+                    <strong>Analise a sétima potência negativa de 2 (<span class="math-expr">2<sup>-7</sup> = 0.0078125</span>):</strong>
+                    <ul>
+                        <li>O número <span class="math-expr">0.013625</span> é maior ou igual a <span class="math-expr">0.0078125</span>? Sim.</li>
+                        <li>Portanto, o sétimo bit após a vírgula é <span class="highlight">1</span>.</li>
+                        <li>Subtraímos <span class="math-expr">0.0078125</span> do valor restante: <span class="math-expr">0.013625 - 0.0078125 = 0.0058125</span>.</li>
+                        <li>Valor restante: <span class="math-expr">0.0058125</span></li>
+                    </ul>
+                </li>
+                <li class="step">
+                    <strong>Analise a oitava potência negativa de 2 (<span class="math-expr">2<sup>-8</sup> = 0.00390625</span>):</strong>
+                    <ul>
+                        <li>O número <span class="math-expr">0.0058125</span> é maior ou igual a <span class="math-expr">0.00390625</span>? Sim.</li>
+                        <li>Portanto, o oitavo bit após a vírgula é <span class="highlight">1</span>.</li>
+                        <li>Subtraímos <span class="math-expr">0.00390625</span> do valor restante: <span class="math-expr">0.0058125 - 0.00390625 = 0.00190625</span>.</li>
+                        <li>Valor restante: <span class="math-expr">0.00190625</span></li>
+                    </ul>
+                </li>
+                <li class="step">
+                    <strong>Analise a nona potência negativa de 2 (<span class="math-expr">2<sup>-9</sup> = 0.001953125</span>):</strong>
+                    <ul>
+                        <li>O número <span class="math-expr">0.00190625</span> é maior ou igual a <span class="math-expr">0.001953125</span>? Não.</li>
+                        <li>Portanto, o nono bit após a vírgula é <span class="highlight">0</span>.</li>
+                        <li>Valor restante: <span class="math-expr">0.00190625</span></li>
+                    </ul>
+                </li>
+                <li class="step">
+                    <strong>Analise a décima potência negativa de 2 (<span class="math-expr">2<sup>-10</sup> = 0.0009765625</span>):</strong>
+                    <ul>
+                        <li>O número <span class="math-expr">0.00190625</span> é maior ou igual a <span class="math-expr">0.0009765625</span>? Sim.</li>
+                        <li>Portanto, o décimo bit após a vírgula é <span class="highlight">1</span>.</li>
+                        <li>Subtraímos <span class="math-expr">0.0009765625</span> do valor restante: <span class="math-expr">0.00190625 - 0.0009765625 = 0.0009296875</span>.</li>
+                        <li>Valor restante: <span class="math-expr">0.0009296875</span></li>
+                    </ul>
+                </li>
+            </ol>
+            <p>Como a observação pede para parar no 10º bit, encerramos o processo aqui.</p>
+            <p><strong>Resultado Final:</strong> Juntando os bits obtidos na ordem, temos <span class="highlight"><span class="math-expr">0.0001111101<sub>2</sub></span></span>.</p>
+            <p>É importante notar que, a menos que o número decimal fracionário seja uma soma exata de potências negativas de 2, a conversão pode ser infinita. O ato de "parar no 10º bit" significa que estamos truncando a representação, resultando em uma aproximação. O valor <span class="math-expr">0.0009296875</span> que sobrou indica que ainda haveria mais bits se continuássemos a conversão.</p>
+        </div>
+
+        <h2>Conversão Direta de Binário para Hexadecimal (e vice-versa)</h2>
+        <p>A conversão direta entre binário e hexadecimal é muito conveniente porque cada dígito hexadecimal corresponde exatamente a 4 bits binários (<span class="math-expr">2<sup>4</sup> = 16</span>, que é o número de combinações representadas por um dígito hexadecimal).</p>
+        <p>Para converter de binário para hexadecimal:</p>
+        <ol>
+            <li>Agrupe os dígitos binários de 4 em 4.</li>
+            <li>Para a parte inteira, comece a agrupar da direita para a esquerda. Adicione zeros à esquerda se o último grupo não tiver 4 bits.</li>
+            <li>Para a parte fracionária, comece a agrupar da esquerda para a direita. Adicione zeros à direita se o último grupo não tiver 4 bits.</li>
+            <li>Converta cada grupo de 4 bits para seu dígito hexadecimal equivalente (usando a tabela de bases).</li>
+        </ol>
+
+        <div class="example-box">
+            <h4>Exemplo 7: Converter <span class="math-expr">(110110111)<sub>2</sub></span> para a base 16</h4>
+            <p>Primeiro, separamos a parte inteira (se houver) e a fracionária (neste caso, apenas inteira).</p>
+            <p>Agrupamos os bits de 4 em 4 da direita para a esquerda, adicionando zeros à esquerda se necessário:</p>
+            <pre>
+1   1011   0111
+0001  1011   0111  (Adicionamos dois zeros à esquerda para o primeiro grupo)
+            </pre>
+            <p>Agora, convertemos cada grupo para hexadecimal:</p>
+            <ul>
+                <li><span class="math-expr">0001<sub>2</sub> = 1<sub>16</sub></span></li>
+                <li><span class="math-expr">1011<sub>2</sub> = B<sub>16</sub></span> (B é 11 em decimal)</li>
+                <li><span class="math-expr">0111<sub>2</sub> = 7<sub>16</sub></span></li>
+            </ul>
+            <p>Portanto, <span class="highlight"><span class="math-expr">(110110111)<sub>2</sub> = (1B7)<sub>16</sub></span></span></p>
+        </div>
+
+        <div class="example-box">
+            <h4>Exemplo: Converter <span class="math-expr">(101001111011011)<sub>2</sub></span> para a base 16</h4>
+            <pre>
+101   0011   1101   1011
+0101  0011   1101   1011  (Adicionamos um zero à esquerda para o primeiro grupo)
+            </pre>
+            <ul>
+                <li><span class="math-expr">0101<sub>2</sub> = 5<sub>16</sub></span></li>
+                <li><span class="math-expr">0011<sub>2</sub> = 3<sub>16</sub></span></li>
+                <li><span class="math-expr">1101<sub>2</sub> = D<sub>16</sub></span></li>
+                <li><span class="math-expr">1011<sub>2</sub> = B<sub>16</sub></span></li>
+            </ul>
+            <p>Portanto, <span class="highlight"><span class="math-expr">(101001111011011)<sub>2</sub> = (53DB)<sub>16</sub></span></span></p>
+        </div>
+
+        <p>Para converter de hexadecimal para binário, o processo é inverso: substitua cada dígito hexadecimal por seu equivalente binário de 4 bits.</p>
+
+        <div class="example-box">
+            <h4>Exemplo: Converter <span class="math-expr">(A2C6)<sub>16</sub></span> para a base 2</h4>
+            <ul>
+                <li><span class="math-expr">A<sub>16</sub> = 1010<sub>2</sub></span></li>
+                <li><span class="math-expr">2<sub>16</sub> = 0010<sub>2</sub></span></li>
+                <li><span class="math-expr">C<sub>16</sub> = 1100<sub>2</sub></span></li>
+                <li><span class="math-expr">6<sub>16</sub> = 0110<sub>2</sub></span></li>
+            </ul>
+            <p>Juntando os bits: <span class="highlight"><span class="math-expr">(A2C6)<sub>16</sub> = (1010001011000110)<sub>2</sub></span></span></p>
+        </div>
+        <p><strong>Obs.:</strong> Para binário para octal, basta agrupar de 3 em 3 bits (<span class="math-expr">2<sup>3</sup> = 8</span>).</p>
+
+        <h2>Exercícios para Casa (Baseados no seu material e novos)</h2>
+        <p>Para consolidar seu aprendizado, resolva os seguintes exercícios de conversão:</p>
+
+        <h3>Parte 1: Conversões Básicas</h3>
+        <ul class="exercise-list">
+            <li><strong>Converter:</strong>
+                <ol>
+                    <li><span class="math-expr">(329)<sub>10</sub></span> para binário. (Use Regra 1 ou 2 para inteiros)</li>
+                    <li><span class="math-expr">(11011101010)<sub>2</sub></span> para decimal.</li>
+                    <li><span class="math-expr">(821)<sub>10</sub></span> para octal (base 8). (Use Regra 1 para inteiros)</li>
+                    <li><span class="math-expr">(622)<sub>10</sub></span> para hexadecimal (base 16). (Use Regra 1 para inteiros)</li>
+                    <li><span class="math-expr">(11011100011)<sub>2</sub></span> para hexadecimal (direto).</li>
+                    <li><span class="math-expr">(2BEF5)<sub>16</sub></span> para binário (direto).</li>
+                    <li><span class="math-expr">(14A3B)<sub>16</sub></span> para decimal.</li>
+                    <li><span class="math-expr">(87.325)<sub>10</sub></span> para binário. (Use Regra 1 para a parte inteira e Regra 2 para a parte fracionária, parando no 8º bit da parte fracionária)</li>
+                    <li><span class="math-expr">(123.123)<sub>10</sub></span> para binário. (Use Regra 1 para a parte inteira e Regra 2 para a parte fracionária, parando no 10º bit da parte fracionária)</li>
+                </ol>
+            </li>
+        </ul>
+
+        <h3>Parte 2: Exercícios de Aplicação</h3>
+        <ul class="exercise-list">
+            <li>Converter seu número de matrícula, que está em decimal, para binário.</li>
+            <li>Converter seu número de matrícula, que está em decimal, para hexadecimal.</li>
+            <li>Converter seu número de matrícula, que está em binário, para hexadecimal de forma direta.</li>
+            <li>Um endereçamento de memória resultou no endereço <span class="math-expr">5 E B 7 9</span> em hexadecimal. Qual o valor deste endereço em decimal?</li>
+            <li>De forma direta, encontre a sequência binária deste endereçamento de memória: <span class="math-expr">5 E B 7 9</span>.</li>
+        </ul>
+
+        <h3>Parte 3: Novos Exercícios para Praticar a Regra 2 (Subtração de Potências)</h3>
+        <p>Para aprimorar sua habilidade com a Regra 2 para partes fracionárias:</p>
+        <ol class="exercise-list">
+            <li>Converta o número <span class="math-expr">0.789<sub>10</sub></span> para binário, parando no 8º bit, utilizando o método da subtração de potências negativas de 2.</li>
+            <li>Converta o número <span class="math-expr">0.3<sub>10</sub></span> para binário, parando no 12º bit, utilizando o método da subtração de potências negativas de 2.</li>
+            <li>Converta o número <span class="math-expr">0.625<sub>10</sub></span> para binário, parando no 6º bit, utilizando o método da subtração de potências negativas de 2. (Este pode ter um final exato!)</li>
+        </ol>
+        <p>Lembre-se de seguir o mesmo processo detalhado de comparação e subtração para cada bit. Boa sorte!</p>
+    </div>
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversão de Decimal Fracionário para Binário (Regra 2)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1, h2, h3 {
+            color: #0056b3;
+        }
+        pre {
+            background-color: #e9e9e9;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+        ol {
+            list-style-type: decimal;
+            margin-left: 20px;
+        }
+        .math-expr {
+            font-family: 'Times New Roman', serif;
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+        .step {
+            margin-bottom: 15px;
+            padding-left: 10px;
+            border-left: 3px solid #007bff;
+        }
+        .highlight {
+            background-color: #e0ffe0;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Conversão de Decimal Fracionário para Binário - Método da Subtração de Potências (Regra 2)</h1>
+
+        <p>Vamos mergulhar nos detalhes da conversão de números decimais fracionários para binário, utilizando a "Regra 2" conforme apresentada no seu material, que é o método de decomposição por subtração de potências negativas de 2.</p>
+
+        <h2>1. Entendendo os Sistemas de Numeração e a Representação Fracionária</h2>
+        <p>Antes de tudo, é fundamental entender como os números são representados em diferentes bases.</p>
+
+        <h3>Sistema Decimal (Base 10):</h3>
+        <ul>
+            <li>É o sistema que usamos no dia a dia, com 10 dígitos (0 a 9). A posição de cada dígito determina seu valor, que é uma potência de 10.</li>
+            <li>Exemplo: <span class="math-expr">123.45<sub>10</sub> = 1 &times; 10<sup>2</sup> + 2 &times; 10<sup>1</sup> + 3 &times; 10<sup>0</sup> + 4 &times; 10<sup>-1</sup> + 5 &times; 10<sup>-2</sup></span></li>
+            <li>A parte inteira usa potências não negativas de 10 (<span class="math-expr">10<sup>0</sup>, 10<sup>1</sup>, 10<sup>2</sup>, ...</span>).</li>
+            <li>A parte fracionária usa potências negativas de 10 (<span class="math-expr">10<sup>-1</sup>, 10<sup>-2</sup>, 10<sup>-3</sup>, ...</span>), que correspondem a divisões por 10, 100, 1000, etc.</li>
+        </ul>
+
+        <h3>Sistema Binário (Base 2):</h3>
+        <ul>
+            <li>É o sistema que os computadores utilizam, com apenas 2 dígitos (0 e 1). Assim como no decimal, a posição de cada dígito (bit) determina seu valor, que é uma potência de 2.</li>
+            <li>Exemplo: <span class="math-expr">101.11<sub>2</sub> = 1 &times; 2<sup>2</sup> + 0 &times; 2<sup>1</sup> + 1 &times; 2<sup>0</sup> + 1 &times; 2<sup>-1</sup> + 1 &times; 2<sup>-2</sup></span></li>
+            <li>A parte inteira usa potências não negativas de 2 (<span class="math-expr">2<sup>0</sup>, 2<sup>1</sup>, 2<sup>2</sup>, ...</span>).</li>
+            <li>A parte fracionária usa potências negativas de 2 (<span class="math-expr">2<sup>-1</sup>, 2<sup>-2</sup>, 2<sup>-3</sup>, ...</span>), que correspondem a divisões por 2, 4, 8, etc.</li>
+        </ul>
+
+        <p>Vamos listar as primeiras potências negativas de 2 e seus valores decimais, pois serão cruciais para a "Regra 2":</p>
+        <ul>
+            <li><span class="math-expr">2<sup>-1</sup> = 1/2 = 0.5</span></li>
+            <li><span class="math-expr">2<sup>-2</sup> = 1/4 = 0.25</span></li>
+            <li><span class="math-expr">2<sup>-3</sup> = 1/8 = 0.125</span></li>
+            <li><span class="math-expr">2<sup>-4</sup> = 1/16 = 0.0625</span></li>
+            <li><span class="math-expr">2<sup>-5</sup> = 1/32 = 0.03125</span></li>
+            <li><span class="math-expr">2<sup>-6</sup> = 1/64 = 0.015625</span></li>
+            <li><span class="math-expr">2<sup>-7</sup> = 1/128 = 0.0078125</span></li>
+            <li><span class="math-expr">2<sup>-8</sup> = 1/256 = 0.00390625</span></li>
+            <li><span class="math-expr">2<sup>-9</sup> = 1/512 = 0.001953125</span></li>
+            <li><span class="math-expr">2<sup>-10</sup> = 1/1024 = 0.0009765625</span></li>
+            <li>E assim por diante...</li>
+        </ul>
+
+        <h2>2. Conversão de Decimal Fracionário para Binário - Regra 2 (Método da Subtração de Potências)</h2>
+        <p>A "Regra 2" para converter a parte fracionária de um número decimal para binário envolve subtrair sucessivamente as maiores potências negativas de 2 que cabem no valor restante. Se uma potência de 2 couber, o bit correspondente é 1; caso contrário, é 0.</p>
+
+        <p>Vamos resolver o exercício: <strong>Converter o número <span class="math-expr">0.123<sub>10</sub></span> da base decimal para binário pela Regra 2, parando no 10º bit.</strong></p>
+
+        <h3>Passo a passo:</h3>
+        <ol>
+            <li class="step">
+                <strong>Comece com o número decimal fracionário:</strong> <span class="math-expr">0.123</span>
+            </li>
+            <li class="step">
+                <strong>Analise a primeira potência negativa de 2 (<span class="math-expr">2<sup>-1</sup> = 0.5</span>):</strong>
+                <ul>
+                    <li>O número <span class="math-expr">0.123</span> é maior ou igual a <span class="math-expr">0.5</span>? Não.</li>
+                    <li>Portanto, o primeiro bit após a vírgula é <span class="highlight">0</span>.</li>
+                    <li>Valor restante: <span class="math-expr">0.123</span></li>
+                </ul>
+            </li>
+            <li class="step">
+                <strong>Analise a segunda potência negativa de 2 (<span class="math-expr">2<sup>-2</sup> = 0.25</span>):</strong>
+                <ul>
+                    <li>O número <span class="math-expr">0.123</span> é maior ou igual a <span class="math-expr">0.25</span>? Não.</li>
+                    <li>Portanto, o segundo bit após a vírgula é <span class="highlight">0</span>.</li>
+                    <li>Valor restante: <span class="math-expr">0.123</span></li>
+                </ul>
+            </li>
+            <li class="step">
+                <strong>Analise a terceira potência negativa de 2 (<span class="math-expr">2<sup>-3</sup> = 0.125</span>):</strong>
+                <ul>
+                    <li>O número <span class="math-expr">0.123</span> é maior ou igual a <span class="math-expr">0.125</span>? Não.</li>
+                    <li>Portanto, o terceiro bit após a vírgula é <span class="highlight">0</span>.</li>
+                    <li>Valor restante: <span class="math-expr">0.123</span></li>
+                </ul>
+            </li>
+            <li class="step">
+                <strong>Analise a quarta potência negativa de 2 (<span class="math-expr">2<sup>-4</sup> = 0.0625</span>):</strong>
+                <ul>
+                    <li>O número <span class="math-expr">0.123</span> é maior ou igual a <span class="math-expr">0.0625</span>? Sim.</li>
+                    <li>Portanto, o quarto bit após a vírgula é <span class="highlight">1</span>.</li>
+                    <li>Subtraímos <span class="math-expr">0.0625</span> do valor restante: <span class="math-expr">0.123 - 0.0625 = 0.0605</span>.</li>
+                    <li>Valor restante: <span class="math-expr">0.0605</span></li>
+                </ul>
+            </li>
+            <li class="step">
+                <strong>Analise a quinta potência negativa de 2 (<span class="math-expr">2<sup>-5</sup> = 0.03125</span>):</strong>
+                <ul>
+                    <li>O número <span class="math-expr">0.0605</span> é maior ou igual a <span class="math-expr">0.03125</span>? Sim.</li>
+                    <li>Portanto, o quinto bit após a vírgula é <span class="highlight">1</span>.</li>
+                    <li>Subtraímos <span class="math-expr">0.03125</span> do valor restante: <span class="math-expr">0.0605 - 0.03125 = 0.02925</span>.</li>
+                    <li>Valor restante: <span class="math-expr">0.02925</span></li>
+                </ul>
+            </li>
+            <li class="step">
+                <strong>Analise a sexta potência negativa de 2 (<span class="math-expr">2<sup>-6</sup> = 0.015625</span>):</strong>
+                <ul>
+                    <li>O número <span class="math-expr">0.02925</span> é maior ou igual a <span class="math-expr">0.015625</span>? Sim.</li>
+                    <li>Portanto, o sexto bit após a vírgula é <span class="highlight">1</span>.</li>
+                    <li>Subtraímos <span class="math-expr">0.015625</span> do valor restante: <span class="math-expr">0.02925 - 0.015625 = 0.013625</span>.</li>
+                    <li>Valor restante: <span class="math-expr">0.013625</span></li>
+                </ul>
+            </li>
+            <li class="step">
+                <strong>Analise a sétima potência negativa de 2 (<span class="math-expr">2<sup>-7</sup> = 0.0078125</span>):</strong>
+                <ul>
+                    <li>O número <span class="math-expr">0.013625</span> é maior ou igual a <span class="math-expr">0.0078125</span>? Sim.</li>
+                    <li>Portanto, o sétimo bit após a vírgula é <span class="highlight">1</span>.</li>
+                    <li>Subtraímos <span class="math-expr">0.0078125</span> do valor restante: <span class="math-expr">0.013625 - 0.0078125 = 0.0058125</span>.</li>
+                    <li>Valor restante: <span class="math-expr">0.0058125</span></li>
+                </ul>
+            </li>
+            <li class="step">
+                <strong>Analise a oitava potência negativa de 2 (<span class="math-expr">2<sup>-8</sup> = 0.00390625</span>):</strong>
+                <ul>
+                    <li>O número <span class="math-expr">0.0058125</span> é maior ou igual a <span class="math-expr">0.00390625</span>? Sim.</li>
+                    <li>Portanto, o oitavo bit após a vírgula é <span class="highlight">1</span>.</li>
+                    <li>Subtraímos <span class="math-expr">0.00390625</span> do valor restante: <span class="math-expr">0.0058125 - 0.00390625 = 0.00190625</span>.</li>
+                    <li>Valor restante: <span class="math-expr">0.00190625</span></li>
+                </ul>
+            </li>
+            <li class="step">
+                <strong>Analise a nona potência negativa de 2 (<span class="math-expr">2<sup>-9</sup> = 0.001953125</span>):</strong>
+                <ul>
+                    <li>O número <span class="math-expr">0.00190625</span> é maior ou igual a <span class="math-expr">0.001953125</span>? Não.</li>
+                    <li>Portanto, o nono bit após a vírgula é <span class="highlight">0</span>.</li>
+                    <li>Valor restante: <span class="math-expr">0.00190625</span></li>
+                </ul>
+            </li>
+            <li class="step">
+                <strong>Analise a décima potência negativa de 2 (<span class="math-expr">2<sup>-10</sup> = 0.0009765625</span>):</strong>
+                <ul>
+                    <li>O número <span class="math-expr">0.00190625</span> é maior ou igual a <span class="math-expr">0.0009765625</span>? Sim.</li>
+                    <li>Portanto, o décimo bit após a vírgula é <span class="highlight">1</span>.</li>
+                    <li>Subtraímos <span class="math-expr">0.0009765625</span> do valor restante: <span class="math-expr">0.00190625 - 0.0009765625 = 0.0009296875</span>.</li>
+                    <li>Valor restante: <span class="math-expr">0.0009296875</span></li>
+                </ul>
+            </li>
+        </ol>
+
+        <h3>Resultado:</h3>
+        <p>Juntando os bits obtidos na ordem: <span class="highlight"><span class="math-expr">0.0001111101<sub>2</sub></span></span>.</p>
+        <p>É importante notar que, a menos que o número decimal fracionário seja uma soma exata de potências negativas de 2 (como <span class="math-expr">0.5 = 2<sup>-1</sup></span>, ou <span class="math-expr">0.75 = 2<sup>-1</sup> + 2<sup>-2</sup></span>), a conversão pode ser infinita. O ato de "parar no 10º bit" significa que estamos truncando a representação, resultando em uma aproximação. O valor <span class="math-expr">0.0009296875</span> que sobrou indica que ainda haveria mais bits se continuássemos a conversão.</p>
+
+        <h2>3. Breve Comparativo: Regra 1 (Multiplicação Sucessiva)</h2>
+        <p>Para contextualizar, existe outra forma comum de converter decimais fracionários para binário, que é a "Regra 1" (multiplicação sucessiva por 2), também mostrada em seu material (Exemplo 4 na página 4/6 do slide "SISTEMAS DE NUMERAÇÃO").</p>
+        <p>Nesse método, a parte fracionária é multiplicada por 2. A parte inteira do resultado (0 ou 1) torna-se o próximo bit binário, e a nova parte fracionária é usada para a próxima multiplicação.</p>
+
+        <h3>Exemplo com <span class="math-expr">0.123<sub>10</sub></span> usando Multiplicação Sucessiva (apenas para ilustrar a diferença de método):</h3>
+        <ol>
+            <li><span class="math-expr">0.123 &times; 2 = 0.246</span> (Parte inteira = 0) -> Bit 1: 0</li>
+            <li><span class="math-expr">0.246 &times; 2 = 0.492</span> (Parte inteira = 0) -> Bit 2: 0</li>
+            <li><span class="math-expr">0.492 &times; 2 = 0.984</span> (Parte inteira = 0) -> Bit 3: 0</li>
+            <li><span class="math-expr">0.984 &times; 2 = 1.968</span> (Parte inteira = 1) -> Bit 4: 1</li>
+            <li><span class="math-expr">0.968 &times; 2 = 1.936</span> (Parte inteira = 1) -> Bit 5: 1</li>
+            <li><span class="math-expr">0.936 &times; 2 = 1.872</span> (Parte inteira = 1) -> Bit 6: 1</li>
+            <li><span class="math-expr">0.872 &times; 2 = 1.744</span> (Parte inteira = 1) -> Bit 7: 1</li>
+            <li><span class="math-expr">0.744 &times; 2 = 1.488</span> (Parte inteira = 1) -> Bit 8: 1</li>
+            <li><span class="math-expr">0.488 &times; 2 = 0.976</span> (Parte inteira = 0) -> Bit 9: 0</li>
+            <li><span class="math-expr">0.976 &times; 2 = 1.952</span> (Parte inteira = 1) -> Bit 10: 1</li>
+        </ol>
+        <p>Resultado: <span class="highlight"><span class="math-expr">0.0001111101<sub>2</sub></span></span>.</p>
+        <p>Note que, para <span class="math-expr">0.123<sub>10</sub></span>, ambos os métodos produzem o mesmo resultado até o 10º bit. Isso porque eles são, fundamentalmente, maneiras diferentes de aplicar a mesma lógica de decomposição. A "Regra 2" que você usou na imagem é um método de decomposição direta por subtração, enquanto a "Regra 1" (multiplicação) é um método de decomposição indireta.</p>
+
+        <h2>4. Exercícios Novos</h2>
+        <p>Agora, para praticar a "Regra 2" (método da subtração de potências negativas de 2):</p>
+        <ol>
+            <li><strong>Exercício 1:</strong> Converta o número <span class="math-expr">0.789<sub>10</sub></span> para binário, parando no 8º bit.</li>
+            <li><strong>Exercício 2:</strong> Converta o número <span class="math-expr">0.3<sub>10</sub></span> para binário, parando no 12º bit.</li>
+            <li><strong>Exercício 3:</strong> Converta o número <span class="math-expr">0.625<sub>10</sub></span> para binário, parando no 6º bit. (Observe este, ele pode ter um final exato!)</li>
+        </ol>
+        <p>Lembre-se de seguir o mesmo processo detalhado de comparação e subtração para cada bit. Boa sorte!</p>
+    </div>
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Números com Sinais e Operações Aritméticas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1, h2, h3, h4 {
+            color: #0056b3;
+        }
+        pre {
+            background-color: #e9e9e9;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            white-space: pre-wrap; /* Para quebra de linha em pre */
+            word-wrap: break-word; /* Para quebra de linha em pre */
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+        ol {
+            list-style-type: decimal;
+            margin-left: 20px;
+        }
+        .math-expr {
+            font-family: 'Times New Roman', serif;
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+        .step {
+            margin-bottom: 15px;
+            padding-left: 10px;
+            border-left: 3px solid #007bff;
+        }
+        .highlight {
+            background-color: #e0ffe0;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .example-box {
+            border: 1px solid #ccc;
+            padding: 15px;
+            margin: 15px 0;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        .solution-box {
+            border: 1px solid #007bff;
+            padding: 15px;
+            margin: 15px 0;
+            background-color: #e6f2ff;
+            border-radius: 5px;
+        }
+        .exercise-list li {
+            margin-bottom: 10px;
+        }
+        .note {
+            background-color: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 10px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Números com Sinais e Operações Aritméticas</h1>
+        <p>Prof. Mario F. G. Boaratti <br> 2025/2</p>
+
+        <h2>Números Inteiros com Sinais</h2>
+        <p>Em sistemas digitais, representar números negativos é crucial. Existem diferentes métodos para isso, cada um com suas vantagens e desvantagens.</p>
+
+        <h3>1. Representação Sinal-Magnitude (Sign-Magnitude)</h3>
+        <p>Nesta representação, o bit mais significativo (MSB - Most Significant Bit) é utilizado como um "flag" de sinal, enquanto os bits restantes representam a magnitude (valor absoluto) do número.</p>
+        <ul>
+            <li>Se o MSB é <span class="highlight">0</span>, o número é positivo (<span class="math-expr">+</span>).</li>
+            <li>Se o MSB é <span class="highlight">1</span>, o número é negativo (<span class="math-expr">-</span>).</li>
+            <li>Os outros bits (à direita do MSB) mantêm a magnitude do número.</li>
+        </ul>
+
+        <div class="example-box">
+            <h4>Exemplo: Usando 8 bits</h4>
+            <p><span class="math-expr">+18<sub>10</sub> = 00010010<sub>2</sub></span> (sinal magnitude)</p>
+            <p><span class="math-expr">-18<sub>10</sub> = 10010010<sub>2</sub></span> (sinal magnitude)</p>
+            <p>Neste caso, o primeiro bit (o mais à esquerda) indica o sinal, e os 7 bits restantes (<span class="math-expr">0010010<sub>2</sub> = 18<sub>10</sub></span>) representam a magnitude.</p>
+        </div>
+
+        <h4>Desvantagens da Representação Sinal-Magnitude:</h4>
+        <ul>
+            <li>
+                <strong>Complexidade na Adição e Subtração:</strong> A adição e a subtração exigem uma consideração separada dos sinais dos números e de suas magnitudes relativas. É preciso verificar os sinais, subtrair as magnitudes se os sinais forem diferentes, e assim por diante. Isso torna as operações aritméticas mais complexas para a Unidade Lógica Aritmética (ULA) do processador.
+            </li>
+            <li>
+                <strong>Duas Representações para Zero:</strong>
+                <ul>
+                    <li><span class="math-expr">+0 = 00000000<sub>2</sub></span> (sinal magnitude)</li>
+                    <li><span class="math-expr">-0 = 10000000<sub>2</sub></span> (sinal magnitude)</li>
+                </ul>
+                <p>Isto é inconveniente porque é mais difícil testar se um valor é igual a 0, já que existem duas combinações de bits que representam o mesmo valor. Isso pode complicar a lógica de comparação em circuitos digitais.</p>
+            </li>
+        </ul>
+        <p>Dessa forma, a representação sinal-magnitude raramente é usada na implementação da ULA em processadores modernos devido à sua ineficiência para operações aritméticas.</p>
+
+        <div class="example-box">
+            <h4>Exemplo: Números de 0 até 7 em Sinal-Magnitude (usando 4 bits)</h4>
+            <p>Para um número de 4 bits, o MSB é o bit de sinal e os 3 bits restantes são a magnitude.</p>
+            <ul>
+                <li><span class="math-expr">0000<sub>2</sub> &rightarrow; +0</span></li>
+                <li><span class="math-expr">0001<sub>2</sub> &rightarrow; +1</span></li>
+                <li><span class="math-expr">0010<sub>2</sub> &rightarrow; +2</span></li>
+                <li><span class="math-expr">0011<sub>2</sub> &rightarrow; +3</span></li>
+                <li><span class="math-expr">0100<sub>2</sub> &rightarrow; +4</span></li>
+                <li><span class="math-expr">0101<sub>2</sub> &rightarrow; +5</span></li>
+                <li><span class="math-expr">0110<sub>2</sub> &rightarrow; +6</span></li>
+                <li><span class="math-expr">0111<sub>2</sub> &rightarrow; +7</span></li>
+            </ul>
+            <p>E suas contrapartes negativas:</p>
+            <ul>
+                <li><span class="math-expr">1000<sub>2</sub> &rightarrow; -0</span></li>
+                <li><span class="math-expr">1001<sub>2</sub> &rightarrow; -1</span></li>
+                <li><span class="math-expr">1010<sub>2</sub> &rightarrow; -2</span></li>
+                <li><span class="math-expr">1011<sub>2</sub> &rightarrow; -3</span></li>
+                <li><span class="math-expr">1100<sub>2</sub> &rightarrow; -4</span></li>
+                <li><span class="math-expr">1101<sub>2</sub> &rightarrow; -5</span></li>
+                <li><span class="math-expr">1110<sub>2</sub> &rightarrow; -6</span></li>
+                <li><span class="math-expr">1111<sub>2</sub> &rightarrow; -7</span></li>
+            </ul>
+            <p>Note novamente as duas formas para o zero: <span class="math-expr">1000<sub>2</sub></span> e <span class="math-expr">0000<sub>2</sub></span>.</p>
+        </div>
+
+        <h4>Convertendo entre Diferentes Tamanhos de Bits (Sinal-Magnitude)</h4>
+        <p>Às vezes, é desejável que um inteiro de <span class="math-expr">n</span> bits seja armazenado em <span class="math-expr">m</span> bits, onde <span class="math-expr">m > n</span>.</p>
+        <p>No Sinal-Magnitude, basta mover o bit de sinal para a nova posição mais à esquerda (MSB) e preencher os bits intermediários com zeros.</p>
+        <ul>
+            <li>Se o número original é positivo (MSB = 0), preenche-se com zeros.</li>
+            <li>Se o número original é negativo (MSB = 1), preenche-se com zeros entre o novo MSB e o antigo MSB.</li>
+        </ul>
+
+        <div class="example-box">
+            <h4>Exemplos:</h4>
+            <ul>
+                <li><span class="math-expr">+18<sub>10</sub> = 00010010<sub>2</sub></span> (sm, 8 bits)</li>
+                <li><span class="math-expr">+18<sub>10</sub> = 0000000000010010<sub>2</sub></span> (sm, 16 bits)</li>
+                <li><span class="math-expr">-18<sub>10</sub> = 10010010<sub>2</sub></span> (sm, 8 bits)</li>
+                <li><span class="math-expr">-18<sub>10</sub> = 1000000000010010<sub>2</sub></span> (sm, 16 bits)</li>
+            </ul>
+            <p>Legenda: sm = sinal magnitude</p>
+        </div>
+
+        <h3>2. Números Negativos na Notação de Complemento de Dois (Two's Complement)</h3>
+        <p>A notação de Complemento de Dois é a mais utilizada em sistemas computacionais para representar números inteiros com sinal, pois simplifica as operações aritméticas (especialmente a adição e subtração).</p>
+        <ul>
+            <li>Aqui também temos um bit de sinal (MSB).</li>
+            <li>Para **negar** um número (transformar positivo em negativo ou vice-versa), basta inverter todos os bits (0 vira 1 e 1 vira 0) e, em seguida, somar 1 ao resultado da inversão.</li>
+        </ul>
+
+        <div class="example-box">
+            <h4>Exemplo: Converter <span class="math-expr">+2<sub>10</sub></span> para <span class="math-expr">-2<sub>10</sub></span> usando 8 bits</h4>
+            <ol>
+                <li>Pegue o número positivo <span class="math-expr">+2<sub>10</sub></span> em binário (8 bits): <span class="math-expr">0000 0010<sub>2</sub></span></li>
+                <li>Inverta bit a bit (Complemento de Um): <span class="math-expr">1111 1101<sub>2</sub></span></li>
+                <li>Adicione 1 ao número invertido: <span class="math-expr">1111 1101<sub>2</sub> + 0000 0001<sub>2</sub> = 1111 1110<sub>2</sub></span></li>
+            </ol>
+            <p>Assim, <span class="highlight"><span class="math-expr">-2<sub>10</sub></span> em Complemento de Dois (8 bits) é <span class="math-expr">1111 1110<sub>2</sub></span></span>.</p>
+        </div>
+
+        <div class="solution-box">
+            <h4>Exercício Resolvido: Converter <span class="math-expr">-53<sub>10</sub></span> para binário usando 8 bits</h4>
+            <p>Vamos seguir os passos para obter o Complemento de Dois de <span class="math-expr">-53<sub>10</sub></span>:</p>
+            <ol>
+                <li>Primeiro, representamos o número positivo <span class="math-expr">+53<sub>10</sub></span> em binário usando 8 bits.
+                    <p><span class="math-expr">53<sub>10</sub> = 32 + 16 + 4 + 1</span></p>
+                    <p><span class="math-expr">53<sub>10</sub> = 0011 0101<sub>2</sub></span></p>
+                </li>
+                <li>Inverta todos os bits (Complemento de Um):
+                    <p><span class="math-expr">0011 0101<sub>2</sub> &rightarrow; 1100 1010<sub>2</sub></span></p>
+                </li>
+                <li>Adicione 1 ao resultado da inversão:
+                    <p><span class="math-expr">1100 1010<sub>2</sub> + 0000 0001<sub>2</sub> = 1100 1011<sub>2</sub></span></p>
+                </li>
+            </ol>
+            <p>Portanto, <span class="highlight"><span class="math-expr">-53<sub>10</sub></span> em Complemento de Dois (8 bits) é <span class="math-expr">1100 1011<sub>2</sub></span></span>. (Resposta do slide: 1100 1011)</p>
+        </div>
+
+        <h4>Tabela de Complemento de Dois para quatro bits:</h4>
+        <p>Observe que quando o bit de sinal é 0 representa positivo e quando é 1 representa negativo.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Decimal</th>
+                    <th>Binário (4 bits)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>+7</td><td>0111</td></tr>
+                <tr><td>+6</td><td>0110</td></tr>
+                <tr><td>+5</td><td>0101</td></tr>
+                <tr><td>+4</td><td>0100</td></tr>
+                <tr><td>+3</td><td>0011</td></tr>
+                <tr><td>+2</td><td>0010</td></tr>
+                <tr><td>+1</td><td>0001</td></tr>
+                <tr><td>0</td><td>0000</td></tr>
+                <tr><td>-1</td><td>1111</td></tr>
+                <tr><td>-2</td><td>1110</td></tr>
+                <tr><td>-3</td><td>1101</td></tr>
+                <tr><td>-4</td><td>1100</td></tr>
+                <tr><td>-5</td><td>1011</td></tr>
+                <tr><td>-6</td><td>1010</td></tr>
+                <tr><td>-7</td><td>1001</td></tr>
+                <tr><td>-8</td><td>1000</td></tr>
+            </tbody>
+        </table>
+
+        <h4>Características do Complemento de Dois:</h4>
+        <ul>
+            <li>
+                <strong>Intervalo:</strong> Para <span class="math-expr">N</span> bits, o intervalo de representação é de <span class="math-expr">-2<sup>N-1</sup></span> até <span class="math-expr">2<sup>N-1</sup> - 1</span>.
+                <p>Exemplo: Para 8 bits, o intervalo é de <span class="math-expr">-2<sup>(8-1)</sup></span> até <span class="math-expr">2<sup>(8-1)</sup> - 1</span>, ou seja, de <span class="math-expr">-128</span> até <span class="math-expr">127</span>.</p>
+            </li>
+            <li>
+                <strong>Número de Representações de Zero:</strong> Uma única representação para o zero (<span class="math-expr">0000...000<sub>2</sub></span>). Isso simplifica a verificação de zero.
+            </li>
+            <li>
+                <strong>Negação (Complemento de Dois):</strong> Para negar um número, apanhe o complemento booleano de cada bit (inverta 0s e 1s) e depois some 1 ao padrão de bits resultante.
+                <p>Exemplo: <span class="math-expr">-1<sub>10</sub></span> em 4 bits. <span class="math-expr">+1<sub>10</sub> = 0001<sub>2</sub></span>. Invertendo: <span class="math-expr">1110<sub>2</sub></span>. Somando 1: <span class="math-expr">1111<sub>2</sub></span>. Assim, <span class="math-expr">1111<sub>2</sub></span> representa <span class="math-expr">-1<sub>10</sub></span>.</p>
+            </li>
+            <li>
+                <strong>Expansão do Tamanho em Bits:</strong> Para expandir um número de <span class="math-expr">N</span> bits para <span class="math-expr">M</span> bits (<span class="math-expr">M > N</span>), acrescente posições de bit adicionais à esquerda e preencha-as com o valor do bit de sinal original (o MSB). Isso é conhecido como "extensão de sinal".
+                <ul>
+                    <li>Se o número é positivo (MSB = 0), preencha com zeros à esquerda.</li>
+                    <li>Se o número é negativo (MSB = 1), preencha com uns à esquerda.</li>
+                </ul>
+            </li>
+            <li>
+                <strong>Regra de Overflow:</strong> Se dois números com o mesmo sinal (ambos positivos ou ambos negativos) são somados, então um estouro (overflow) ocorre se o resultado tem o bit do sinal com valor oposto. Ou seja, se o bit mais à esquerda do resultado trocar de valor em relação aos números originais, houve um estouro.
+            </li>
+            <li>
+                <strong>Regra de Subtração:</strong> Para subtrair <span class="math-expr">B</span> de <span class="math-expr">A</span> (<span class="math-expr">A - B</span>), apanhe o Complemento de Dois de <span class="math-expr">B</span> e some este a <span class="math-expr">A</span> (<span class="math-expr">A + (-B)</span>). Se o bit de estouro (carry bit) for 1, então o resultado é positivo (e o carry é descartado). Se o carry for 0, o resultado é negativo (e o valor é o Complemento de Dois do resultado).
+            </li>
+        </ul>
+
+        <div class="example-box">
+            <h4>Exemplos de Adição (4 bits + o sinal - *nota: slide parece usar 5 bits para magnitude + 1 para sinal, resultando em 6 bits*)</h4>
+            <p class="note"><strong>Nota sobre os exemplos do slide:</strong> Os exemplos de adição apresentados no slide para "Complemento de Dois" usam números como "10" e "7" com uma representação que sugere mais de 4 bits para a magnitude (como 01010 para 10). Para fins de clareza e consistência com a tabela de 4 bits, vamos reinterpretar esses exemplos ou usar números que se encaixem em 4 bits de Complemento de Dois.</p>
+
+            <p><strong>Exemplo 1: <span class="math-expr">10 + 7</span> (interpretando como <span class="math-expr">+5 + (+2)</span> em 4 bits, para evitar overflow imediato)</strong></p>
+            <pre>
+  0101  (+5)
++ 0010  (+2)
+------
+  0111  (+7)
+            </pre>
+            <p>Aqui, <span class="math-expr">0111<sub>2</sub></span> é <span class="math-expr">+7<sub>10</sub></span>, e não há overflow.</p>
+
+            <p><strong>Exemplo 2: <span class="math-expr">-10 + (-7)</span> (interpretando como <span class="math-expr">-5 + (-2)</span> em 4 bits)</strong></p>
+            <ul>
+                <li><span class="math-expr">+5 = 0101<sub>2</sub></span>, então <span class="math-expr">-5 = 1011<sub>2</sub></span> (invert 0101 -> 1010 + 1 = 1011)</li>
+                <li><span class="math-expr">+2 = 0010<sub>2</sub></span>, então <span class="math-expr">-2 = 1110<sub>2</sub></span> (invert 0010 -> 1101 + 1 = 1110)</li>
+            </ul>
+            <pre>
+  1011  (-5)
++ 1110  (-2)
+------
+(1)1001  (Resultado sem o carry-out)
+            </pre>
+            <p>O resultado é <span class="math-expr">1001<sub>2</sub></span>. Olhando a tabela de 4 bits, <span class="math-expr">1001<sub>2</sub></span> representa <span class="math-expr">-7<sub>10</sub></span>. O carry-out (o 1 que "saiu" da soma) é descartado em Complemento de Dois.</p>
+            <p>Se considerarmos os exemplos do slide como sendo para um número maior de bits (e.g., 5 bits para magnitude, 1 para sinal), a lógica seria a mesma, mas com mais bits.</p>
+        </div>
+
+        <h2>Aritmética com Inteiros</h2>
+
+        <h3>Adição Binária</h3>
+        <p>A adição binária é muito simples, seguindo as mesmas regras da adição decimal, mas com apenas dois dígitos (0 e 1).</p>
+        <ul>
+            <li><span class="math-expr">0 + 0 = 0</span></li>
+            <li><span class="math-expr">0 + 1 = 1</span></li>
+            <li><span class="math-expr">1 + 0 = 1</span></li>
+            <li><span class="math-expr">1 + 1 = 0</span> e vai 1 para a próxima coluna (carry).</li>
+        </ul>
+
+        <div class="example-box">
+            <h4>Vejamos um exemplo simples (4 bits):</h4>
+            <pre>
+  0110  (6)
++ 0101  (5)
+------
+  1011 (11)
+            </pre>
+        </div>
+
+        <div class="example-box">
+            <h4>Vejamos um exemplo com estouro (carry) (4 bits):</h4>
+            <pre>
+  <sup>1</sup>  (carry)
+  1110  (14)
++ 0101  (5)
+------
+(1)0011 (3 com carry-out)
+            </pre>
+            <p>Neste caso, o resultado <span class="math-expr">0011<sub>2</sub></span> é <span class="math-expr">3<sub>10</sub></span>. O '1' que "vai-um" (carry 1) representaria o 5º bit que, no sistema de 4 bits, não existe. Ele é usado como um bit de flag para indicar que um cálculo excedeu o limite do registrador em números sem sinal. Se interpretarmos como Complemento de Dois de 4 bits, <span class="math-expr">1110<sub>2</sub> = -2</span> e <span class="math-expr">0101<sub>2</sub> = +5</span>. A soma esperada é <span class="math-expr">+3</span>, e o resultado obtido <span class="math-expr">0011<sub>2</sub></span> é de fato <span class="math-expr">+3</span>. O carry-out é descartado em Complemento de Dois para determinar o valor.</p>
+        </div>
+
+        <h3>Números Negativos - Complemento de Dois (Operações)</h3>
+
+        <div class="example-box">
+            <h4>Exemplo: Obtenção de <span class="math-expr">-18<sub>10</sub></span> a partir de <span class="math-expr">+18<sub>10</sub></span> usando 8 bits</h4>
+            <ol>
+                <li><span class="math-expr">+18<sub>10</sub> = 0001 0010<sub>2</sub></span></li>
+                <li>Invertendo os bits (Complemento de Um): <span class="math-expr">1110 1101<sub>2</sub></span></li>
+                <li>Adicionando 1: <span class="math-expr">1110 1101<sub>2</sub> + 0000 0001<sub>2</sub> = 1110 1110<sub>2</sub></span></li>
+            </ol>
+            <p>Assim, <span class="highlight"><span class="math-expr">-18<sub>10</sub> = 1110 1110<sub>2</sub></span></span> (em Complemento de Dois de 8 bits).</p>
+        </div>
+
+        <div class="example-box">
+            <h4>Exemplo: Obtenção de <span class="math-expr">+18<sub>10</sub></span> a partir de <span class="math-expr">-18<sub>10</sub></span> usando 8 bits</h4>
+            <p>Conforme esperado, o negativo do negativo de um número é ele mesmo.</p>
+            <ol>
+                <li><span class="math-expr">-18<sub>10</sub> = 1110 1110<sub>2</sub></span></li>
+                <li>Invertendo os bits (Complemento de Um): <span class="math-expr">0001 0001<sub>2</sub></span></li>
+                <li>Adicionando 1: <span class="math-expr">0001 0001<sub>2</sub> + 0000 0001<sub>2</sub> = 0001 0010<sub>2</sub></span></li>
+            </ol>
+            <p>Assim, <span class="highlight"><span class="math-expr">+18<sub>10</sub> = 0001 0010<sub>2</sub></span></span> (em Complemento de Dois de 8 bits).</p>
+        </div>
+
+        <div class="example-box">
+            <h4>Prova: Soma de <span class="math-expr">+18<sub>10</sub></span> com <span class="math-expr">-18<sub>10</sub></span> deve resultar em zero</h4>
+            <pre>
+  0001 0010  (+18)
++ 1110 1110  (-18)
+-----------
+(1)0000 0000
+            </pre>
+            <p>O carry-out (o 1 à esquerda) é descartado em Complemento de Dois, resultando em <span class="highlight"><span class="math-expr">0000 0000<sub>2</sub></span></span>, que é <span class="math-expr">0<sub>10</sub></span>. Isso demonstra a eficácia do Complemento de Dois para a adição e subtração de números com sinal.</p>
+        </div>
+
+        <h2>Subtração em Binário Sem Sinal</h2>
+        <p>A subtração de números binários sem sinal pode ser realizada usando o método do Complemento de Dois do subtraendo, transformando a subtração em uma adição.</p>
+        <ol>
+            <li>Igualar a quantidade de bits do minuendo e do subtraendo (preenchendo com zeros à esquerda se necessário).</li>
+            <li>Inverter o segundo termo da subtração (o subtraendo), ou seja, obter seu Complemento de Um.</li>
+            <li>Somar 1 a este Complemento de Um para obter o Complemento de Dois do subtraendo.</li>
+            <li>Somar o minuendo com o Complemento de Dois do subtraendo.</li>
+            <li>Analisar o bit de estouro (carry bit):
+                <ul>
+                    <li>Se o carry bit for 1, o resultado é positivo e o carry é descartado.</li>
+                    <li>Se o carry bit for 0, o resultado é negativo. Para obter a magnitude do resultado, é necessário calcular o Complemento de Dois do resultado obtido na soma.</li>
+                </ul>
+            </li>
+        </ol>
+
+        <div class="example-box">
+            <h4>Exemplo 1: Subtração de <span class="math-expr">17 - 7 = 10</span> (usando 5 bits para representar 17)</h4>
+            <ul>
+                <li><span class="math-expr">17<sub>10</sub> = 10001<sub>2</sub></span> (Minuendo)</li>
+                <li><span class="math-expr">7<sub>10</sub> = 00111<sub>2</sub></span> (Subtraendo)</li>
+            </ul>
+            <ol>
+                <li><strong>Complemento de Um do subtraendo (<span class="math-expr">00111<sub>2</sub></span>):</strong> <span class="math-expr">11000<sub>2</sub></span></li>
+                <li><strong>Complemento de Dois do subtraendo (<span class="math-expr">11000<sub>2</sub> + 1<sub>2</sub></span>):</strong> <span class="math-expr">11001<sub>2</sub></span></li>
+                <li><strong>Somar o minuendo com o Complemento de Dois do subtraendo:</strong>
+                    <pre>
+  10001  (17)
++ 11001  (Complemento de Dois de 7)
+-------
+(1)01010
+                    </pre>
+                </li>
+                <li><strong>Análise do Carry Bit:</strong> O carry bit é 1. Portanto, o resultado é positivo e o carry é descartado.</li>
+            </ol>
+            <p>Resultado: <span class="highlight"><span class="math-expr">01010<sub>2</sub> = 10<sub>10</sub></span></span>.</p>
+        </div>
+
+        <div class="example-box">
+            <h4>Exemplo 2: Subtração de <span class="math-expr">7 - 17 = -10</span> (usando 5 bits)</h4>
+            <ul>
+                <li><span class="math-expr">7<sub>10</sub> = 00111<sub>2</sub></span> (Minuendo)</li>
+                <li><span class="math-expr">17<sub>10</sub> = 10001<sub>2</sub></span> (Subtraendo)</li>
+            </ul>
+            <ol>
+                <li><strong>Complemento de Um do subtraendo (<span class="math-expr">10001<sub>2</sub></span>):</strong> <span class="math-expr">01110<sub>2</sub></span></li>
+                <li><strong>Complemento de Dois do subtraendo (<span class="math-expr">01110<sub>2</sub> + 1<sub>2</sub></span>):</strong> <span class="math-expr">01111<sub>2</sub></span></li>
+                <li><strong>Somar o minuendo com o Complemento de Dois do subtraendo:</strong>
+                    <pre>
+  00111  (7)
++ 01111  (Complemento de Dois de 17)
+-------
+  10110
+                    </pre>
+                </li>
+                <li><strong>Análise do Carry Bit:</strong> O carry bit é 0. Portanto, o resultado é negativo. Para encontrar a magnitude, calculamos o Complemento de Dois de <span class="math-expr">10110<sub>2</sub></span>.</li>
+            </ol>
+            <p><strong>Achar o módulo (magnitude) do número <span class="math-expr">10110<sub>2</sub></span>:</strong></p>
+            <ol>
+                <li>Inverter os bits: <span class="math-expr">10110<sub>2</sub> &rightarrow; 01001<sub>2</sub></span></li>
+                <li>Adicionar 1: <span class="math-expr">01001<sub>2</sub> + 1<sub>2</sub> = 01010<sub>2</sub></span></li>
+            </ol>
+            <p><span class="math-expr">01010<sub>2</sub> = 10<sub>10</sub></span>. Como o carry bit foi 0, o resultado é negativo.</p>
+            <p>Resultado: <span class="highlight"><span class="math-expr">-10<sub>10</sub></span></span>.</p>
+        </div>
+
+        <h2>Subtração em Binário usando Complemento de Dois</h2>
+        <p>A mesma lógica se aplica para números com sinal. Para <span class="math-expr">A - B</span>, calculamos <span class="math-expr">A + (-B)</span>, onde <span class="math-expr">-B</span> é o Complemento de Dois de <span class="math-expr">B</span>.</p>
+
+        <div class="solution-box">
+            <h4>Exercício 1: Faça a subtração em binário <span class="math-expr">10100010<sub>2</sub> - 10001001<sub>2</sub></span></h4>
+            <p>Assumindo que estes são números em Complemento de Dois de 8 bits.</p>
+            <ul>
+                <li>Minuendo <span class="math-expr">A = 10100010<sub>2</sub></span></li>
+                <li>Subtraendo <span class="math-expr">B = 10001001<sub>2</sub></span></li>
+            </ul>
+            <ol>
+                <li><strong>Obter o Complemento de Dois de <span class="math-expr">B</span>:</strong>
+                    <ul>
+                        <li>Complemento de Um de <span class="math-expr">10001001<sub>2</sub></span>: <span class="math-expr">01110110<sub>2</sub></span></li>
+                        <li>Somar 1: <span class="math-expr">01110110<sub>2</sub> + 1<sub>2</sub> = 01110111<sub>2</sub></span> (Este é <span class="math-expr">-B</span> em Complemento de Dois)</li>
+                    </ul>
+                </li>
+                <li><strong>Somar <span class="math-expr">A</span> com o Complemento de Dois de <span class="math-expr">B</span>:</strong>
+                    <pre>
+  10100010  (A)
++ 01110111  (-B)
+----------
+(1)00011001
+                    </pre>
+                </li>
+                <li><strong>Analisar o Carry Bit:</strong> Há um carry-out (o 1 mais à esquerda). Em Complemento de Dois, este carry é descartado.</li>
+            </ol>
+            <p>O resultado é <span class="highlight"><span class="math-expr">00011001<sub>2</sub></span></span>. O bit de sinal é 0, indicando um resultado positivo. (Em decimal, <span class="math-expr">10100010<sub>2</sub> = -94<sub>10</sub></span> e <span class="math-expr">10001001<sub>2</sub> = -119<sub>10</sub></span>. Então, <span class="math-expr">-94 - (-119) = -94 + 119 = +25</span>. O resultado <span class="math-expr">00011001<sub>2</sub> = +25<sub>10</sub></span>, que está correto).</p>
+        </div>
+
+        <div class="solution-box">
+            <h4>Exercício 2: Faça a subtração em binário <span class="math-expr">10001001<sub>2</sub> - 10100010<sub>2</sub></span></h4>
+            <p>Assumindo que estes são números em Complemento de Dois de 8 bits.</p>
+            <ul>
+                <li>Minuendo <span class="math-expr">A = 10001001<sub>2</sub></span></li>
+                <li>Subtraendo <span class="math-expr">B = 10100010<sub>2</sub></span></li>
+            </ul>
+            <ol>
+                <li><strong>Obter o Complemento de Dois de <span class="math-expr">B</span>:</strong>
+                    <ul>
+                        <li>Complemento de Um de <span class="math-expr">10100010<sub>2</sub></span>: <span class="math-expr">01011101<sub>2</sub></span></li>
+                        <li>Somar 1: <span class="math-expr">01011101<sub>2</sub> + 1<sub>2</sub> = 01011110<sub>2</sub></span> (Este é <span class="math-expr">-B</span> em Complemento de Dois)</li>
+                    </ul>
+                </li>
+                <li><strong>Somar <span class="math-expr">A</span> com o Complemento de Dois de <span class="math-expr">B</span>:</strong>
+                    <pre>
+  10001001  (A)
++ 01011110  (-B)
+----------
+  11100111
+                    </pre>
+                </li>
+                <li><strong>Analisar o Carry Bit:</strong> Não há carry-out. O bit de sinal do resultado é 1, indicando um resultado negativo.</li>
+            </ol>
+            <p>O resultado é <span class="highlight"><span class="math-expr">11100111<sub>2</sub></span></span>. Para encontrar a magnitude (valor absoluto), calculamos o Complemento de Dois de <span class="math-expr">11100111<sub>2</sub></span>.</p>
+            <ol>
+                <li><strong>Complemento de Um de <span class="math-expr">11100111<sub>2</sub></span>:</strong> <span class="math-expr">00011000<sub>2</sub></span></li>
+                <li><strong>Somar 1:</strong> <span class="math-expr">00011000<sub>2</sub> + 1<sub>2</sub> = 00011001<sub>2</sub></span></li>
+            </ol>
+            <p><span class="math-expr">00011001<sub>2</sub> = 25<sub>10</sub></span>. Como o resultado foi negativo, a resposta final é <span class="highlight"><span class="math-expr">-25<sub>10</sub></span></span>. (Em decimal, <span class="math-expr">-119 - (-94) = -119 + 94 = -25</span>, que está correto).</p>
+        </div>
+
+        <h2>Complemento de 10 (Ten's Complement)</h2>
+        <p>O Complemento de 10 é análogo ao Complemento de Dois, mas aplicado a números decimais. É um método que pode ser usado para realizar subtrações usando apenas adição.</p>
+        <ol>
+            <li><strong>Complemento de 9:</strong> Para um número decimal, o Complemento de 9 é obtido subtraindo cada dígito do número 9.</li>
+            <li><strong>Complemento de 10:</strong> O Complemento de 10 é obtido somando 1 ao Complemento de 9.</li>
+        </ol>
+
+        <div class="example-box">
+            <h4>Exemplo: Subtração em decimal usando o Complemento de 10: <span class="math-expr">12345 - 09753</span></h4>
+            <ul>
+                <li>Minuendo <span class="math-expr">A = 12345</span></li>
+                <li>Subtraendo <span class="math-expr">B = 09753</span></li>
+            </ul>
+            <ol>
+                <li><strong>Calcular o Complemento de 9 de <span class="math-expr">09753</span>:</strong>
+                    <pre>
+  99999
+- 09753
+-------
+  90246
+                    </pre>
+                </li>
+                <li><strong>Calcular o Complemento de 10 de <span class="math-expr">09753</span>:</strong>
+                    <pre>
+  90246
++     1
+-------
+  90247
+                    </pre>
+                </li>
+                <li><strong>Somar o minuendo com o Complemento de 10 do subtraendo:</strong>
+                    <pre>
+  12345
++ 90247
+-------
+(1)02592
+                    </pre>
+                </li>
+                <li><strong>Analisar o Carry Bit:</strong> O '1' à esquerda (carry-out) sinaliza que o resultado é positivo. Ele é descartado.</li>
+            </ol>
+            <p>Resultado: <span class="highlight"><span class="math-expr">02592<sub>10</sub> = 2592<sub>10</sub></span></span>. (De fato, <span class="math-expr">12345 - 9753 = 2592</span>).</p>
+        </div>
+
+        <h2>Aritmética em Várias Bases: Hexadecimal</h2>
+        <p>Operações aritméticas em hexadecimal seguem os mesmos princípios das operações em decimal ou binário, mas com uma base de 16. Lembre-se que os dígitos hexadecimais A-F representam os valores decimais 10-15.</p>
+
+        <h3>Soma em Hexadecimal</h3>
+        <p>Somamos dígito a dígito. Se a soma exceder 15, subtraímos 16 e geramos um carry de 1 para a próxima posição.</p>
+
+        <div class="example-box">
+            <h4>Exemplo: Soma <span class="math-expr">1F2<sub>16</sub> + 0D8<sub>16</sub></span></h4>
+            <pre>
+  1F2
++ 0D8
+-----
+            </pre>
+            <ol>
+                <li><strong>Coluna da direita (unidades):</strong> <span class="math-expr">2 + 8 = 10<sub>10</sub></span>. Em hexadecimal, <span class="math-expr">10<sub>10</sub> = A<sub>16</sub></span>.</li>
+                <li><strong>Coluna do meio (16<sup>1</sup>):</strong> <span class="math-expr">F + D = 15<sub>10</sub> + 13<sub>10</sub> = 28<sub>10</sub></span>.
+                    <p><span class="math-expr">28<sub>10</sub> - 16 = 12<sub>10</sub></span>. Em hexadecimal, <span class="math-expr">12<sub>10</sub> = C<sub>16</sub></span>. Geramos um carry de 1.</p>
+                </li>
+                <li><strong>Coluna da esquerda (16<sup>2</sup>):</strong> <span class="math-expr">1 + 0 + (carry 1) = 2<sub>10</sub></span>. Em hexadecimal, <span class="math-expr">2<sub>10</sub> = 2<sub>16</sub></span>.</li>
+            </ol>
+            <p>Resultado: <span class="highlight"><span class="math-expr">2CA<sub>16</sub></span></span>.</p>
+        </div>
+
+        <div class="solution-box">
+            <h4>Exercício Resolvido: Soma <span class="math-expr">1A4D<sub>16</sub> + C26<sub>16</sub></span></h4>
+            <pre>
+  1A4D
++  C26
+------
+            </pre>
+            <ol>
+                <li><strong>Coluna da direita (unidades):</strong> <span class="math-expr">D + 6 = 13<sub>10</sub> + 6<sub>10</sub> = 19<sub>10</sub></span>.
+                    <p><span class="math-expr">19<sub>10</sub> - 16 = 3<sub>10</sub></span>. Em hexadecimal, <span class="math-expr">3<sub>10</sub> = 3<sub>16</sub></span>. Geramos um carry de 1.</p>
+                </li>
+                <li><strong>Coluna do meio (16<sup>1</sup>):</strong> <span class="math-expr">4 + 2 + (carry 1) = 7<sub>10</sub></span>. Em hexadecimal, <span class="math-expr">7<sub>10</sub> = 7<sub>16</sub></span>.</li>
+                <li><strong>Coluna (16<sup>2</sup>):</strong> <span class="math-expr">A + C = 10<sub>10</sub> + 12<sub>10</sub> = 22<sub>10</sub></span>.
+                    <p><span class="math-expr">22<sub>10</sub> - 16 = 6<sub>10</sub></span>. Em hexadecimal, <span class="math-expr">6<sub>10</sub> = 6<sub>16</sub></span>. Geramos um carry de 1.</p>
+                </li>
+                <li><strong>Coluna da esquerda (16<sup>3</sup>):</strong> <span class="math-expr">1 + 0 + (carry 1) = 2<sub>10</sub></span>. Em hexadecimal, <span class="math-expr">2<sub>10</sub> = 2<sub>16</sub></span>.</li>
+            </ol>
+            <p>Resultado: <span class="highlight"><span class="math-expr">2673<sub>16</sub></span></span>.</p>
+        </div>
+
+        <h3>Subtração em Hexadecimal</h3>
+        <p>A subtração em hexadecimal é similar à decimal, mas quando precisamos "emprestar" de uma coluna mais à esquerda, o valor emprestado é 16 (a base), e não 10.</p>
+
+        <div class="example-box">
+            <h4>Exemplo: Subtração <span class="math-expr">9A6<sub>16</sub> - 038<sub>16</sub></span></h4>
+            <pre>
+  9A6
+- 038
+-----
+            </pre>
+            <ol>
+                <li><strong>Coluna da direita (unidades):</strong> <span class="math-expr">6 - 8</span>. Não é possível. Emprestamos 1 da coluna do meio. O <span class="math-expr">A</span> (que vale 10) vira <span class="math-expr">9</span>. O <span class="math-expr">6</span> vira <span class="math-expr">16 + 6 = 22</span>.
+                    <p><span class="math-expr">22 - 8 = 14<sub>10</sub></span>. Em hexadecimal, <span class="math-expr">14<sub>10</sub> = E<sub>16</sub></span>.</p>
+                </li>
+                <li><strong>Coluna do meio (16<sup>1</sup>):</strong> Agora temos <span class="math-expr">9 - 3 = 6<sub>10</sub></span>. Em hexadecimal, <span class="math-expr">6<sub>10</sub> = 6<sub>16</sub></span>.</li>
+                <li><strong>Coluna da esquerda (16<sup>2</sup>):</strong> <span class="math-expr">9 - 0 = 9<sub>10</sub></span>. Em hexadecimal, <span class="math-expr">9<sub>10</sub> = 9<sub>16</sub></span>.</li>
+            </ol>
+            <p>Resultado: <span class="highlight"><span class="math-expr">96E<sub>16</sub></span></span>.</p>
+        </div>
+
+        <div class="solution-box">
+            <h4>Exercício Resolvido: Subtração <span class="math-expr">1A4D<sub>16</sub> - C26<sub>16</sub></span></h4>
+            <pre>
+  1A4D
+-  C26
+------
+            </pre>
+            <ol>
+                <li><strong>Coluna da direita (unidades):</strong> <span class="math-expr">D - 6 = 13<sub>10</sub> - 6<sub>10</sub> = 7<sub>10</sub></span>. Em hexadecimal, <span class="math-expr">7<sub>10</sub> = 7<sub>16</sub></span>.</li>
+                <li><strong>Coluna do meio (16<sup>1</sup>):</strong> <span class="math-expr">4 - 2 = 2<sub>10</sub></span>. Em hexadecimal, <span class="math-expr">2<sub>10</sub> = 2<sub>16</sub></span>.</li>
+                <li><strong>Coluna (16<sup>2</sup>):</strong> <span class="math-expr">A - C = 10<sub>10</sub> - 12<sub>10</sub></span>. Não é possível. Emprestamos 1 da coluna mais à esquerda. O <span class="math-expr">1</span> (que vale 1) vira <span class="math-expr">0</span>. O <span class="math-expr">A</span> vira <span class="math-expr">16 + A = 16 + 10 = 26</span>.
+                    <p><span class="math-expr">26 - C = 26 - 12 = 14<sub>10</sub></span>. Em hexadecimal, <span class="math-expr">14<sub>10</sub> = E<sub>16</sub></span>.</p>
+                </li>
+                <li><strong>Coluna da esquerda (16<sup>3</sup>):</strong> Agora temos <span class="math-expr">0 - 0 = 0<sub>10</sub></span>. Em hexadecimal, <span class="math-expr">0<sub>10</sub> = 0<sub>16</sub></span>.</li>
+            </ol>
+            <p>Resultado: <span class="highlight"><span class="math-expr">0E27<sub>16</sub></span></span> (ou simplesmente <span class="math-expr">E27<sub>16</sub></span>).</p>
+        </div>
+
+        <h2>Lista de Exercícios para Estudo</h2>
+        <p>Para solidificar todo o conhecimento adquirido, resolva os seguintes exercícios. Eles abrangem os conceitos de representação de números com e sem sinal, e operações aritméticas em diferentes bases.</p>
+
+        <h3>1) Faça as operações sem sinal apresentadas:</h3>
+        <ul class="exercise-list">
+            <li><span class="math-expr">(00011111)<sub>2</sub> + (00001111)<sub>2</sub> = (?)<sub>2</sub></span></li>
+            <li><span class="math-expr">(00010101)<sub>2</sub> - (00001110)<sub>2</sub> = (?)<sub>2</sub></span></li>
+            <li><span class="math-expr">(3AB)<sub>16</sub> + (CDA)<sub>16</sub> = (?)<sub>16</sub></span></li>
+            <li><span class="math-expr">(BAEA)<sub>16</sub> - (F2B)<sub>16</sub> = (?)<sub>16</sub></span></li>
+            <li><span class="math-expr">(11111)<sub>2</sub> + ((1111)<sub>2</sub> + (101)<sub>2</sub>) = (?)<sub>2</sub></span></li>
+            <li><span class="math-expr">(10101)<sub>2</sub> - (1110)<sub>2</sub> = (?)<sub>2</sub></span></li>
+            <li><span class="math-expr">(15FB)<sub>16</sub> + (123)<sub>16</sub> + (CA4)<sub>16</sub> = (?)<sub>16</sub></span></li>
+            <li><span class="math-expr">(7A53)<sub>16</sub> - (425E)<sub>16</sub> = (?)<sub>16</sub></span></li>
+        </ul>
+
+        <h3>2) Explique como determinar se um número é negativo nas representações de sinal-magnitude e complemento a dois.</h3>
+        <p><strong>Resposta Detalhada:</strong></p>
+        <ul>
+            <li>
+                <strong>Sinal-Magnitude:</strong> Em um número binário representado em sinal-magnitude, o bit mais significativo (MSB, o bit mais à esquerda) é dedicado exclusivamente ao sinal. Se o MSB for <span class="highlight">0</span>, o número é positivo. Se o MSB for <span class="highlight">1</span>, o número é negativo. Os bits restantes representam a magnitude (valor absoluto) do número.
+                <p>Exemplo (8 bits): <span class="math-expr">00010010<sub>2</sub> = +18<sub>10</sub></span> (MSB é 0). <span class="math-expr">10010010<sub>2</sub> = -18<sub>10</sub></span> (MSB é 1).</p>
+            </li>
+            <li>
+                <strong>Complemento de Dois:</strong> Em um número binário representado em Complemento de Dois, o bit mais significativo (MSB) também indica o sinal. No entanto, o MSB faz parte do cálculo do valor do número, não sendo apenas um flag. Se o MSB for <span class="highlight">0</span>, o número é positivo. Se o MSB for <span class="highlight">1</span>, o número é negativo.
+                <p>Exemplo (8 bits): <span class="math-expr">00010010<sub>2</sub> = +18<sub>10</sub></span> (MSB é 0). <span class="math-expr">11101110<sub>2</sub> = -18<sub>10</sub></span> (MSB é 1).</p>
+            </li>
+        </ul>
+
+        <h3>3) Como você pode formar a negação de um inteiro na representação de complemento a dois?</h3>
+        <p><strong>Resposta Detalhada:</strong></p>
+        <p>Para formar a negação de um inteiro (<span class="math-expr">-N</span> a partir de <span class="math-expr">N</span>, ou <span class="math-expr">N</span> a partir de <span class="math-expr">-N</span>) na representação de Complemento de Dois, siga estes dois passos:</p>
+        <ol>
+            <li><strong>Inverter todos os bits (Complemento de Um):</strong> Troque todos os <span class="math-expr">0</span>s por <span class="math-expr">1</span>s e todos os <span class="math-expr">1</span>s por <span class="math-expr">0</span>s do número binário original.</li>
+            <li><strong>Adicionar 1:</strong> Some <span class="math-expr">1</span> ao resultado da inversão de bits.</li>
+        </ol>
+        <p>O resultado será o valor negado na representação de Complemento de Dois.</p>
+        <p>Exemplo: Negação de <span class="math-expr">+5<sub>10</sub></span> (0101<sub>2</sub> em 4 bits):</p>
+        <ol>
+            <li>Inverter bits de <span class="math-expr">0101<sub>2</sub></span>: <span class="math-expr">1010<sub>2</sub></span></li>
+            <li>Adicionar 1: <span class="math-expr">1010<sub>2</sub> + 1<sub>2</sub> = 1011<sub>2</sub></span>. Portanto, <span class="math-expr">1011<sub>2</sub> = -5<sub>10</sub></span>.</li>
+        </ol>
+
+        <h3>4) Represente os seguintes números decimais em binários na representação sinal-magnitude e no complemento de dois, usando 16 bits: <span class="math-expr">+502, -502, +29 e -29</span>.</h3>
+        <p><strong>Resposta Detalhada:</strong></p>
+        <p>Primeiro, vamos converter a magnitude para binário (15 bits, já que 1 bit é para o sinal):</p>
+        <ul>
+            <li><span class="math-expr">502<sub>10</sub> = 256 + 128 + 64 + 32 + 16 + 4 + 2 = 111110110<sub>2</sub></span>. Em 15 bits: <span class="math-expr">000000111110110<sub>2</sub></span></li>
+            <li><span class="math-expr">29<sub>10</sub> = 16 + 8 + 4 + 1 = 11101<sub>2</sub></span>. Em 15 bits: <span class="math-expr">000000000011101<sub>2</sub></span></li>
+        </ul>
+
+        <p><strong>Representação em 16 bits:</strong></p>
+        <table style="width:auto;">
+            <thead>
+                <tr>
+                    <th>Número Decimal</th>
+                    <th>Sinal-Magnitude (16 bits)</th>
+                    <th>Complemento de Dois (16 bits)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="math-expr">+502</span></td>
+                    <td><span class="highlight">0000000111110110<sub>2</sub></span></td>
+                    <td><span class="highlight">0000000111110110<sub>2</sub></span></td>
+                </tr>
+                <tr>
+                    <td><span class="math-expr">-502</span></td>
+                    <td><span class="highlight">1000000111110110<sub>2</sub></span></td>
+                    <td>
+                        <ol style="text-align: left; list-style-position: inside; padding-left: 0;">
+                            <li><span class="math-expr">+502 = 0000000111110110<sub>2</sub></span></li>
+                            <li>Inverter: <span class="math-expr">1111111000001001<sub>2</sub></span></li>
+                            <li>Somar 1: <span class="highlight">1111111000001010<sub>2</sub></span></li>
+                        </ol>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="math-expr">+29</span></td>
+                    <td><span class="highlight">000000000011101<sub>2</sub></span></td>
+                    <td><span class="highlight">000000000011101<sub>2</sub></span></td>
+                </tr>
+                <tr>
+                    <td><span class="math-expr">-29</span></td>
+                    <td><span class="highlight">100000000011101<sub>2</sub></span></td>
+                    <td>
+                        <ol style="text-align: left; list-style-position: inside; padding-left: 0;">
+                            <li><span class="math-expr">+29 = 000000000011101<sub>2</sub></span></li>
+                            <li>Inverter: <span class="math-expr">111111111100010<sub>2</sub></span></li>
+                            <li>Somar 1: <span class="highlight">111111111100011<sub>2</sub></span></li>
+                        </ol>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>5) Passe o número binário com sinal, <span class="math-expr">01010011<sub>2</sub></span>, que está na representação de sinal de magnitude de 8 bits para sinal de magnitude de 16 bits.</h3>
+        <p><strong>Resposta Detalhada:</strong></p>
+        <p>O número original é <span class="math-expr">01010011<sub>2</sub></span> em sinal-magnitude de 8 bits.</p>
+        <ul>
+            <li>O MSB é <span class="math-expr">0</span>, indicando que o número é positivo.</li>
+            <li>A magnitude é <span class="math-expr">1010011<sub>2</sub></span>.</li>
+        </ul>
+        <p>Para converter para 16 bits em sinal-magnitude, movemos o bit de sinal para a nova posição do MSB (16º bit) e preenchemos os bits intermediários com zeros.</p>
+        <p><span class="math-expr">01010011<sub>2</sub></span> (8 bits SM) <span class="math-expr">&rightarrow;</span> <span class="highlight">000000001010011<sub>2</sub></span> (16 bits SM)</p>
+        <p>O bit de sinal (<span class="math-expr">0</span>) permanece na posição mais à esquerda, e os 7 bits de magnitude são mantidos, com 8 zeros adicionados entre o bit de sinal e os bits de magnitude originais para completar os 16 bits.</p>
+
+        <h3>6) Passe o número binário, <span class="math-expr">10101010<sub>2</sub></span>, que está na representação de complemento de dois de 8 bits para complemento de dois de 16 bits.</h3>
+        <p><strong>Resposta Detalhada:</strong></p>
+        <p>O número original é <span class="math-expr">10101010<sub>2</sub></span> em Complemento de Dois de 8 bits.</p>
+        <ul>
+            <li>O MSB é <span class="math-expr">1</span>, indicando que o número é negativo.</li>
+        </ul>
+        <p>Para converter para 16 bits em Complemento de Dois, realizamos a "extensão de sinal". Isso significa que copiamos o bit de sinal (o MSB) para todas as novas posições adicionadas à esquerda.</p>
+        <p><span class="math-expr">10101010<sub>2</sub></span> (8 bits C2) <span class="math-expr">&rightarrow;</span> <span class="highlight">1111111110101010<sub>2</sub></span> (16 bits C2)</p>
+        <p>Os 8 bits adicionais à esquerda foram preenchidos com o bit de sinal (1) do número original.</p>
+
+        <h3>7) Ache o módulo do número binário do exercício 6 anterior. Qual o valor desse número em decimal?</h3>
+        <p><strong>Resposta Detalhada:</strong></p>
+        <p>O número do exercício 6 é <span class="math-expr">10101010<sub>2</sub></span> em Complemento de Dois de 8 bits.</p>
+        <p><strong>a) Encontrar o módulo (magnitude):</strong></p>
+        <p>Como o MSB é <span class="math-expr">1</span>, o número é negativo. Para encontrar sua magnitude positiva, calculamos o Complemento de Dois dele:</p>
+        <ol>
+            <li>Número original: <span class="math-expr">10101010<sub>2</sub></span></li>
+            <li>Inverter todos os bits (Complemento de Um): <span class="math-expr">01010101<sub>2</sub></span></li>
+            <li>Adicionar 1: <span class="math-expr">01010101<sub>2</sub> + 00000001<sub>2</sub> = 01010110<sub>2</sub></span></li>
+        </ol>
+        <p>O módulo (magnitude) do número é <span class="highlight"><span class="math-expr">01010110<sub>2</sub></span></span>.</p>
+
+        <p><strong>b) Qual o valor desse número em decimal?</strong></p>
+        <p>Agora convertemos a magnitude para decimal:</p>
+        <p><span class="math-expr">01010110<sub>2</sub> = 0 \times 2^7 + 1 \times 2^6 + 0 \times 2^5 + 1 \times 2^4 + 0 \times 2^3 + 1 \times 2^2 + 1 \times 2^1 + 0 \times 2^0</span></p>
+        <p><span class="math-expr">= 0 + 64 + 0 + 16 + 0 + 4 + 2 + 0</span></p>
+        <p><span class="math-expr">= 86<sub>10</sub></span></p>
+        <p>Como o número original (<span class="math-expr">10101010<sub>2</sub></span>) era negativo (MSB=1), seu valor decimal é <span class="highlight"><span class="math-expr">-86<sub>10</sub></span></span>.</p>
+
+        <h3>Novos Exercícios para Você Praticar:</h3>
+        <p>Para continuar aprimorando suas habilidades com números com sinal e aritmética:</p>
+        <ol class="exercise-list">
+            <li>Converta <span class="math-expr">-105<sub>10</sub></span> para Complemento de Dois de 8 bits.</li>
+            <li>Realize a adição em Complemento de Dois (8 bits): <span class="math-expr">00101101<sub>2</sub> + 11110010<sub>2</sub></span>. Indique o resultado em binário e seu valor decimal.</li>
+            <li>Realize a subtração em Complemento de Dois (8 bits): <span class="math-expr">01101000<sub>2</sub> - 00011100<sub>2</sub></span>. Indique o resultado em binário e seu valor decimal.</li>
+            <li>Explique a diferença entre overflow em números sem sinal e overflow em números com sinal (Complemento de Dois). Dê um exemplo para cada.</li>
+            <li>Qual o maior e o menor número que pode ser representado em Complemento de Dois usando 10 bits?</li>
+            <li>Converta <span class="math-expr">(F3A)<sub>16</sub></span> para binário e depois encontre o Complemento de Dois de 16 bits que representa <span class="math-expr">-(F3A)<sub>16</sub></span>.</li>
+        </ol>
+        <p>Estes exercícios irão te ajudar a fixar os conceitos e técnicas abordadas. Boa sorte!</p>
+    </div>
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Representação em Ponto Flutuante (IEEE 754)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1, h2, h3, h4 {
+            color: #0056b3;
+        }
+        pre {
+            background-color: #e9e9e9;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            white-space: pre-wrap; /* Para quebra de linha em pre */
+            word-wrap: break-word; /* Para quebra de linha em pre */
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+        ol {
+            list-style-type: decimal;
+            margin-left: 20px;
+        }
+        .math-expr {
+            font-family: 'Times New Roman', serif;
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+        .step {
+            margin-bottom: 15px;
+            padding-left: 10px;
+            border-left: 3px solid #007bff;
+        }
+        .highlight {
+            background-color: #e0ffe0;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .example-box {
+            border: 1px solid #ccc;
+            padding: 15px;
+            margin: 15px 0;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        .solution-box {
+            border: 1px solid #007bff;
+            padding: 15px;
+            margin: 15px 0;
+            background-color: #e6f2ff;
+            border-radius: 5px;
+        }
+        .exercise-list li {
+            margin-bottom: 10px;
+        }
+        .note {
+            background-color: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 10px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        .bit-representation {
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            white-space: nowrap;
+            overflow-x: auto;
+            display: block;
+            border: 1px solid #ccc;
+            padding: 5px;
+            background-color: #f0f0f0;
+            margin-top: 5px;
+        }
+        .bit-label {
+            font-size: 0.8em;
+            text-align: center;
+            display: inline-block;
+            width: 1em; /* Adjust as needed */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Representação em Ponto Flutuante</h1>
+        <p>Prof. Mario F. G. Boaratti - 2025</p>
+
+        <p>Chamamos de <strong>ponto flutuante</strong> (ou "floating-point" em inglês) porque o ponto que separa a parte inteira da parte fracionária pode "flutuar", ou seja, sua posição não é fixa. Isso permite representar um vasto intervalo de números, desde valores muito pequenos até valores muito grandes, com uma precisão razoável, de forma compacta.</p>
+        <p>A ideia é semelhante à notação científica (ou notação de engenharia) que usamos em decimal.</p>
+
+        <h3>Exemplos na Notação Inglesa (Decimal):</h3>
+        <p>Um número decimal pode ser representado de várias formas, movendo o ponto e ajustando a potência de 10:</p>
+        <ul>
+            <li><span class="math-expr">25<sub>10</sub> = 25.0 &times; 10<sup>0</sup></span></li>
+            <li><span class="math-expr">25<sub>10</sub> = 2.5 &times; 10<sup>+1</sup></span></li>
+            <li><span class="math-expr">25<sub>10</sub> = 0.25 &times; 10<sup>+2</sup></span></li>
+            <li><span class="math-expr">25<sub>10</sub> = 0.0025 &times; 10<sup>+4</sup></span></li>
+            <li><span class="math-expr">25<sub>10</sub> = 2500.0 &times; 10<sup>-2</sup></span></li>
+        </ul>
+        <p>Ou então:</p>
+        <ul>
+            <li><span class="math-expr">16347<sub>10</sub> = 16347.0 &times; 10<sup>0</sup></span></li>
+            <li><span class="math-expr">16347<sub>10</sub> = 16.347 &times; 10<sup>+3</sup></span></li>
+            <li><span class="math-expr">16347<sub>10</sub> = 0.16347 &times; 10<sup>+5</sup></span></li>
+        </ul>
+
+        <h2>Conversão para Ponto Flutuante em Binário</h2>
+        <p>O primeiro passo para representar um número decimal em ponto flutuante binário é convertê-lo para sua forma binária. Depois, esse número binário é normalizado.</p>
+
+        <div class="example-box">
+            <h4>Exemplo: Converter <span class="math-expr">(407.375)<sub>10</sub></span> para binário</h4>
+            <ol>
+                <li><strong>Converter a parte inteira (<span class="math-expr">407<sub>10</sub></span> para binário):</strong>
+                    <pre>
+407 &divide; 2 = 203  Resto 1
+203 &divide; 2 = 101  Resto 1
+101 &divide; 2 = 50   Resto 1
+50  &divide; 2 = 25   Resto 0
+25  &divide; 2 = 12   Resto 1
+12  &divide; 2 = 6    Resto 0
+6   &divide; 2 = 3    Resto 0
+3   &divide; 2 = 1    Resto 1
+1   &divide; 2 = 0    Resto 1
+                    </pre>
+                    <p>Lendo os restos de baixo para cima: <span class="math-expr">407<sub>10</sub> = 110010111<sub>2</sub></span></p>
+                </li>
+                <li><strong>Converter a parte fracionária (<span class="math-expr">0.375<sub>10</sub></span> para binário):</strong>
+                    <pre>
+0.375 &times; 2 = 0.75  -> Parte Inteira = 0
+0.75  &times; 2 = 1.5   -> Parte Inteira = 1
+0.5   &times; 2 = 1.0   -> Parte Inteira = 1
+                    </pre>
+                    <p>Lendo as partes inteiras de cima para baixo: <span class="math-expr">0.375<sub>10</sub> = 0.011<sub>2</sub></span></p>
+                </li>
+                <li><strong>Combinar as partes:</strong>
+                    <p><span class="math-expr">(407.375)<sub>10</sub> = 110010111.011<sub>2</sub></span></p>
+                </li>
+                <li><strong>Normalizar o número binário:</strong>
+                    <p>A normalização significa mover o ponto binário de forma que haja apenas um dígito '1' à esquerda do ponto. Para cada posição que o ponto se move, o expoente é ajustado.</p>
+                    <p><span class="math-expr">110010111.011<sub>2</sub></span></p>
+                    <p>Para mover o ponto para depois do primeiro '1', ele se move 8 posições para a esquerda:</p>
+                    <p><span class="math-expr">1.10010111011 &times; 2<sup>+8</sup></span> (Esta é a forma normalizada)</p>
+                    <p>A forma <span class="math-expr">110010111.011 &times; 2<sup>0</sup></span> é considerada "não normalizada" no contexto de ponto flutuante, pois o expoente não está ajustado para ter apenas um '1' antes do ponto.</p>
+                </li>
+            </ol>
+        </div>
+
+        <h2>Padrão para Ponto Flutuante IEEE 754 (1985)</h2>
+        <p>O padrão IEEE 754 é o método mais comum para representar números de ponto flutuante em computadores. Ele define formatos para precisão simples e precisão dupla, além de regras para arredondamento e tratamento de exceções.</p>
+
+        <h3>Formatos Principais:</h3>
+        <ul>
+            <li>
+                <strong>Precisão Simples (Single-Precision):</strong> Utiliza 32 bits para representar o número.
+                <ul>
+                    <li>1 bit para o sinal.</li>
+                    <li>8 bits para o expoente.</li>
+                    <li>23 bits para a mantissa (parte fracionária).</li>
+                </ul>
+            </li>
+            <li>
+                <strong>Precisão Dupla (Double-Precision):</strong> Utiliza 64 bits para representar o número.
+                <ul>
+                    <li>1 bit para o sinal.</li>
+                    <li>11 bits para o expoente.</li>
+                    <li>52 bits para a mantissa.</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h3>Estrutura Geral de um Número IEEE 754:</h3>
+        <p>Um número em ponto flutuante no padrão IEEE 754 é composto por três campos:</p>
+        <ol>
+            <li>
+                <strong>Bit de Sinal (S):</strong> O bit mais à esquerda.
+                <ul>
+                    <li><span class="math-expr">0</span> indica um número positivo.</li>
+                    <li><span class="math-expr">1</span> indica um número negativo.</li>
+                </ul>
+            </li>
+            <li>
+                <strong>Campo do Expoente (E):</strong> Representa o expoente da potência de 2, mas de forma "polarizada" (biased).
+                <ul>
+                    <li>Para precisão simples (8 bits): o expoente é armazenado em "excesso de 127". Isso significa que o valor real do expoente é <span class="math-expr">E - 127</span>. Assim, um expoente de <span class="math-expr">127</span> representa <span class="math-expr">2<sup>0</sup></span>. O intervalo de expoentes é de <span class="math-expr">-126</span> a <span class="math-expr">+127</span>. Os padrões de bits <span class="math-expr">00000000</span> e <span class="math-expr">11111111</span> são reservados para casos especiais (zero, infinito, denormalizados).</li>
+                    <li>Para precisão dupla (11 bits): o expoente é armazenado em "excesso de 1023". O valor real do expoente é <span class="math-expr">E - 1023</span>.</li>
+                </ul>
+            </li>
+            <li>
+                <strong>Campo da Mantissa (M) ou Fração:</strong> Representa a parte fracionária do número normalizado.
+                <ul>
+                    <li>Na forma normalizada, um número binário sempre começa com <span class="math-expr">1.f &times; 2<sup>E</sup></span>. O padrão IEEE 754 assume implicitamente esse '1' principal (leading one), então ele não é armazenado. A mantissa armazena apenas a parte <span class="math-expr">f</span> (a fração) após o ponto binário. Isso economiza um bit, aumentando a precisão.</li>
+                </ul>
+            </li>
+        </ol>
+
+        <p>A fórmula geral para o valor decimal representado é:</p>
+        <p><span class="math-expr">Valor = (-1)<sup>S</sup> &times; 1.M &times; 2<sup>(E - Bias)</sup></span></p>
+        <p>Onde <span class="math-expr">Bias</span> é <span class="math-expr">127</span> para precisão simples e <span class="math-expr">1023</span> para precisão dupla.</p>
+
+        <h3>Características dos Números de Ponto Flutuante Padrão IEEE 754:</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Precisão Simples (32 bits)</th>
+                    <th>Precisão Dupla (64 bits)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Bits de sinal</td><td>1</td><td>1</td></tr>
+                <tr><td>Bits de expoente</td><td>8</td><td>11</td></tr>
+                <tr><td>Bits na mantissa</td><td>23</td><td>52</td></tr>
+                <tr><td>Bits, total</td><td>32</td><td>64</td></tr>
+                <tr><td>Sistema de expoente</td><td>Excesso 127</td><td>Excesso 1023</td></tr>
+                <tr><td>Faixa de expoente</td><td>-126 a +127</td><td>-1022 a +1023</td></tr>
+                <tr><td>Menor número normalizado</td><td>aprox. <span class="math-expr">2<sup>-126</sup></span></td><td>aprox. <span class="math-expr">2<sup>-1022</sup></span></td></tr>
+                <tr><td>Maior número normalizado</td><td>aprox. <span class="math-expr">2<sup>128</sup></span></td><td>aprox. <span class="math-expr">2<sup>1024</sup></span></td></tr>
+                <tr><td>Faixa decimal</td><td>aprox. <span class="math-expr">10<sup>-38</sup></span> a <span class="math-expr">10<sup>38</sup></span></td><td>aprox. <span class="math-expr">10<sup>-308</sup></span> a <span class="math-expr">10<sup>308</sup></span></td></tr>
+                <tr><td>Menor número desnormalizado</td><td>aprox. <span class="math-expr">10<sup>-45</sup></span></td><td>aprox. <span class="math-expr">10<sup>-324</sup></span></td></tr>
+            </tbody>
+        </table>
+
+        <h2>Exemplos de Números de Ponto Flutuante IEEE 754 (Precisão Simples)</h2>
+
+        <div class="example-box">
+            <h4>Exemplo: Como <span class="math-expr">432<sub>10</sub></span> é armazenado no formato normalizado de precisão única?</h4>
+            <p><strong>Sinal: 1 bit; Expoente: 8 bits; Mantissa: 23 bits</strong></p>
+            <ol>
+                <li><strong>Converter o número para binário e normalizar:</strong>
+                    <p><span class="math-expr">432<sub>10</sub> = 110110000<sub>2</sub></span></p>
+                    <p>Normalizando (movendo o ponto 8 posições para a esquerda):</p>
+                    <p><span class="math-expr">1.10110000 &times; 2<sup>8</sup></span></p>
+                </li>
+                <li><strong>Determinar o Sinal (S):</strong>
+                    <p>O número <span class="math-expr">432</span> é positivo, então <span class="math-expr">S = 0</span>.</p>
+                </li>
+                <li><strong>Calcular o Expoente (E):</strong>
+                    <p>O expoente real é <span class="math-expr">8</span>. Para o formato de precisão simples (excesso de 127), somamos o bias:</p>
+                    <p><span class="math-expr">Expoente armazenado = Expoente real + Bias = 8 + 127 = 135<sub>10</sub></span></p>
+                    <p>Convertendo <span class="math-expr">135<sub>10</sub></span> para binário (8 bits):</p>
+                    <pre>
+135 &divide; 2 = 67   Resto 1
+67  &divide; 2 = 33   Resto 1
+33  &divide; 2 = 16   Resto 1
+16  &divide; 2 = 8    Resto 0
+8   &divide; 2 = 4    Resto 0
+4   &divide; 2 = 2    Resto 0
+2   &divide; 2 = 1    Resto 0
+1   &divide; 2 = 0    Resto 1
+                    </pre>
+                    <p>Lendo de baixo para cima: <span class="math-expr">10000111<sub>2</sub></span>.</p>
+                </li>
+                <li><strong>Definir a Mantissa (M):</strong>
+                    <p>A parte fracionária do número normalizado <span class="math-expr">1.10110000</span> é <span class="math-expr">.10110000</span>. O '1' antes do ponto é implícito.</p>
+                    <p>Precisamos de 23 bits para a mantissa. Adicionamos zeros à direita até completar 23 bits:</p>
+                    <p><span class="math-expr">M = 10110000000000000000000<sub>2</sub></span></p>
+                </li>
+                <li><strong>Montar o número de 32 bits:</strong>
+                    <p>S | Expoente | Mantissa</p>
+                    <p><span class="highlight">0 | 10000111 | 10110000000000000000000</span></p>
+                    <p class="bit-representation">
+                        <span class="bit-label">0</span><span class="bit-label">1</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">1</span><span class="bit-label">1</span><span class="bit-label">1</span><span class="bit-label">1</span><span class="bit-label">0</span><span class="bit-label">1</span><span class="bit-label">1</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span>
+                    </p>
+                    <p>Convertendo para hexadecimal:</p>
+                    <p>Agrupamos de 4 em 4 bits: <span class="math-expr">0100 0011 1101 1000 0000 0000 0000 0000</span></p>
+                    <p>Convertendo para hex: <span class="math-expr">4   3   D   8   0   0   0   0</span></p>
+                    <p>Valor em hexadecimal: <span class="highlight">43D80000<sub>16</sub></span></p>
+                </li>
+            </ol>
+        </div>
+
+        <div class="example-box">
+            <h4>Exemplo: Como <span class="math-expr">1.5<sub>10</sub></span> é armazenado no formato normalizado de precisão única?</h4>
+            <p><strong>Sinal: 1 bit; Expoente: 8 bits; Mantissa: 23 bits</strong></p>
+            <ol>
+                <li><strong>Converter o número para binário e normalizar:</strong>
+                    <p><span class="math-expr">1.5<sub>10</sub> = 1.1<sub>2</sub></span></p>
+                    <p>Normalizando (o ponto já está na posição correta, então o deslocamento é 0):</p>
+                    <p><span class="math-expr">1.1 &times; 2<sup>0</sup></span></p>
+                </li>
+                <li><strong>Determinar o Sinal (S):</strong>
+                    <p>O número <span class="math-expr">1.5</span> é positivo, então <span class="math-expr">S = 0</span>.</p>
+                </li>
+                <li><strong>Calcular o Expoente (E):</strong>
+                    <p>O expoente real é <span class="math-expr">0</span>. Para precisão simples, somamos o bias:</p>
+                    <p><span class="math-expr">Expoente armazenado = 0 + 127 = 127<sub>10</sub></span></p>
+                    <p>Convertendo <span class="math-expr">127<sub>10</sub></span> para binário (8 bits): <span class="math-expr">01111111<sub>2</sub></span>.</p>
+                </li>
+                <li><strong>Definir a Mantissa (M):</strong>
+                    <p>A parte fracionária do número normalizado <span class="math-expr">1.1</span> é <span class="math-expr">.1</span>. O '1' antes do ponto é implícito.</p>
+                    <p>Precisamos de 23 bits para a mantissa. Adicionamos zeros à direita:</p>
+                    <p><span class="math-expr">M = 10000000000000000000000<sub>2</sub></span></p>
+                </li>
+                <li><strong>Montar o número de 32 bits:</strong>
+                    <p>S | Expoente | Mantissa</p>
+                    <p><span class="highlight">0 | 01111111 | 10000000000000000000000</span></p>
+                    <p class="bit-representation">
+                        <span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">1</span><span class="bit-label">1</span><span class="bit-label">1</span><span class="bit-label">1</span><span class="bit-label">1</span><span class="bit-label">1</span><span class="bit-label">1</span><span class="bit-label">1</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span>
+                    </p>
+                    <p>Convertendo para hexadecimal:</p>
+                    <p>Agrupamos de 4 em 4 bits: <span class="math-expr">0011 1111 1100 0000 0000 0000 0000 0000</span></p>
+                    <p>Convertendo para hex: <span class="math-expr">3   F   C   0   0   0   0   0</span></p>
+                    <p>Valor em hexadecimal: <span class="highlight">3FC00000<sub>16</sub></span></p>
+                </li>
+            </ol>
+        </div>
+
+        <div class="example-box">
+            <h4>Exemplo: Valor <span class="math-expr">-3.75<sub>10</sub></span> no formato de precisão simples</h4>
+            <p><strong>Sinal: 1 bit; Expoente: 8 bits; Mantissa: 23 bits</strong></p>
+            <ol>
+                <li><strong>Converter a magnitude para binário e normalizar:</strong>
+                    <p>Magnitude <span class="math-expr">3.75<sub>10</sub></span></p>
+                    <p>Parte inteira <span class="math-expr">3<sub>10</sub> = 11<sub>2</sub></span></p>
+                    <p>Parte fracionária <span class="math-expr">0.75<sub>10</sub> = 0.11<sub>2</sub></span></p>
+                    <p>Combinando: <span class="math-expr">11.11<sub>2</sub></span></p>
+                    <p>Normalizando (movendo o ponto 1 posição para a esquerda):</p>
+                    <p><span class="math-expr">1.111 &times; 2<sup>1</sup></span></p>
+                </li>
+                <li><strong>Determinar o Sinal (S):</strong>
+                    <p>O número é negativo, então <span class="math-expr">S = 1</span>.</p>
+                </li>
+                <li><strong>Calcular o Expoente (E):</strong>
+                    <p>O expoente real é <span class="math-expr">1</span>. Para precisão simples, somamos o bias:</p>
+                    <p><span class="math-expr">Expoente armazenado = 1 + 127 = 128<sub>10</sub></span></p>
+                    <p>Convertendo <span class="math-expr">128<sub>10</sub></span> para binário (8 bits): <span class="math-expr">10000000<sub>2</sub></span>.</p>
+                </li>
+                <li><strong>Definir a Mantissa (M):</strong>
+                    <p>A parte fracionária do número normalizado <span class="math-expr">1.111</span> é <span class="math-expr">.111</span>. O '1' antes do ponto é implícito.</p>
+                    <p>Precisamos de 23 bits para a mantissa. Adicionamos zeros à direita:</p>
+                    <p><span class="math-expr">M = 11100000000000000000000<sub>2</sub></span></p>
+                </li>
+                <li><strong>Montar o número de 32 bits:</strong>
+                    <p>S | Expoente | Mantissa</p>
+                    <p><span class="highlight">1 | 10000000 | 11100000000000000000000</span></p>
+                    <p class="bit-representation">
+                        <span class="bit-label">1</span><span class="bit-label">1</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">1</span><span class="bit-label">1</span><span class="bit-label">1</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span>
+                    </p>
+                    <p>Convertendo para hexadecimal:</p>
+                    <p>Agrupamos de 4 em 4 bits: <span class="math-expr">1100 0000 0111 0000 0000 0000 0000 0000</span></p>
+                    <p>Convertendo para hex: <span class="math-expr">C   0   7   0   0   0   0   0</span></p>
+                    <p>Valor em hexadecimal: <span class="highlight">C0700000<sub>16</sub></span></p>
+                </li>
+            </ol>
+        </div>
+
+        <div class="example-box">
+            <h4>Exemplo: Valor <span class="math-expr">-118.625<sub>10</sub></span> no formato de precisão simples</h4>
+            <p><strong>Sinal: 1 bit; Expoente: 8 bits; Mantissa: 23 bits</strong></p>
+            <ol>
+                <li><strong>Converter a magnitude para binário e normalizar:</strong>
+                    <p>Magnitude <span class="math-expr">118.625<sub>10</sub></span></p>
+                    <p>Parte inteira <span class="math-expr">118<sub>10</sub> = 1110110<sub>2</sub></span></p>
+                    <p>Parte fracionária <span class="math-expr">0.625<sub>10</sub> = 0.101<sub>2</sub></span></p>
+                    <p>Combinando: <span class="math-expr">1110110.101<sub>2</sub></span></p>
+                    <p>Normalizando (movendo o ponto 6 posições para a esquerda):</p>
+                    <p><span class="math-expr">1.110110101 &times; 2<sup>6</sup></span></p>
+                </li>
+                <li><strong>Determinar o Sinal (S):</strong>
+                    <p>O número é negativo, então <span class="math-expr">S = 1</span>.</p>
+                </li>
+                <li><strong>Calcular o Expoente (E):</strong>
+                    <p>O expoente real é <span class="math-expr">6</span>. Para precisão simples, somamos o bias:</p>
+                    <p><span class="math-expr">Expoente armazenado = 6 + 127 = 133<sub>10</sub></span></p>
+                    <p>Convertendo <span class="math-expr">133<sub>10</sub></span> para binário (8 bits): <span class="math-expr">10000101<sub>2</sub></span>.</p>
+                </li>
+                <li><strong>Definir a Mantissa (M):</strong>
+                    <p>A parte fracionária do número normalizado <span class="math-expr">1.110110101</span> é <span class="math-expr">.110110101</span>. O '1' antes do ponto é implícito.</p>
+                    <p>Precisamos de 23 bits para a mantissa. Adicionamos zeros à direita:</p>
+                    <p><span class="math-expr">M = 11011010100000000000000<sub>2</sub></span></p>
+                </li>
+                <li><strong>Montar o número de 32 bits:</strong>
+                    <p>S | Expoente | Mantissa</p>
+                    <p><span class="highlight">1 | 10000101 | 11011010100000000000000</span></p>
+                    <p class="bit-representation">
+                        <span class="bit-label">1</span><span class="bit-label">1</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">1</span><span class="bit-label">0</span><span class="bit-label">1</span><span class="bit-label">1</span><span class="bit-label">1</span><span class="bit-label">0</span><span class="bit-label">1</span><span class="bit-label">1</span><span class="bit-label">0</span><span class="bit-label">1</span><span class="bit-label">0</span><span class="bit-label">1</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span><span class="bit-label">0</span>
+                    </p>
+                    <p>Convertendo para hexadecimal:</p>
+                    <p>Agrupamos de 4 em 4 bits: <span class="math-expr">1100 0010 1110 1101 0100 0000 0000 0000</span></p>
+                    <p>Convertendo para hex: <span class="math-expr">C   2   E   D   4   0   0   0</span></p>
+                    <p>Valor em hexadecimal: <span class="highlight">C2ED4000<sub>16</sub></span></p>
+                </li>
+            </ol>
+        </div>
+
+        <h2>Exercícios sobre Ponto Flutuante (IEEE 754)</h2>
+
+        <h3>1. Representar os números binários em ponto flutuante precisão simples no padrão IEEE 754:</h3>
+        <p>Lembre-se: S (1 bit) | Expoente (8 bits, excesso de 127) | Mantissa (23 bits, com '1' implícito).</p>
+        <ol class="exercise-list">
+            <li><span class="math-expr">+1.101 &times; 2<sup>5</sup></span></li>
+            <li><span class="math-expr">-1.01011 &times; 2<sup>-6</sup></span></li>
+            <li><span class="math-expr">+1.1110011001 &times; 2<sup>10</sup></span></li>
+            <li><span class="math-expr">-1.010101 &times; 2<sup>3</sup></span></li>
+            <li><span class="math-expr">+1.0000011 &times; 2<sup>-2</sup></span></li>
+            <li><span class="math-expr">-1.11010000011 &times; 2<sup>-3</sup></span></li>
+        </ol>
+
+        <h3>2. Qual o valor decimal de cada número do exercício anterior?</h3>
+        <p><strong>Exemplo Resolvido (do slide):</strong></p>
+        <p>Para <span class="math-expr">(+1.101 &times; 2<sup>5</sup>)<sub>2</sub></span>:</p>
+        <ol>
+            <li>O número binário é <span class="math-expr">1.101 &times; 2<sup>5</sup></span>.</li>
+            <li>Mova o ponto binário 5 posições para a direita (porque o expoente é <span class="math-expr">+5</span>): <span class="math-expr">110100.0<sub>2</sub></span></li>
+            <li>Converta <span class="math-expr">110100<sub>2</sub></span> para decimal:
+                <p><span class="math-expr">1 &times; 2<sup>5</sup> + 1 &times; 2<sup>4</sup> + 0 &times; 2<sup>3</sup> + 1 &times; 2<sup>2</sup> + 0 &times; 2<sup>1</sup> + 0 &times; 2<sup>0</sup></span></p>
+                <p><span class="math-expr">= 32 + 16 + 0 + 4 + 0 + 0 = 52<sub>10</sub></span></p>
+            </li>
+        </ol>
+        <p>Portanto, <span class="highlight"><span class="math-expr">(+1.101 &times; 2<sup>5</sup>)<sub>2</sub> = (52)<sub>10</sub></span></span></p>
+
+        <h3>3. Pegue seu número de matrícula (RA) e coloque-o na notação de ponto flutuante com precisão simples.</h3>
+        <p>Se seu RA for um número inteiro, você pode considerá-lo como <span class="math-expr">RA.0</span> e seguir os passos de conversão que vimos.</p>
+
+        <h3>Novos Exercícios para Você Praticar:</h3>
+        <ol class="exercise-list">
+            <li>Converta o número decimal <span class="math-expr">-27.125<sub>10</sub></span> para o formato de ponto flutuante IEEE 754 de precisão simples (32 bits). Apresente o resultado em binário e hexadecimal.</li>
+            <li>Dado o número de ponto flutuante IEEE 754 de precisão simples <span class="math-expr">40C00000<sub>16</sub></span>, qual é o seu valor decimal?</li>
+            <li>Converta o número decimal <span class="math-expr">0.00000000011920928955078125<sub>10</sub></span> para o formato de ponto flutuante IEEE 754 de precisão simples.</li>
+            <li>Represente <span class="math-expr">+1.0 &times; 2<sup>127</sup></span> no formato de precisão simples. O que este número representa (consulte a tabela de características)?</li>
+            <li>Represente <span class="math-expr">+NaN</span> no formato de precisão simples.</li>
+        </ol>
+        <p>Estes exercícios irão te ajudar a fixar os conceitos e técnicas abordadas. Lembre-se de seguir o passo a passo detalhado para cada conversão. Boa sorte!</p>
+    </div>
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercícios sobre Ponto Flutuante (IEEE 754)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1, h2, h3, h4 {
+            color: #0056b3;
+        }
+        pre {
+            background-color: #e9e9e9;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            white-space: pre-wrap; /* Para quebra de linha em pre */
+            word-wrap: break-word; /* Para quebra de linha em pre */
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+        ol {
+            list-style-type: decimal;
+            margin-left: 20px;
+        }
+        .math-expr {
+            font-family: 'Times New Roman', serif;
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+        .step {
+            margin-bottom: 15px;
+            padding-left: 10px;
+            border-left: 3px solid #007bff;
+        }
+        .highlight {
+            background-color: #e0ffe0;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .example-box {
+            border: 1px solid #ccc;
+            padding: 15px;
+            margin: 15px 0;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        .solution-box {
+            border: 1px solid #007bff;
+            padding: 15px;
+            margin: 15px 0;
+            background-color: #e6f2ff;
+            border-radius: 5px;
+        }
+        .exercise-list li {
+            margin-bottom: 10px;
+        }
+        .note {
+            background-color: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 10px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        .bit-representation {
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            white-space: pre; /* Garante que espaços e quebras de linha sejam respeitados */
+            overflow-x: auto;
+            display: block;
+            border: 1px solid #ccc;
+            padding: 5px;
+            background-color: #f0f0f0;
+            margin-top: 5px;
+        }
+        .bit-group {
+            display: inline-block;
+            margin-right: 5px; /* Espaço entre grupos de bits */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Exercícios sobre Ponto Flutuante (IEEE 754)</h1>
+        <p>Arquitetura e Organização de Computadores <br> Prof. Mario F. G. Boaratti</p>
+        <p>Obs.: Sem gabarito.</p>
+
+        <h2>Introdução ao Padrão IEEE 754 para Ponto Flutuante</h2>
+        <p>O padrão IEEE 754 define como números de ponto flutuante são representados e manipulados em sistemas computacionais. A representação mais comum é a de <strong>precisão simples (single-precision)</strong>, que utiliza 32 bits, divididos em três campos:</p>
+        <ul>
+            <li><strong>Sinal (S):</strong> 1 bit. Indica se o número é positivo (0) ou negativo (1).</li>
+            <li><strong>Expoente (E):</strong> 8 bits. Representa o expoente da potência de 2, mas com um "bias" (viés) para permitir expoentes negativos sem a necessidade de um bit de sinal separado para o expoente. Para precisão simples, o bias é 127. Assim, o expoente real é calculado como <span class="math-expr">E<sub>real</sub> = E<sub>armazenado</sub> - 127</span>.</li>
+            <li><strong>Mantissa (M) ou Fração:</strong> 23 bits. Representa a parte fracionária do número normalizado. Em um número binário normalizado, o formato é sempre <span class="math-expr">1.XXXXXXXXX &times; 2<sup>E</sup></span>. O '1' antes do ponto binário é implícito e não é armazenado para economizar um bit de precisão. A mantissa armazena apenas a parte <span class="math-expr">XXXXXXXXX</span> após o ponto.</li>
+        </ul>
+        <p>A fórmula geral para calcular o valor decimal de um número IEEE 754 de precisão simples é:</p>
+        <p><span class="math-expr">Valor = (-1)<sup>S</sup> &times; (1 + M) &times; 2<sup>(E<sub>armazenado</sub> - 127)</sup></span></p>
+
+        <h3>Passos para Converter um Número Decimal para IEEE 754 Precisão Simples:</h3>
+        <ol>
+            <li><strong>Converter o número para binário:</strong> Separe a parte inteira e fracionária. Converta a parte inteira usando divisões sucessivas por 2 e a parte fracionária usando multiplicações sucessivas por 2.</li>
+            <li><strong>Normalizar o número binário:</strong> Mova o ponto binário de forma que haja apenas um '1' à esquerda do ponto (formato <span class="math-expr">1.M &times; 2<sup>E<sub>real</sub></sup></span>). Conte quantas posições o ponto se moveu para determinar <span class="math-expr">E<sub>real</sub></span>.</li>
+            <li><strong>Determinar o Bit de Sinal (S):</strong> Se o número original for positivo, <span class="math-expr">S = 0</span>. Se for negativo, <span class="math-expr">S = 1</span>.</li>
+            <li><strong>Calcular o Expoente Armazenado (E<sub>armazenado</sub>):</strong> Some o bias (127) ao <span class="math-expr">E<sub>real</sub></span>. Converta o resultado para binário de 8 bits.</li>
+            <li><strong>Obter a Mantissa (M):</strong> Pegue a parte fracionária do número binário normalizado (após o '1' implícito) e complete com zeros à direita até ter 23 bits.</li>
+            <li><strong>Montar a representação:</strong> Concatene S, E<sub>armazenado</sub> e M na ordem correta.</li>
+        </ol>
+
+        <h3>Passos para Converter um Número IEEE 754 Precisão Simples para Decimal:</h3>
+        <ol>
+            <li><strong>Extrair S, E<sub>armazenado</sub>, M:</strong> Divida os 32 bits nos campos de Sinal, Expoente e Mantissa.</li>
+            <li><strong>Calcular o Bit de Sinal:</strong> Se <span class="math-expr">S = 0</span>, o número é positivo. Se <span class="math-expr">S = 1</span>, é negativo.</li>
+            <li><strong>Calcular o Expoente Real (E<sub>real</sub>):</strong> Converta <span class="math-expr">E<sub>armazenado</sub></span> de binário para decimal e subtraia o bias (127).</li>
+            <li><strong>Construir a Mantissa Normalizada:</strong> Adicione o '1' implícito à frente da mantissa extraída: <span class="math-expr">1.M</span>.</li>
+            <li><strong>Calcular o valor da parte significativa:</strong> Multiplique <span class="math-expr">1.M</span> por <span class="math-expr">2<sup>E<sub>real</sub></sup></span>. Isso significa mover o ponto binário <span class="math-expr">E<sub>real</sub></span> posições (para a direita se <span class="math-expr">E<sub>real</sub></span> for positivo, para a esquerda se for negativo).</li>
+            <li><strong>Converter o resultado binário para decimal:</strong> Some as potências de 2 correspondentes aos bits '1'.</li>
+        </ol>
+
+        <h2>Exercício 1: Representar os números binários em ponto flutuante precisão simples no padrão IEEE 754</h2>
+        <p>Vamos resolver cada item detalhadamente.</p>
+
+        <div class="solution-box">
+            <h4>1.a. <span class="math-expr">+1.101 &times; 2<sup>5</sup></span></h4>
+            <p>Este foi feito em sala. A resposta do slide é <span class="highlight">0 10000100 10100000000000000000000</span>.</p>
+            <p><strong>Passo a passo:</strong></p>
+            <ol>
+                <li><strong>Sinal (S):</strong> O número é positivo, então <span class="math-expr">S = 0</span>.</li>
+                <li><strong>Expoente Real (E<sub>real</sub>):</strong> O expoente é <span class="math-expr">5</span>.</li>
+                <li><strong>Expoente Armazenado (E<sub>armazenado</sub>):</strong> <span class="math-expr">5 + 127 = 132<sub>10</sub></span>.
+                    <p>Convertendo <span class="math-expr">132<sub>10</sub></span> para binário de 8 bits: <span class="math-expr">10000100<sub>2</sub></span>.</p>
+                </li>
+                <li><strong>Mantissa (M):</strong> A parte fracionária de <span class="math-expr">1.101</span> é <span class="math-expr">.101</span>.
+                    <p>Completando com zeros para 23 bits: <span class="math-expr">10100000000000000000000<sub>2</sub></span>.</p>
+                </li>
+                <li><strong>Representação IEEE 754:</strong>
+                    <pre class="bit-representation">S         Expoente         Mantissa
+0 <span class="bit-group">10000100</span> <span class="bit-group">10100000000000000000000</span></pre>
+                </li>
+            </ol>
+        </div>
+
+        <div class="solution-box">
+            <h4>1.b. <span class="math-expr">-1.01011 &times; 2<sup>-6</sup></span></h4>
+            <p>A resposta do slide é <span class="highlight">1 01111001 01011000000000000000000</span>.</p>
+            <p><strong>Passo a passo:</strong></p>
+            <ol>
+                <li><strong>Sinal (S):</strong> O número é negativo, então <span class="math-expr">S = 1</span>.</li>
+                <li><strong>Expoente Real (E<sub>real</sub>):</strong> O expoente é <span class="math-expr">-6</span>.</li>
+                <li><strong>Expoente Armazenado (E<sub>armazenado</sub>):</strong> <span class="math-expr">-6 + 127 = 121<sub>10</sub></span>.
+                    <p>Convertendo <span class="math-expr">121<sub>10</sub></span> para binário de 8 bits: <span class="math-expr">01111001<sub>2</sub></span>.</p>
+                </li>
+                <li><strong>Mantissa (M):</strong> A parte fracionária de <span class="math-expr">1.01011</span> é <span class="math-expr">.01011</span>.
+                    <p>Completando com zeros para 23 bits: <span class="math-expr">01011000000000000000000<sub>2</sub></span>.</p>
+                </li>
+                <li><strong>Representação IEEE 754:</strong>
+                    <pre class="bit-representation">S         Expoente         Mantissa
+1 <span class="bit-group">01111001</span> <span class="bit-group">01011000000000000000000</span></pre>
+                </li>
+            </ol>
+        </div>
+
+        <div class="solution-box">
+            <h4>1.c. <span class="math-expr">+1.1110011001 &times; 2<sup>10</sup></span></h4>
+            <p><strong>Passo a passo:</strong></p>
+            <ol>
+                <li><strong>Sinal (S):</strong> O número é positivo, então <span class="math-expr">S = 0</span>.</li>
+                <li><strong>Expoente Real (E<sub>real</sub>):</strong> O expoente é <span class="math-expr">10</span>.</li>
+                <li><strong>Expoente Armazenado (E<sub>armazenado</sub>):</strong> <span class="math-expr">10 + 127 = 137<sub>10</sub></span>.
+                    <p>Convertendo <span class="math-expr">137<sub>10</sub></span> para binário de 8 bits: <span class="math-expr">10001001<sub>2</sub></span>.</p>
+                </li>
+                <li><strong>Mantissa (M):</strong> A parte fracionária de <span class="math-expr">1.1110011001</span> é <span class="math-expr">.1110011001</span>.
+                    <p>Completando com zeros para 23 bits: <span class="math-expr">11100110010000000000000<sub>2</sub></span>.</p>
+                </li>
+                <li><strong>Representação IEEE 754:</strong>
+                    <pre class="bit-representation">S         Expoente         Mantissa
+0 <span class="bit-group">10001001</span> <span class="bit-group">11100110010000000000000</span></pre>
+                </li>
+            </ol>
+        </div>
+
+        <div class="solution-box">
+            <h4>1.d. <span class="math-expr">-1.010101 &times; 2<sup>3</sup></span></h4>
+            <p><strong>Passo a passo:</strong></p>
+            <ol>
+                <li><strong>Sinal (S):</strong> O número é negativo, então <span class="math-expr">S = 1</span>.</li>
+                <li><strong>Expoente Real (E<sub>real</sub>):</strong> O expoente é <span class="math-expr">3</span>.</li>
+                <li><strong>Expoente Armazenado (E<sub>armazenado</sub>):</strong> <span class="math-expr">3 + 127 = 130<sub>10</sub></span>.
+                    <p>Convertendo <span class="math-expr">130<sub>10</sub></span> para binário de 8 bits: <span class="math-expr">10000010<sub>2</sub></span>.</p>
+                </li>
+                <li><strong>Mantissa (M):</strong> A parte fracionária de <span class="math-expr">1.010101</span> é <span class="math-expr">.010101</span>.
+                    <p>Completando com zeros para 23 bits: <span class="math-expr">01010100000000000000000<sub>2</sub></span>.</p>
+                </li>
+                <li><strong>Representação IEEE 754:</strong>
+                    <pre class="bit-representation">S         Expoente         Mantissa
+1 <span class="bit-group">10000010</span> <span class="bit-group">01010100000000000000000</span></pre>
+                </li>
+            </ol>
+        </div>
+
+        <div class="solution-box">
+            <h4>1.e. <span class="math-expr">+1.0000011 &times; 2<sup>-2</sup></span></h4>
+            <p><strong>Passo a passo:</strong></p>
+            <ol>
+                <li><strong>Sinal (S):</strong> O número é positivo, então <span class="math-expr">S = 0</span>.</li>
+                <li><strong>Expoente Real (E<sub>real</sub>):</strong> O expoente é <span class="math-expr">-2</span>.</li>
+                <li><strong>Expoente Armazenado (E<sub>armazenado</sub>):</strong> <span class="math-expr">-2 + 127 = 125<sub>10</sub></span>.
+                    <p>Convertendo <span class="math-expr">125<sub>10</sub></span> para binário de 8 bits: <span class="math-expr">01111101<sub>2</sub></span>.</p>
+                </li>
+                <li><strong>Mantissa (M):</strong> A parte fracionária de <span class="math-expr">1.0000011</span> é <span class="math-expr">.0000011</span>.
+                    <p>Completando com zeros para 23 bits: <span class="math-expr">00000110000000000000000<sub>2</sub></span>.</p>
+                </li>
+                <li><strong>Representação IEEE 754:</strong>
+                    <pre class="bit-representation">S         Expoente         Mantissa
+0 <span class="bit-group">01111101</span> <span class="bit-group">00000110000000000000000</span></pre>
+                </li>
+            </ol>
+        </div>
+
+        <div class="solution-box">
+            <h4>1.f. <span class="math-expr">-1.11010000011 &times; 2<sup>-3</sup></span></h4>
+            <p><strong>Passo a passo:</strong></p>
+            <ol>
+                <li><strong>Sinal (S):</strong> O número é negativo, então <span class="math-expr">S = 1</span>.</li>
+                <li><strong>Expoente Real (E<sub>real</sub>):</strong> O expoente é <span class="math-expr">-3</span>.</li>
+                <li><strong>Expoente Armazenado (E<sub>armazenado</sub>):</strong> <span class="math-expr">-3 + 127 = 124<sub>10</sub></span>.
+                    <p>Convertendo <span class="math-expr">124<sub>10</sub></span> para binário de 8 bits: <span class="math-expr">01111100<sub>2</sub></span>.</p>
+                </li>
+                <li><strong>Mantissa (M):</strong> A parte fracionária de <span class="math-expr">1.11010000011</span> é <span class="math-expr">.11010000011</span>.
+                    <p>Completando com zeros para 23 bits: <span class="math-expr">11010000011000000000000<sub>2</sub></span>.</p>
+                </li>
+                <li><strong>Representação IEEE 754:</strong>
+                    <pre class="bit-representation">S         Expoente         Mantissa
+1 <span class="bit-group">01111100</span> <span class="bit-group">11010000011000000000000</span></pre>
+                </li>
+            </ol>
+        </div>
+
+        <h2>Exercício 2: Qual o valor decimal de cada número do exercício anterior?</h2>
+        <p>Vamos converter as representações IEEE 754 de volta para seus valores decimais.</p>
+
+        <div class="solution-box">
+            <h4>2.a. <span class="math-expr">(+1.101 &times; 2<sup>5</sup>)<sub>2</sub> = (110100)<sub>2</sub> = (52)<sub>10</sub></span></h4>
+            <p>Esta resolução já foi apresentada no material. Vamos detalhá-la:</p>
+            <ol>
+                <li><strong>Número Binário Normalizado:</strong> <span class="math-expr">1.101 &times; 2<sup>5</sup></span>.</li>
+                <li><strong>Mover o Ponto Binário:</strong> O expoente real é <span class="math-expr">+5</span>, então movemos o ponto binário 5 posições para a direita:
+                    <p><span class="math-expr">1.101 &times; 2<sup>5</sup> &rightarrow; 110100.0<sub>2</sub></span></p>
+                </li>
+                <li><strong>Converter para Decimal:</strong>
+                    <p><span class="math-expr">110100<sub>2</sub> = 1&times;2<sup>5</sup> + 1&times;2<sup>4</sup> + 0&times;2<sup>3</sup> + 1&times;2<sup>2</sup> + 0&times;2<sup>1</sup> + 0&times;2<sup>0</sup></span></p>
+                    <p><span class="math-expr">= 32 + 16 + 0 + 4 + 0 + 0 = 52<sub>10</sub></span></p>
+                </li>
+            </ol>
+            <p>O número é positivo, então o valor decimal é <span class="highlight">+52<sub>10</sub></span>.</p>
+        </div>
+
+        <div class="solution-box">
+            <h4>2.b. <span class="math-expr">-1.01011 &times; 2<sup>-6</sup></span></h4>
+            <p>A representação IEEE 754 de 32 bits é <span class="math-expr">1 01111001 01011000000000000000000</span>.</p>
+            <ol>
+                <li><strong>Sinal (S):</strong> <span class="math-expr">S = 1</span>, então o número é negativo.</li>
+                <li><strong>Expoente Armazenado (E<sub>armazenado</sub>):</strong> <span class="math-expr">01111001<sub>2</sub> = 121<sub>10</sub></span>.</li>
+                <li><strong>Expoente Real (E<sub>real</sub>):</strong> <span class="math-expr">E<sub>real</sub> = 121 - 127 = -6</span>.</li>
+                <li><strong>Mantissa Normalizada:</strong> <span class="math-expr">1.01011<sub>2</sub></span>.</li>
+                <li><strong>Calcular o Valor:</strong> Multiplique <span class="math-expr">1.01011<sub>2</sub></span> por <span class="math-expr">2<sup>-6</sup></span>. Isso significa mover o ponto binário 6 posições para a esquerda.
+                    <p><span class="math-expr">1.01011 &times; 2<sup>-6</sup> &rightarrow; 0.00000101011<sub>2</sub></span></p>
+                </li>
+                <li><strong>Converter para Decimal:</strong>
+                    <p><span class="math-expr">0.00000101011<sub>2</sub> = 1&times;2<sup>-6</sup> + 0&times;2<sup>-7</sup> + 1&times;2<sup>-8</sup> + 0&times;2<sup>-9</sup> + 1&times;2<sup>-10</sup> + 1&times;2<sup>-11</sup></span></p>
+                    <p><span class="math-expr">= 0.015625 + 0.00390625 + 0.0009765625 + 0.00048828125</span></p>
+                    <p><span class="math-expr">= 0.02099609375<sub>10</sub></span></p>
+                </li>
+            </ol>
+            <p>Como o sinal é negativo, o valor decimal é <span class="highlight">-0.02099609375<sub>10</sub></span>.</p>
+        </div>
+
+        <div class="solution-box">
+            <h4>2.c. <span class="math-expr">+1.1110011001 &times; 2<sup>10</sup></span></h4>
+            <p>A representação IEEE 754 de 32 bits é <span class="math-expr">0 10001001 11100110010000000000000</span>.</p>
+            <ol>
+                <li><strong>Sinal (S):</strong> <span class="math-expr">S = 0</span>, então o número é positivo.</li>
+                <li><strong>Expoente Armazenado (E<sub>armazenado</sub>):</strong> <span class="math-expr">10001001<sub>2</sub> = 137<sub>10</sub></span>.</li>
+                <li><strong>Expoente Real (E<sub>real</sub>):</strong> <span class="math-expr">E<sub>real</sub> = 137 - 127 = 10</span>.</li>
+                <li><strong>Mantissa Normalizada:</strong> <span class="math-expr">1.1110011001<sub>2</sub></span>.</li>
+                <li><strong>Calcular o Valor:</strong> Multiplique <span class="math-expr">1.1110011001<sub>2</sub></span> por <span class="math-expr">2<sup>10</sup></span>. Isso significa mover o ponto binário 10 posições para a direita.
+                    <p><span class="math-expr">1.1110011001 &times; 2<sup>10</sup> &rightarrow; 11110011001.0<sub>2</sub></span></p>
+                </li>
+                <li><strong>Converter para Decimal:</strong>
+                    <p><span class="math-expr">11110011001<sub>2</sub> = 1&times;2<sup>10</sup> + 1&times;2<sup>9</sup> + 1&times;2<sup>8</sup> + 1&times;2<sup>7</sup> + 0&times;2<sup>6</sup> + 0&times;2<sup>5</sup> + 1&times;2<sup>4</sup> + 1&times;2<sup>3</sup> + 0&times;2<sup>2</sup> + 0&times;2<sup>1</sup> + 1&times;2<sup>0</sup></span></p>
+                    <p><span class="math-expr">= 1024 + 512 + 256 + 128 + 0 + 0 + 16 + 8 + 0 + 0 + 1</span></p>
+                    <p><span class="math-expr">= 1945<sub>10</sub></span></p>
+                </li>
+            </ol>
+            <p>O valor decimal é <span class="highlight">+1945<sub>10</sub></span>.</p>
+        </div>
+
+        <div class="solution-box">
+            <h4>2.d. <span class="math-expr">-1.010101 &times; 2<sup>3</sup></span></h4>
+            <p>A representação IEEE 754 de 32 bits é <span class="math-expr">1 10000010 01010100000000000000000</span>.</p>
+            <ol>
+                <li><strong>Sinal (S):</strong> <span class="math-expr">S = 1</span>, então o número é negativo.</li>
+                <li><strong>Expoente Armazenado (E<sub>armazenado</sub>):</strong> <span class="math-expr">10000010<sub>2</sub> = 130<sub>10</sub></span>.</li>
+                <li><strong>Expoente Real (E<sub>real</sub>):</strong> <span class="math-expr">E<sub>real</sub> = 130 - 127 = 3</span>.</li>
+                <li><strong>Mantissa Normalizada:</strong> <span class="math-expr">1.010101<sub>2</sub></span>.</li>
+                <li><strong>Calcular o Valor:</strong> Multiplique <span class="math-expr">1.010101<sub>2</sub></span> por <span class="math-expr">2<sup>3</sup></span>. Isso significa mover o ponto binário 3 posições para a direita.
+                    <p><span class="math-expr">1.010101 &times; 2<sup>3</sup> &rightarrow; 1010.101<sub>2</sub></span></p>
+                </li>
+                <li><strong>Converter para Decimal:</strong>
+                    <p><span class="math-expr">1010.101<sub>2</sub> = 1&times;2<sup>3</sup> + 0&times;2<sup>2</sup> + 1&times;2<sup>1</sup> + 0&times;2<sup>0</sup> + 1&times;2<sup>-1</sup> + 0&times;2<sup>-2</sup> + 1&times;2<sup>-3</sup></span></p>
+                    <p><span class="math-expr">= 8 + 0 + 2 + 0 + 0.5 + 0 + 0.125</span></p>
+                    <p><span class="math-expr">= 10.625<sub>10</sub></span></p>
+                </li>
+            </ol>
+            <p>Como o sinal é negativo, o valor decimal é <span class="highlight">-10.625<sub>10</sub></span>.</p>
+        </div>
+
+        <div class="solution-box">
+            <h4>2.e. <span class="math-expr">+1.0000011 &times; 2<sup>-2</sup></span></h4>
+            <p>A representação IEEE 754 de 32 bits é <span class="math-expr">0 01111101 00000110000000000000000</span>.</p>
+            <ol>
+                <li><strong>Sinal (S):</strong> <span class="math-expr">S = 0</span>, então o número é positivo.</li>
+                <li><strong>Expoente Armazenado (E<sub>armazenado</sub>):</strong> <span class="math-expr">01111101<sub>2</sub> = 125<sub>10</sub></span>.</li>
+                <li><strong>Expoente Real (E<sub>real</sub>):</strong> <span class="math-expr">E<sub>real</sub> = 125 - 127 = -2</span>.</li>
+                <li><strong>Mantissa Normalizada:</strong> <span class="math-expr">1.0000011<sub>2</sub></span>.</li>
+                <li><strong>Calcular o Valor:</strong> Multiplique <span class="math-expr">1.0000011<sub>2</sub></span> por <span class="math-expr">2<sup>-2</sup></span>. Isso significa mover o ponto binário 2 posições para a esquerda.
+                    <p><span class="math-expr">1.0000011 &times; 2<sup>-2</sup> &rightarrow; 0.010000011<sub>2</sub></span></p>
+                </li>
+                <li><strong>Converter para Decimal:</strong>
+                    <p><span class="math-expr">0.010000011<sub>2</sub> = 0&times;2<sup>-1</sup> + 1&times;2<sup>-2</sup> + 0&times;2<sup>-3</sup> + 0&times;2<sup>-4</sup> + 0&times;2<sup>-5</sup> + 0&times;2<sup>-6</sup> + 0&times;2<sup>-7</sup> + 1&times;2<sup>-8</sup> + 1&times;2<sup>-9</sup></span></p>
+                    <p><span class="math-expr">= 0.25 + 0.00390625 + 0.001953125</span></p>
+                    <p><span class="math-expr">= 0.255859375<sub>10</sub></span></p>
+                </li>
+            </ol>
+            <p>O valor decimal é <span class="highlight">+0.255859375<sub>10</sub></span>.</p>
+        </div>
+
+        <div class="solution-box">
+            <h4>2.f. <span class="math-expr">-1.11010000011 &times; 2<sup>-3</sup></span></h4>
+            <p>A representação IEEE 754 de 32 bits é <span class="math-expr">1 01111100 11010000011000000000000</span>.</p>
+            <ol>
+                <li><strong>Sinal (S):</strong> <span class="math-expr">S = 1</span>, então o número é negativo.</li>
+                <li><strong>Expoente Armazenado (E<sub>armazenado</sub>):</strong> <span class="math-expr">01111100<sub>2</sub> = 124<sub>10</sub></span>.</li>
+                <li><strong>Expoente Real (E<sub>real</sub>):</strong> <span class="math-expr">E<sub>real</sub> = 124 - 127 = -3</span>.</li>
+                <li><strong>Mantissa Normalizada:</strong> <span class="math-expr">1.11010000011<sub>2</sub></span>.</li>
+                <li><strong>Calcular o Valor:</strong> Multiplique <span class="math-expr">1.11010000011<sub>2</sub></span> por <span class="math-expr">2<sup>-3</sup></span>. Isso significa mover o ponto binário 3 posições para a esquerda.
+                    <p><span class="math-expr">1.11010000011 &times; 2<sup>-3</sup> &rightarrow; 0.00111010000011<sub>2</sub></span></p>
+                </li>
+                <li><strong>Converter para Decimal:</strong>
+                    <p><span class="math-expr">0.00111010000011<sub>2</sub> = 1&times;2<sup>-3</sup> + 1&times;2<sup>-4</sup> + 1&times;2<sup>-5</sup> + 0&times;2<sup>-6</sup> + 1&times;2<sup>-7</sup> + 0&times;2<sup>-8</sup> + 0&times;2<sup>-9</sup> + 0&times;2<sup>-10</sup> + 0&times;2<sup>-11</sup> + 0&times;2<sup>-12</sup> + 1&times;2<sup>-13</sup> + 1&times;2<sup>-14</sup></span></p>
+                    <p><span class="math-expr">= 0.125 + 0.0625 + 0.03125 + 0.0078125 + 0.0001220703125 + 0.00006103515625</span></p>
+                    <p><span class="math-expr">= 0.22674560546875<sub>10</sub></span></p>
+                </li>
+            </ol>
+            <p>Como o sinal é negativo, o valor decimal é <span class="highlight">-0.22674560546875<sub>10</sub></span>.</p>
+        </div>
+
+        <h2>Exercício 3: Pegue seu número de matrícula (RA) e coloque na notação de ponto flutuante com precisão simples.</h2>
+        <p>Este é um exercício personalizado. Para resolvê-lo, você deve seguir os passos gerais de conversão de um número decimal para o formato IEEE 754 de precisão simples, usando seu próprio número de matrícula (RA) como o valor decimal a ser convertido.</p>
+        <p><strong>Exemplo Genérico (Assumindo RA = 12345.67):</strong></p>
+        <ol>
+            <li><strong>Converter para Binário:</strong>
+                <ul>
+                    <li><span class="math-expr">12345<sub>10</sub> = 11000000111001<sub>2</sub></span></li>
+                    <li><span class="math-expr">0.67<sub>10</sub> &approx; 0.10101010000000101<sub>2</sub></span> (isso seria uma aproximação, pois a maioria das frações decimais não tem representação binária exata)</li>
+                    <li>Combinando: <span class="math-expr">11000000111001.10101010000000101<sub>2</sub></span></li>
+                </ul>
+            </li>
+            <li><strong>Normalizar:</strong>
+                <p>Mover o ponto 13 posições para a esquerda:</p>
+                <p><span class="math-expr">1.1000000111001101010100000000101 &times; 2<sup>13</sup></span></p>
+            </li>
+            <li><strong>Sinal (S):</strong> Positivo, então <span class="math-expr">S = 0</span>.</li>
+            <li><strong>Expoente Armazenado (E<sub>armazenado</sub>):</strong> <span class="math-expr">13 + 127 = 140<sub>10</sub> = 10001100<sub>2</sub></span>.</li>
+            <li><strong>Mantissa (M):</strong> Pegar os 23 bits após o '1' implícito:
+                <p><span class="math-expr">10000001110011010101000<sub>2</sub></span> (arredondando/truncando a partir do binário completo)</p>
+            </li>
+            <li><strong>Representação IEEE 754:</strong>
+                <pre class="bit-representation">S         Expoente         Mantissa
+0 <span class="bit-group">10001100</span> <span class="bit-group">10000001110011010101000</span></pre>
+            </li>
+        </ol>
+        <p>Você deve repetir esses passos com o seu número de matrícula.</p>
+
+        <h2>Novos Exercícios para Você Praticar:</h2>
+        <p>Para continuar aprimorando suas habilidades com a representação de ponto flutuante:</p>
+        <ol class="exercise-list">
+            <li>Converta o número decimal <span class="math-expr">-27.125<sub>10</sub></span> para o formato de ponto flutuante IEEE 754 de precisão simples (32 bits). Apresente o resultado em binário e hexadecimal.</li>
+            <li>Dado o número de ponto flutuante IEEE 754 de precisão simples <span class="math-expr">40C00000<sub>16</sub></span>, qual é o seu valor decimal?</li>
+            <li>Converta o número decimal <span class="math-expr">0.00000000011920928955078125<sub>10</sub></span> para o formato de ponto flutuante IEEE 754 de precisão simples.</li>
+            <li>Represente <span class="math-expr">+Infinito</span> e <span class="math-expr">-Infinito</span> no formato de precisão simples (32 bits).</li>
+            <li>Represente <span class="math-expr">NaN</span> (Not a Number) no formato de precisão simples (32 bits), escolhendo uma mantissa qualquer diferente de zero.</li>
+            <li>Qual o menor número positivo normalizado que pode ser representado em precisão simples? E o maior?</li>
+        </ol>
+        <p>Estes exercícios irão te ajudar a fixar os conceitos e técnicas abordadas, incluindo alguns casos especiais do padrão IEEE 754. Boa sorte!</p>
+    </div>
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análise de Casos Especiais em Ponto Flutuante IEEE 754</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1, h2, h3, h4 {
+            color: #0056b3;
+        }
+        pre {
+            background-color: #e9e9e9;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            white-space: pre-wrap; /* Para quebra de linha em pre */
+            word-wrap: break-word; /* Para quebra de linha em pre */
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+        ol {
+            list-style-type: decimal;
+            margin-left: 20px;
+        }
+        .math-expr {
+            font-family: 'Times New Roman', serif;
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+        .step {
+            margin-bottom: 15px;
+            padding-left: 10px;
+            border-left: 3px solid #007bff;
+        }
+        .highlight {
+            background-color: #e0ffe0;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .example-box {
+            border: 1px solid #ccc;
+            padding: 15px;
+            margin: 15px 0;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        .solution-box {
+            border: 1px solid #007bff;
+            padding: 15px;
+            margin: 15px 0;
+            background-color: #e6f2ff;
+            border-radius: 5px;
+        }
+        .exercise-list li {
+            margin-bottom: 10px;
+        }
+        .note {
+            background-color: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 10px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        .bit-representation {
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            white-space: pre; /* Garante que espaços e quebras de linha sejam respeitados */
+            overflow-x: auto;
+            display: block;
+            border: 1px solid #ccc;
+            padding: 5px;
+            background-color: #f0f0f0;
+            margin-top: 5px;
+        }
+        .bit-group {
+            display: inline-block;
+            margin-right: 5px; /* Espaço entre grupos de bits */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Análise de Casos Especiais em Ponto Flutuante IEEE 754</h1>
+        <p>Prof. Mario - 2025</p>
+
+        <p>A representação de ponto flutuante IEEE 754 não se limita apenas a números "normalizados" (aqueles que podem ser expressos na forma <span class="math-expr">1.M &times; 2<sup>E</sup></span>). O padrão também define como representar valores especiais como zero, infinito e "Not a Number" (NaN), além de números muito pequenos chamados "desnormalizados". Compreender esses casos é crucial para entender completamente como os computadores lidam com o espectro completo dos números reais.</p>
+
+        <h2>Tabela de Casos Especiais IEEE 754 (Precisão Simples)</h2>
+        <p>A tabela a seguir, obtida de Tanenbaum, resume as diferentes categorias de números de ponto flutuante e seus padrões de bits para precisão simples (32 bits):</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Tipo</th>
+                    <th>Sinal (±)</th>
+                    <th>Expoente (8 bits)</th>
+                    <th>Mantissa (23 bits)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Normalizado</td>
+                    <td>±</td>
+                    <td><span class="math-expr">0 &lt; Exp &lt; Max</span></td>
+                    <td>Qualquer padrão de bits</td>
+                </tr>
+                <tr>
+                    <td>Desnormalizado</td>
+                    <td>±</td>
+                    <td><span class="math-expr">00000000<sub>2</sub></span></td>
+                    <td>Qualquer padrão de bits não-zero</td>
+                </tr>
+                <tr>
+                    <td>Zero</td>
+                    <td>±</td>
+                    <td><span class="math-expr">00000000<sub>2</sub></span></td>
+                    <td><span class="math-expr">00000000000000000000000<sub>2</sub></span></td>
+                </tr>
+                <tr>
+                    <td>Infinito</td>
+                    <td>±</td>
+                    <td><span class="math-expr">11111111<sub>2</sub></span></td>
+                    <td><span class="math-expr">00000000000000000000000<sub>2</sub></span></td>
+                </tr>
+                <tr>
+                    <td>Não é um número (NaN)</td>
+                    <td>±</td>
+                    <td><span class="math-expr">11111111<sub>2</sub></span></td>
+                    <td>Qualquer padrão de bits não-zero</td>
+                </tr>
+            </tbody>
+        </table>
+        <p>Referência: Tanenbaum, Organização Estruturada de Computadores, 5ª ed, Pearson</p>
+
+        <h3>Explicação Detalhada de Cada Categoria:</h3>
+        <ol>
+            <li>
+                <h4>Normalizado:</h4>
+                <p>Estes são os números de ponto flutuante "regulares" que discutimos anteriormente. O expoente armazenado (<span class="math-expr">Exp</span>) está entre <span class="math-expr">1</span> (<span class="math-expr">00000001<sub>2</sub></span>) e <span class="math-expr">254</span> (<span class="math-expr">11111110<sub>2</sub></span>). A mantissa <span class="math-expr">M</span> pode ser qualquer valor. O valor é calculado como <span class="math-expr">(-1)<sup>S</sup> &times; 1.M &times; 2<sup>(Exp - 127)</sup></span>. O '1' antes do ponto é implícito.</p>
+            </li>
+            <li>
+                <h4>Desnormalizado (Denormalized):</h4>
+                <p>Esta categoria lida com números muito pequenos que não podem ser representados na forma normalizada. Para eles, o campo do expoente é <span class="math-expr">00000000<sub>2</sub></span> (que normalmente corresponderia a <span class="math-expr">Exp - 127 = -127</span>), mas a mantissa não é zero. A fórmula de cálculo para números desnormalizados é diferente:</p>
+                <p><span class="math-expr">Valor = (-1)<sup>S</sup> &times; 0.M &times; 2<sup>(-126)</sup></span></p>
+                <p>Note que o '1' implícito é substituído por um '0', e o expoente é fixado em <span class="math-expr">-126</span> (o menor expoente para um número normalizado). Isso permite uma transição suave para zero, um conceito conhecido como "gradual underflow", que ajuda a evitar erros de arredondamento abruptos.</p>
+            </li>
+            <li>
+                <h4>Zero:</h4>
+                <p>O número zero é um caso especial, pois não pode ser normalizado (não existe <span class="math-expr">1.M</span> que o represente). No IEEE 754, o zero é representado quando o campo do expoente é <span class="math-expr">00000000<sub>2</sub></span> E a mantissa é <span class="math-expr">00000000000000000000000<sub>2</sub></span>. O bit de sinal ainda é usado, permitindo a representação de <span class="math-expr">+0</span> (S=0) e <span class="math-expr">-0</span> (S=1). Embora matematicamente iguais, <span class="math-expr">+0</span> e <span class="math-expr">-0</span> podem ter implicações em certos cálculos, como limites.</p>
+            </li>
+            <li>
+                <h4>Infinito (Infinity):</h4>
+                <p>Representa valores que excedem a capacidade máxima de representação do formato. Isso ocorre, por exemplo, em uma divisão por zero (<span class="math-expr">1.0 / 0.0</span>). O infinito é representado quando o campo do expoente é <span class="math-expr">11111111<sub>2</sub></span> E a mantissa é <span class="math-expr">00000000000000000000000<sub>2</sub></span>. Novamente, o bit de sinal distingue <span class="math-expr">+Infinito</span> (S=0) de <span class="math-expr">-Infinito</span> (S=1).</p>
+            </li>
+            <li>
+                <h4>Não é um Número (NaN - Not a Number):</h4>
+                <p>Representa o resultado de operações matemáticas inválidas ou indefinidas (por exemplo, <span class="math-expr">0.0 / 0.0</span>, <span class="math-expr">Infinito - Infinito</span>, <span class="math-expr">sqrt(-1)</span>). O NaN é representado quando o campo do expoente é <span class="math-expr">11111111<sub>2</sub></span> E a mantissa é QUALQUER padrão de bits que NÃO SEJA ZERO. O bit de sinal é irrelevante para o NaN. Existem dois tipos principais de NaN: Quiet NaN (QNaN) e Signaling NaN (SNaN), diferenciados por um bit específico na mantissa, mas o padrão apenas indica "não-zero" para a mantissa.</p>
+            </li>
+        </ol>
+
+        <h2>Análise Detalhada do Item (g): <span class="math-expr">+2<sup>-128</sup></span></h2>
+        <p>A dúvida levantada no slide se refere ao item (g) de uma tabela anterior, onde <span class="math-expr">+2<sup>-128</sup></span> é representado como um número desnormalizado. Vamos entender por que isso acontece.</p>
+
+        <div class="example-box">
+            <h4>Exemplo: Representar <span class="math-expr">+1.0 &times; 2<sup>-128</sup></span> em IEEE 754 Precisão Simples</h4>
+            <p>O número é <span class="math-expr">1.0 &times; 2<sup>-128</sup></span>.</p>
+            <ol>
+                <li><strong>Expoente Real (<span class="math-expr">E<sub>real</sub></span>):</strong> O expoente é <span class="math-expr">-128</span>.</li>
+                <li><strong>Verificação de Normalização:</strong> O menor expoente real permitido para um número normalizado em precisão simples é <span class="math-expr">-126</span> (quando <span class="math-expr">Exp<sub>armazenado</sub> = 00000001<sub>2</sub> = 1<sub>10</sub></span>, então <span class="math-expr">1 - 127 = -126</span>). Como <span class="math-expr">-128</span> é menor que <span class="math-expr">-126</span>, este número não pode ser representado na forma normalizada. Ele deve ser um número desnormalizado.</li>
+                <li><strong>Conversão para Forma Desnormalizada:</strong>
+                    <p>Para um número desnormalizado, o expoente implícito é <span class="math-expr">-126</span>. Precisamos ajustar a mantissa para que o número total seja <span class="math-expr">1.0 &times; 2<sup>-128</sup></span>.</p>
+                    <p>Começamos com <span class="math-expr">1.0 &times; 2<sup>-128</sup></span>. Queremos a forma <span class="math-expr">0.M &times; 2<sup>-126</sup></span>.</p>
+                    <p>Para ir de <span class="math-expr">2<sup>-128</sup></span> para <span class="math-expr">2<sup>-126</sup></span>, precisamos multiplicar por <span class="math-expr">2<sup>2</sup></span>. Portanto, devemos dividir a parte significativa por <span class="math-expr">2<sup>2</sup></span> (ou mover o ponto 2 posições para a esquerda).</p>
+                    <p><span class="math-expr">1.0 &times; 2<sup>-128</sup> = 0.01 &times; 2<sup>-126</sup></span></p>
+                    <p>Aqui, o '1' implícito da normalização desaparece e a parte fracionária começa com zeros. A mantissa efetiva é <span class="math-expr">01000...0<sub>2</sub></span>.</p>
+                </li>
+                <li><strong>Bit de Sinal (S):</strong> O número é positivo, então <span class="math-expr">S = 0</span>.</li>
+                <li><strong>Campo do Expoente (E<sub>armazenado</sub>):</strong> Para números desnormalizados, o campo do expoente é sempre <span class="highlight">00000000<sub>2</sub></span>.</li>
+                <li><strong>Mantissa (M):</strong> A parte fracionária do número desnormalizado <span class="math-expr">0.01 &times; 2<sup>-126</sup></span> é <span class="math-expr">.01</span>.
+                    <p>Completando para 23 bits: <span class="math-expr">01000000000000000000000<sub>2</sub></span>.</p>
+                </li>
+                <li><strong>Representação IEEE 754 (Item g):</strong>
+                    <pre class="bit-representation">S         Expoente         Mantissa
+0 <span class="bit-group">00000000</span> <span class="bit-group">01000000000000000000000</span></pre>
+                </li>
+            </ol>
+            <p class="note">Essa sequência de oito zeros no campo do expoente (<span class="math-expr">00000000<sub>2</sub></span>) é a garantia de que o sistema entende que se trata de uma condição especial para um número muito pequeno não normalizado.</p>
+        </div>
+
+        <h2>Mais Exemplos com Números Desnormalizados</h2>
+
+        <div class="example-box">
+            <h4>Exemplo a): <span class="math-expr">+1.1010 &times; 2<sup>-128</sup></span></h4>
+            <ol>
+                <li><strong>Sinal (S):</strong> Positivo, <span class="math-expr">S = 0</span>.</li>
+                <li><strong>Expoente Real (<span class="math-expr">E<sub>real</sub></span>):</strong> <span class="math-expr">-128</span>. Como <span class="math-expr">-128 < -126</span>, é desnormalizado.</li>
+                <li><strong>Conversão para Forma Desnormalizada:</strong>
+                    <p>Precisamos que o expoente seja <span class="math-expr">-126</span>. De <span class="math-expr">2<sup>-128</sup></span> para <span class="math-expr">2<sup>-126</sup></span>, movemos o ponto 2 posições para a esquerda na parte significativa.</p>
+                    <p><span class="math-expr">1.1010 &times; 2<sup>-128</sup> = 0.011010 &times; 2<sup>-126</sup></span></p>
+                </li>
+                <li><strong>Campo do Expoente (E<sub>armazenado</sub>):</strong> Para desnormalizados, <span class="highlight">00000000<sub>2</sub></span>.</li>
+                <li><strong>Mantissa (M):</strong> A parte fracionária de <span class="math-expr">0.011010</span> é <span class="math-expr">.011010</span>.
+                    <p>Completando para 23 bits: <span class="math-expr">01101000000000000000000<sub>2</sub></span>.</p>
+                </li>
+                <li><strong>Representação IEEE 754:</strong>
+                    <pre class="bit-representation">S         Expoente         Mantissa
+0 <span class="bit-group">00000000</span> <span class="bit-group">01101000000000000000000</span></pre>
+                </li>
+            </ol>
+        </div>
+
+        <div class="example-box">
+            <h4>Exemplo b): <span class="math-expr">-1.11011 &times; 2<sup>-130</sup></span></h4>
+            <ol>
+                <li><strong>Sinal (S):</strong> Negativo, <span class="math-expr">S = 1</span>.</li>
+                <li><strong>Expoente Real (<span class="math-expr">E<sub>real</sub></span>):</strong> <span class="math-expr">-130</span>. Como <span class="math-expr">-130 < -126</span>, é desnormalizado.</li>
+                <li><strong>Conversão para Forma Desnormalizada:</strong>
+                    <p>Precisamos que o expoente seja <span class="math-expr">-126</span>. De <span class="math-expr">2<sup>-130</sup></span> para <span class="math-expr">2<sup>-126</sup></span>, movemos o ponto 4 posições para a esquerda na parte significativa.</p>
+                    <p><span class="math-expr">1.11011 &times; 2<sup>-130</sup> = 0.000111011 &times; 2<sup>-126</sup></span></p>
+                </li>
+                <li><strong>Campo do Expoente (E<sub>armazenado</sub>):</strong> Para desnormalizados, <span class="highlight">00000000<sub>2</sub></span>.</li>
+                <li><strong>Mantissa (M):</strong> A parte fracionária de <span class="math-expr">0.000111011</span> é <span class="math-expr">.000111011</span>.
+                    <p>Completando para 23 bits: <span class="math-expr">00011101100000000000000<sub>2</sub></span>.</p>
+                </li>
+                <li><strong>Representação IEEE 754:</strong>
+                    <pre class="bit-representation">S         Expoente         Mantissa
+1 <span class="bit-group">00000000</span> <span class="bit-group">00011101100000000000000</span></pre>
+                </li>
+            </ol>
+        </div>
+
+        <div class="example-box">
+            <h4>Comparação: <span class="math-expr">-1.11011 &times; 2<sup>-126</sup></span> (Número Normalizado)</h4>
+            <p>Este número tem o mesmo valor significativo que o exemplo anterior, mas um expoente diferente, que se encaixa na faixa normalizada.</p>
+            <ol>
+                <li><strong>Sinal (S):</strong> Negativo, <span class="math-expr">S = 1</span>.</li>
+                <li><strong>Expoente Real (<span class="math-expr">E<sub>real</sub></span>):</strong> <span class="math-expr">-126</span>. Este é o menor expoente real para números normalizados.</li>
+                <li><strong>Expoente Armazenado (E<sub>armazenado</sub>):</strong> <span class="math-expr">-126 + 127 = 1<sub>10</sub></span>.
+                    <p>Convertendo para binário de 8 bits: <span class="highlight">00000001<sub>2</sub></span>.</p>
+                </li>
+                <li><strong>Mantissa (M):</strong> A parte fracionária de <span class="math-expr">1.11011</span> é <span class="math-expr">.11011</span>.
+                    <p>Completando para 23 bits: <span class="math-expr">11011000000000000000000<sub>2</sub></span>.</p>
+                </li>
+                <li><strong>Representação IEEE 754:</strong>
+                    <pre class="bit-representation">S         Expoente         Mantissa
+1 <span class="bit-group">00000001</span> <span class="bit-group">11011000000000000000000</span></pre>
+                </li>
+            </ol>
+            <p>Observe que o campo do expoente é <span class="math-expr">00000001<sub>2</sub></span> (para um número normalizado) em contraste com <span class="math-expr">00000000<sub>2</sub></span> (para um número desnormalizado), mesmo que ambos os números representem valores muito pequenos.</p>
+        </div>
+
+        <h2>Novos Exercícios para Você Praticar:</h2>
+        <p>Para consolidar seu entendimento sobre os casos especiais do IEEE 754:</p>
+        <ol class="exercise-list">
+            <li>
+                <strong>Converta para IEEE 754 Precisão Simples (32 bits):</strong>
+                <ol type="a">
+                    <li><span class="math-expr">+0.0<sub>10</sub></span></li>
+                    <li><span class="math-expr">-0.0<sub>10</sub></span></li>
+                    <li><span class="math-expr">+1.0 &times; 2<sup>-140</sup></span> (Este será um número desnormalizado)</li>
+                    <li><span class="math-expr">-1.0 &times; 2<sup>-127</sup></span> (Este será um número desnormalizado)</li>
+                </ol>
+            </li>
+            <li>
+                <strong>Identifique o valor ou significado dos seguintes padrões de bits IEEE 754 Precisão Simples:</strong>
+                <ol type="a">
+                    <li><span class="math-expr">0 00000000 00000000000000000000000<sub>2</sub></span></li>
+                    <li><span class="math-expr">1 00000000 00000000000000000000000<sub>2</sub></span></li>
+                    <li><span class="math-expr">0 11111111 00000000000000000000000<sub>2</sub></span></li>
+                    <li><span class="math-expr">1 11111111 00000000000000000000000<sub>2</sub></span></li>
+                    <li><span class="math-expr">0 11111111 01010101010101010101010<sub>2</sub></span></li>
+                    <li><span class="math-expr">0 00000000 00000000000000000000001<sub>2</sub></span></li>
+                </ol>
+            </li>
+            <li>
+                <strong>Explique o conceito de "gradual underflow"</strong> e por que ele é considerado uma vantagem da representação de números desnormalizados no padrão IEEE 754.
+            </li>
+            <li>
+                <strong>Qual é o menor número positivo (não zero) que pode ser representado como um número desnormalizado</strong> em precisão simples? (Dica: pense na menor mantissa não-zero).
+            </li>
+        </ol>
+        <p>Estes exercícios irão te ajudar a aprofundar seu conhecimento sobre os detalhes e nuances da representação de ponto flutuante IEEE 754. Boa sorte!</p>
+    </div>
+</body>
+</html>

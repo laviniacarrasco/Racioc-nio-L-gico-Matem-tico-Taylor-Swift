@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumo Detalhado de Sistemas de Numeração e Aritmética</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1, h2, h3, h4 {
+            color: #0056b3;
+        }
+        pre {
+            background-color: #e9e9e9;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            white-space: pre-wrap; /* Para quebra de linha em pre */
+            word-wrap: break-word; /* Para quebra de linha em pre */
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+        ol {
+            list-style-type: decimal;
+            margin-left: 20px;
+        }
+        .math-expr {
+            font-family: 'Times New Roman', serif;
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+        .step {
+            margin-bottom: 15px;
+            padding-left: 10px;
+            border-left: 3px solid #007bff;
+        }
+        .highlight {
+            background-color: #e0ffe0;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .example-box {
+            border: 1px solid #ccc;
+            padding: 15px;
+            margin: 15px 0;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        .solution-box {
+            border: 1px solid #007bff;
+            padding: 15px;
+            margin: 15px 0;
+            background-color: #e6f2ff;
+            border-radius: 5px;
+        }
+        .exercise-list li {
+            margin-bottom: 10px;
+        }
+        .note {
+            background-color: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 10px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        .bit-representation {
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            white-space: pre; /* Garante que espaços e quebras de linha sejam respeitados */
+            overflow-x: auto;
+            display: block;
+            border: 1px solid #ccc;
+            padding: 5px;
+            background-color: #f0f0f0;
+            margin-top: 5px;
+        }
+        .bit-group {
+            display: inline-block;
+            margin-right: 5px; /* Espaço entre grupos de bits */
+        }
+        /* MathJax specific styling */
+        .MathJax_Display {
+            text-align: center;
+            margin: 1em 0;
+        }
+    </style>
+    <!-- Incluindo MathJax para renderizar as equações LaTeX -->
+    <script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [['$$','$$'], ['\\(','\\)']],
+                displayMath: [['$$$$','$$$$'], ['\\[','\\]']]
+            },
+            "HTML-CSS": { availableFonts: ["TeX"] }
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Resumo Detalhado de Sistemas de Numeração e Aritmética</h1>
+
+        <h2>Sistemas de Numeração e Conversão entre Bases</h2>
+
+        <h3>1. Representação de um Número Qualquer</h3>
+        <p>Um número $$N$$ em uma base $$b$$ é representado pela soma de cada dígito multiplicado pela potência da base correspondente à sua posição:</p>
+        $$ (N)_b = A_n \times b^n + A_{n-1} \times b^{n-1} + \dots + A_1 \times b^1 + A_0 \times b^0 $$
+        <p>Para números com parte fracionária, a representação se estende a potências negativas:</p>
+        $$ (N)_b = \dots + A_1 \times b^1 + A_0 \times b^0 + A_{-1} \times b^{-1} + A_{-2} \times b^{-2} + \dots $$
+
+        <div class="example-box">
+            <h4>Exemplos Detalhados:</h4>
+            <ul>
+                <li><strong>Exemplo em Decimal:</strong> $$ (1234)_{10} $$</li>
+                $$ (1234)_{10} = 1 \times 10^3 + 2 \times 10^2 + 3 \times 10^1 + 4 \times 10^0 $$
+                $$ = 1000 + 200 + 30 + 4 = 1234 $$
+                <li><strong>Exemplo com parte fracionária:</strong> $$ 1234.567_{10} $$</li>
+                $$ 1 \times 10^3 + 2 \times 10^2 + 3 \times 10^1 + 4 \times 10^0 + 5 \times 10^{-1} + 6 \times 10^{-2} + 7 \times 10^{-3} $$
+                $$ = 1000 + 200 + 30 + 4 + 0.5 + 0.06 + 0.007 $$
+            </ul>
+        </div>
+
+        <h3>2. Tabela de Representações (DEC, HEX, OCT, BIN)</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>DECIMAL</th>
+                    <th>HEXA</th>
+                    <th>OCTAL</th>
+                    <th>BINÁRIO</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>0</td><td>0</td><td>0</td><td>0000</td></tr>
+                <tr><td>...</td><td>...</td><td>...</td><td>...</td></tr>
+                <tr><td>10</td><td>A</td><td>12</td><td>1010</td></tr>
+                <tr><td>15</td><td>F</td><td>17</td><td>1111</td></tr>
+                <tr><td>16</td><td>10</td><td>20</td><td>10000</td></tr>
+            </tbody>
+        </table>
+
+        <h3>3. Conversão entre Bases</h3>
+
+        <h4>3.1. Conversão de uma Base $$b$$ para a Base Decimal</h4>
+        <p>Multiplique cada dígito pela potência da base correspondente à sua posição e some os resultados.</p>
+
+        <div class="example-box">
+            <h4>Exemplos Detalhados:</h4>
+            <ul>
+                <li><strong>Converter $$ (10110111)_2 $$ para a base 10:</strong></li>
+                $$ (N)_{10} = 1 \times 2^7 + 0 \times 2^6 + 1 \times 2^5 + 1 \times 2^4 + 0 \times 2^3 + 1 \times 2^2 + 1 \times 2^1 + 1 \times 2^0 $$
+                $$ = 128 + 0 + 32 + 16 + 0 + 4 + 2 + 1 $$
+                $$ = (183)_{10} $$
+                <li><strong>Converter $$ (667)_8 $$ para a base 10:</strong></li>
+                $$ (N)_{10} = 6 \times 8^2 + 6 \times 8^1 + 7 \times 8^0 $$
+                $$ = 6 \times 64 + 6 \times 8 + 7 \times 1 $$
+                $$ = 384 + 48 + 7 $$
+                $$ = (439)_{10} $$
+                <li><strong>Converter $$ (5F2A)_{16} $$ para a base 10:</strong> (Lembre-se: F=15, A=10 em decimal)</li>
+                $$ (N)_{10} = 5 \times 16^3 + F \times 16^2 + 2 \times 16^1 + A \times 16^0 $$
+                $$ = 5 \times 16^3 + 15 \times 16^2 + 2 \times 16^1 + 10 \times 16^0 $$
+                $$ = 5 \times 4096 + 15 \times 256 + 2 \times 16 + 10 \times 1 $$
+                $$ = 20480 + 3840 + 32 + 10 $$
+                $$ = (24362)_{10} $$
+            </ul>
+        </div>
+
+        <h4>3.2. Conversão da Base Decimal para uma Base $$b$$</h4>
+
+        <h5>Regra 1: Divisões Sucessivas (Para a Parte Inteira)</h5>
+        <p>Divida o número decimal pela base desejada, registre o resto, e use o quociente para a próxima divisão, até que o quociente seja 0. O número na nova base é formado pelos restos lidos de baixo para cima.</p>
+
+        <div class="example-box">
+            <h4>Exemplos Detalhados:</h4>
+            <ul>
+                <li><strong>Converter $$ 439_{10} $$ para a base 2:</strong></li>
+                <pre>
+439 &divide; 2 = 219  Resto 1
+219 &divide; 2 = 109  Resto 1
+109 &divide; 2 = 54   Resto 1
+54  &divide; 2 = 27   Resto 0
+27  &divide; 2 = 13   Resto 1
+13  &divide; 2 = 6    Resto 1
+6   &divide; 2 = 3    Resto 0
+3   &divide; 2 = 1    Resto 1
+1   &divide; 2 = 0    Resto 1
+                </pre>
+                <p>Lendo os restos de baixo para cima: $$ (439)_{10} = (110110111)_2 $$</p>
+                <li><strong>Exercício Resolvido: Converter $$ 722_{10} $$ para binário:</strong></li>
+                <pre>
+722 &divide; 2 = 361  Resto 0
+361 &divide; 2 = 180  Resto 1
+180 &divide; 2 = 90   Resto 0
+90  &divide; 2 = 45   Resto 0
+45  &divide; 2 = 22   Resto 1
+22  &divide; 2 = 11   Resto 0
+11  &divide; 2 = 5    Resto 1
+5   &divide; 2 = 2    Resto 1
+2   &divide; 2 = 1    Resto 0
+1   &divide; 2 = 0    Resto 1
+                </pre>
+                <p>Lendo os restos de baixo para cima: <span class="highlight">$$ (722)_{10} = (1011010010)_2 $$</span></p>
+            </ul>
+        </div>
+
+        <h5>Regra 2: Decomposição do Número (Para a Parte Inteira)</h5>
+        <p>Subtraia sucessivamente a maior potência de 2 que cabe no número. Se couber, o bit é 1; caso contrário, é 0.</p>
+
+        <div class="example-box">
+            <h4>Exemplo Detalhado:</h4>
+            <ul>
+                <li><strong>Converter $$ 179_{10} $$ para binário pela Regra 2:</strong></li>
+                <p>Potências de 2: ..., 256, 128, 64, 32, 16, 8, 4, 2, 1</p>
+                <pre>
+Número: 179
+
+2<sup>7</sup> (128): 179 - 128 = 51   -> Bit 2<sup>7</sup> é 1
+2<sup>6</sup> (64):  51 < 64          -> Bit 2<sup>6</sup> é 0
+2<sup>5</sup> (32):  51 - 32 = 19   -> Bit 2<sup>5</sup> é 1
+2<sup>4</sup> (16):  19 - 16 = 3    -> Bit 2<sup>4</sup> é 1
+2<sup>3</sup> (8):   3 < 8            -> Bit 2<sup>3</sup> é 0
+2<sup>2</sup> (4):   3 < 4            -> Bit 2<sup>2</sup> é 0
+2<sup>1</sup> (2):   3 - 2 = 1    -> Bit 2<sup>1</sup> é 1
+2<sup>0</sup> (1):   1 - 1 = 0    -> Bit 2<sup>0</sup> é 1
+                </pre>
+                <p>Resultado: <span class="highlight">$$ (179)_{10} = (10110011)_2 $$</span></p>
+            </ul>
+        </div>
+
+        <h5>Conversão de Parte Fracionária</h5>
+
+        <h6>Regra 1 (para a Parte Fracionária): Multiplicações Sucessivas</h6>
+        <p>Multiplique a parte fracionária por 2. A parte inteira do resultado é o próximo bit binário. Use a nova parte fracionária para a próxima multiplicação. Repita até a parte fracionária ser 0 ou atingir a precisão desejada.</p>
+
+        <div class="example-box">
+            <h4>Exemplo Detalhado:</h4>
+            <ul>
+                <li><strong>Converter $$ 4.375_{10} $$ para a base 2:</strong></li>
+                <ul>
+                    <li><strong>Parte Inteira ($$ 4_{10} $$):</strong></li>
+                    <pre>
+4 &divide; 2 = 2  Resto 0
+2 &divide; 2 = 1  Resto 0
+1 &divide; 2 = 0  Resto 1
+                    </pre>
+                    <p>Parte inteira em binário: $$ (100)_2 $$</p>
+                    <li><strong>Parte Fracionária ($$ 0.375_{10} $$):</strong></li>
+                    <pre>
+0.375 &times; 2 = 0.75  -> Parte Inteira = 0
+0.75  &times; 2 = 1.5   -> Parte Inteira = 1
+0.5   &times; 2 = 1.0   -> Parte Inteira = 1
+                    </pre>
+                    <p>Parte fracionária em binário: $$ (0.011)_2 $$</p>
+                </ul>
+                <p>Combinando: <span class="highlight">$$ (4.375)_{10} = (100.011)_2 $$</span></p>
+            </ul>
+        </div>
+
+        <h6>Regra 2 (para a Parte Fracionária): Decomposição por Subtração de Potências Negativas de 2</h6>
+        <p>Subtraia sucessivamente as maiores potências negativas de 2 que cabem no valor restante. Se uma potência couber, o bit é 1; caso contrário, é 0.</p>
+        <p>Potências negativas de 2: $$ 2^{-1} = 0.5 $$, $$ 2^{-2} = 0.25 $$, $$ 2^{-3} = 0.125 $$, etc.</p>
+
+        <div class="example-box">
+            <h4>Exemplos Detalhados:</h4>
+            <ul>
+                <li><strong>Converter $$ 22.125_{10} $$ para binário pela Regra 2:</strong></li>
+                <ul>
+                    <li><strong>Parte Inteira ($$ 22_{10} $$):</strong> (Usando decomposição de potências de 2)</li>
+                    <pre>
+Potências de 2 (inteiras): ..., 32, 16, 8, 4, 2, 1
+
+22
+2<sup>4</sup> (16):  22 - 16 = 6    -> Bit 2<sup>4</sup> é 1
+2<sup>3</sup> (8):   6 < 8            -> Bit 2<sup>3</sup> é 0
+2<sup>2</sup> (4):   6 - 4 = 2    -> Bit 2<sup>2</sup> é 1
+2<sup>1</sup> (2):   2 - 2 = 0    -> Bit 2<sup>1</sup> é 1
+2<sup>0</sup> (1):   0 < 1            -> Bit 2<sup>0</sup> é 0
+                    </pre>
+                    <p>Parte inteira em binário: $$ (10110)_2 $$</p>
+                    <li><strong>Parte Fracionária ($$ 0.125_{10} $$):</strong></li>
+                    <pre>
+Número: 0.125
+
+2<sup>-1</sup> (0.5):   0.125 < 0.5   -> Bit 2<sup>-1</sup> é 0
+2<sup>-2</sup> (0.25):  0.125 < 0.25  -> Bit 2<sup>-2</sup> é 0
+2<sup>-3</sup> (0.125): 0.125 - 0.125 = 0   -> Bit 2<sup>-3</sup> é 1
+                    </pre>
+                    <p>Parte fracionária em binário: $$ (0.001)_2 $$</p>
+                </ul>
+                <p>Combinando: <span class="highlight">$$ (22.125)_{10} = (10110.001)_2 $$</span></p>
+                <li><strong>Converter $$ 22.8125_{10} $$ para binário pela Regra 2:</strong></li>
+                <ul>
+                    <li><strong>Parte Inteira ($$ 22_{10} $$):</strong> Já sabemos que é $$ (10110)_2 $$</li>
+                    <li><strong>Parte Fracionária ($$ 0.8125_{10} $$):</strong></li>
+                    <pre>
+Número: 0.8125
+
+2<sup>-1</sup> (0.5):   0.8125 - 0.5 = 0.3125   -> Bit 2<sup>-1</sup> é 1
+2<sup>-2</sup> (0.25):  0.3125 - 0.25 = 0.0625  -> Bit 2<sup>-2</sup> é 1
+2<sup>-3</sup> (0.125): 0.0625 < 0.125   -> Bit 2<sup>-3</sup> é 0
+2<sup>-4</sup> (0.0625): 0.0625 - 0.0625 = 0   -> Bit 2<sup>-4</sup> é 1
+                    </pre>
+                    <p>Parte fracionária em binário: $$ (0.1101)_2 $$</p>
+                </ul>
+                <p>Combinando: <span class="highlight">$$ (22.8125)_{10} = (10110.1101)_2 $$</span></p>
+            </ul>
+        </div>
+
+        <div class="solution-box">
+            <h4>Exercício Resolvido: Converter $$ 0.123_{10} $$ para binário pela Regra 2, parando no 10º bit:</h4>
+            <ol>
+                <li class="step"><strong>Número inicial:</strong> $$ 0.123 $$</li>
+                <li class="step">$$ 0.123 < 0.5 (2^{-1}) \rightarrow $$ Bit $$ 2^{-1} $$ é $$ 0 $$ (Restante: $$ 0.123 $$)</li>
+                <li class="step">$$ 0.123 < 0.25 (2^{-2}) \rightarrow $$ Bit $$ 2^{-2} $$ é $$ 0 $$ (Restante: $$ 0.123 $$)</li>
+                <li class="step">$$ 0.123 < 0.125 (2^{-3}) \rightarrow $$ Bit $$ 2^{-3} $$ é $$ 0 $$ (Restante: $$ 0.123 $$)</li>
+                <li class="step">$$ 0.123 - 0.0625 (2^{-4}) = 0.0605 \rightarrow $$ Bit $$ 2^{-4} $$ é $$ 1 $$ (Restante: $$ 0.0605 $$)</li>
+                <li class="step">$$ 0.0605 - 0.03125 (2^{-5}) = 0.02925 \rightarrow $$ Bit $$ 2^{-5} $$ é $$ 1 $$ (Restante: $$ 0.02925 $$)</li>
+                <li class="step">$$ 0.02925 - 0.015625 (2^{-6}) = 0.013625 \rightarrow $$ Bit $$ 2^{-6} $$ é $$ 1 $$ (Restante: $$ 0.013625 $$)</li>
+                <li class="step">$$ 0.013625 - 0.0078125 (2^{-7}) = 0.0058125 \rightarrow $$ Bit $$ 2^{-7} $$ é $$ 1 $$ (Restante: $$ 0.0058125 $$)</li>
+                <li class="step">$$ 0.0058125 - 0.00390625 (2^{-8}) = 0.00190625 \rightarrow $$ Bit $$ 2^{-8} $$ é $$ 1 $$ (Restante: $$ 0.00190625 $$)</li>
+                <li class="step">$$ 0.00190625 < 0.001953125 (2^{-9}) \rightarrow $$ Bit $$ 2^{-9} $$ é $$ 0 $$ (Restante: $$ 0.00190625 $$)</li>
+                <li class="step">$$ 0.00190625 - 0.0009765625 (2^{-10}) = 0.0009296875 \rightarrow $$ Bit $$ 2^{-10} $$ é $$ 1 $$ (Restante: $$ 0.0009296875 $$)</li>
+            </ol>
+            <p>Resultado (10 bits): <span class="highlight">$$ 0.0001111101_2 $$</span></p>
+        </div>
+
+        <h4>3.3. Conversão Direta de Binário para Hexadecimal (e vice-versa)</h4>
+        <p>Agrupe os bits de 4 em 4 (da direita para a esquerda para a parte inteira, da esquerda para a direita para a parte fracionária) e converta cada grupo para o dígito hexadecimal equivalente. Para octal, agrupe de 3 em 3 bits.</p>
+
+        <div class="example-box">
+            <h4>Exemplos Detalhados:</h4>
+            <ul>
+                <li><strong>Converter $$ (110110111)_2 $$ para a base 16:</strong></li>
+                <pre>
+1   1011   0111
+0001  1011   0111  (Adicionamos dois zeros à esquerda para o primeiro grupo)
+                </pre>
+                <ul>
+                    <li>$$ 0001_2 = 1_{16} $$</li>
+                    <li>$$ 1011_2 = B_{16} $$</li>
+                    <li>$$ 0111_2 = 7_{16} $$</li>
+                </ul>
+                <p>Resultado: <span class="highlight">$$ (110110111)_2 = (1B7)_{16} $$</span></p>
+                <li><strong>Converter $$ (101001111011011)_2 $$ para a base 16:</strong></li>
+                <pre>
+101   0011   1101   1011
+0101  0011   1101   1011  (Adicionamos um zero à esquerda para o primeiro grupo)
+                </pre>
+                <ul>
+                    <li>$$ 0101_2 = 5_{16} $$</li>
+                    <li>$$ 0011_2 = 3_{16} $$</li>
+                    <li>$$ 1101_2 = D_{16} $$</li>
+                    <li>$$ 1011_2 = B_{16} $$</li>
+                </ul>
+                <p>Resultado: <span class="highlight">$$ (101001111011011)_2 = (53DB)_{16} $$</span></p>
+                <li><strong>Converter $$ (A2C6)_{16} $$ para a base 2:</strong></li>
+                <ul>
+                    <li>$$ A_{16} = 1010_2 $$</li>
+                    <li>$$ 2_{16} = 0010_2 $$</li>
+                    <li>$$ C_{16} = 1100_2 $$</li>
+                    <li>$$ 6_{16} = 0110_2 $$</li>
+                </ul>
+                <p>Resultado: <span class="highlight">$$ (A2C6)_{16} = (1010001011000110)_2 $$</span></p>
+            </ul>
+        </div>
+
+        <h2>Números com Sinais e Operações Aritméticas</h2>
+
+        <h3>1. Representação Sinal-Magnitude</h3>
+        <p>O bit mais significativo (MSB) indica o sinal (0 para positivo, 1 para negativo). Os bits restantes representam a magnitude.</p>
+
+        <div class="example-box">
+            <h4>Exemplos Detalhados:</h4>
+            <ul>
+                <li>Usando 8 bits:</li>
+                $$ +18_{10} = 00010010_2 $$ (MSB 0, magnitude $$ 0010010_2 = 18_{10} $$)
+                $$ -18_{10} = 10010010_2 $$ (MSB 1, magnitude $$ 0010010_2 = 18_{10} $$)
+                <li>Expansão de bits (de 8 para 16 bits):</li>
+                $$ +18_{10} = 00010010_2 \rightarrow 0000000000010010_2 $$ (MSB para nova posição, preenche com zeros no meio).
+                $$ -18_{10} = 10010010_2 \rightarrow 1000000000010010_2 $$ (MSB para nova posição, preenche com zeros no meio).
+            </ul>
+        </div>
+
+        <h3>2. Complemento de Dois (Two's Complement)</h3>
+        <p>Representação mais usada. O MSB indica o sinal (0 para positivo, 1 para negativo), mas faz parte do valor. Para negar um número, inverta todos os bits e some 1.</p>
+
+        <div class="example-box">
+            <h4>Exemplos Detalhados:</h4>
+            <ul>
+                <li><strong>Converter $$ +2_{10} $$ para $$ -2_{10} $$ usando 8 bits:</strong></li>
+                <ol>
+                    <li>$$ +2_{10} = 00000010_2 $$</li>
+                    <li>Inverter bits: $$ 11111101_2 $$ (Complemento de Um)</li>
+                    <li>Somar 1: $$ 11111101_2 + 1_2 = 11111110_2 $$</li>
+                </ol>
+                <p>Resultado: $$ -2_{10} = 11111110_2 $$</p>
+            </ul>
+        </div>
+
+        <div class="solution-box">
+            <h4>Exercício Resolvido: Converter $$ -53_{10} $$ para binário usando 8 bits:</h4>
+            <ol>
+                <li>$$ +53_{10} $$ em binário (8 bits): $$ 00110101_2 $$ ($$ 32+16+4+1 $$)</li>
+                <li>Inverter bits: $$ 11001010_2 $$</li>
+                <li>Somar 1: $$ 11001010_2 + 1_2 = 11001011_2 $$</li>
+            </ol>
+            <p>Resultado: <span class="highlight">$$ -53_{10} = 11001011_2 $$</span></p>
+        </div>
+
+        <div class="example-box">
+            <h4>Exemplos Detalhados (continuação):</h4>
+            <ul>
+                <li><strong>Obtenção de $$ -18_{10} $$ a partir de $$ +18_{10} $$ (8 bits):</strong></li>
+                <ol>
+                    <li>$$ +18_{10} = 00010010_2 $$</li>
+                    <li>Inverter bits: $$ 11101101_2 $$</li>
+                    <li>Somar 1: $$ 11101101_2 + 1_2 = 11101110_2 $$</li>
+                </ol>
+                <p>Resultado: $$ -18_{10} = 11101110_2 $$</p>
+                <li><strong>Obtenção de $$ +18_{10} $$ a partir de $$ -18_{10} $$ (8 bits):</strong></li>
+                <ol>
+                    <li>$$ -18_{10} = 11101110_2 $$</li>
+                    <li>Inverter bits: $$ 00010001_2 $$</li>
+                    <li>Somar 1: $$ 00010001_2 + 1_2 = 00010010_2 $$</li>
+                </ol>
+                <p>Resultado: $$ +18_{10} = 00010010_2 $$</p>
+                <li><strong>Prova: Soma de $$ +18_{10} $$ com $$ -18_{10} $$ deve resultar em zero:</strong></li>
+                <pre>
+  0001 0010  (+18)
++ 1110 1110  (-18)
+-----------
+(1)0000 0000
+                </pre>
+                <p>O carry-out (o 1 à esquerda) é descartado, resultando em $$ 00000000_2 = 0_{10} $$.</p>
+            </ul>
+        </div>
+
+        <h3>3. Aritmética com Inteiros</h3>
+
+        <h4>3.1. Adição Binária</h4>
+        <p>Regras: $$ 0+0=0 $$, $$ 0+1=1 $$, $$ 1+0=1 $$, $$ 1+1=0 $$ (com carry de 1).</p>
+
+        <div class="example-box">
+            <h4>Exemplos Detalhados:</h4>
+            <ul>
+                <li><strong>$$ 0110_2 (+6) + 0101_2 (+5) $$:</strong></li>
+                <pre>
+  0110
++ 0101
+------
+  1011 (+11)
+                </pre>
+                <li><strong>$$ 1110_2 (+14, ou -2 em C2 4-bits) + 0101_2 (+5) $$:</strong></li>
+                <pre>
+  1110  (ou -2)
++ 0101  (+5)
+------
+(1)0011 (+3)
+                </pre>
+                <p>O carry-out é descartado em Complemento de Dois. O resultado $$ 0011_2 $$ é $$ +3_{10} $$.</p>
+            </ul>
+        </div>
+
+        <h4>3.2. Subtração em Binário Sem Sinal (usando Complemento de Dois do subtraendo)</h4>
+        <p>Para $$ A - B $$: some $$ A $$ com o Complemento de Dois de $$ B $$ ($$ A + (-B) $$).
+        Se houver carry-out (1): o resultado é positivo, descarte o carry.
+        Se não houver carry-out (0): o resultado é negativo, e o valor é o Complemento de Dois do resultado obtido.</p>
+
+        <div class="example-box">
+            <h4>Exemplos Detalhados:</h4>
+            <ul>
+                <li><strong>Exemplo 1: Subtração de $$ 17 - 7 = 10 $$ (usando 5 bits)</strong></li>
+                <ul>
+                    <li>$$ 17_{10} = 10001_2 $$ (Minuendo)</li>
+                    <li>$$ 7_{10} = 00111_2 $$ (Subtraendo)</li>
+                </ul>
+                <ol>
+                    <li>Complemento de Um de $$ 00111_2 $$: $$ 11000_2 $$</li>
+                    <li>Complemento de Dois de $$ 00111_2 $$: $$ 11000_2 + 1_2 = 11001_2 $$</li>
+                    <li>Somar minuendo com C2 do subtraendo:</li>
+                    <pre>
+  10001  (+17)
++ 11001  (-7 em C2)
+-------
+(1)01010
+                    </pre>
+                    <li>Carry-out é 1: resultado positivo, descarte o carry.</li>
+                </ol>
+                <p>Resultado: $$ 01010_2 = 10_{10} $$</p>
+                <li><strong>Exemplo 2: Subtração de $$ 7 - 17 = -10 $$ (usando 5 bits)</strong></li>
+                <ul>
+                    <li>$$ 7_{10} = 00111_2 $$ (Minuendo)</li>
+                    <li>$$ 17_{10} = 10001_2 $$ (Subtraendo)</li>
+                </ul>
+                <ol>
+                    <li>Complemento de Um de $$ 10001_2 $$: $$ 01110_2 $$</li>
+                    <li>Complemento de Dois de $$ 10001_2 $$: $$ 01110_2 + 1_2 = 01111_2 $$</li>
+                    <li>Somar minuendo com C2 do subtraendo:</li>
+                    <pre>
+  00111  (+7)
++ 01111  (-17 em C2)
+-------
+  10110
+                    </pre>
+                    <li>Carry-out é 0: resultado negativo. Para obter a magnitude, calcule o C2 de $$ 10110_2 $$.</li>
+                    <ul>
+                        <li>Inverter bits de $$ 10110_2 $$: $$ 01001_2 $$</li>
+                        <li>Somar 1: $$ 01001_2 + 1_2 = 01010_2 $$</li>
+                        <li>$$ 01010_2 = 10_{10} $$</li>
+                    </ul>
+                </ol>
+                <p>Resultado: $$ -10_{10} $$</p>
+            </ul>
+        </div>
+
+        <h4>3.3. Subtração em Binário usando Complemento de Dois (para números com sinal)</h4>
+        <p>Mesma lógica que a anterior: $$ A - B = A + (-B) $$, onde $$ -B $$ é o Complemento de Dois de $$ B $$.</p>
+
+        <div class="solution-box">
+            <h4>Exercícios Resolvidos Detalhados:</h4>
+            <ul>
+                <li><strong>Exercício 1: $$ 10100010_2 - 10001001_2 $$ (8 bits C2)</strong></li>
+                <ul>
+                    <li>Minuendo $$ A = 10100010_2 $$</li>
+                    <li>Subtraendo $$ B = 10001001_2 $$</li>
+                </ul>
+                <ol>
+                    <li>Obter C2 de $$ B $$ ($$ 10001001_2 $$):</li>
+                    <ul>
+                        <li>C1: $$ 01110110_2 $$</li>
+                        <li>C2: $$ 01110110_2 + 1_2 = 01110111_2 $$ (Este é $$ -B $$)</li>
+                    </ul>
+                    <li>Somar $$ A $$ com C2 de $$ B $$:</li>
+                    <pre>
+  10100010  (A)
++ 01110111  (-B)
+----------
+(1)00011001
+                    </pre>
+                    <li>Carry-out: 1 (descartado). Resultado positivo.</li>
+                </ol>
+                <p>Resultado: <span class="highlight">$$ 00011001_2 $$ ($$ +25_{10} $$)</span></p>
+                <li><strong>Exercício 2: $$ 10001001_2 - 10100010_2 $$ (8 bits C2)</strong></li>
+                <ul>
+                    <li>Minuendo $$ A = 10001001_2 $$</li>
+                    <li>Subtraendo $$ B = 10100010_2 $$</li>
+                </ul>
+                <ol>
+                    <li>Obter C2 de $$ B $$ ($$ 10100010_2 $$):</li>
+                    <ul>
+                        <li>C1: $$ 01011101_2 $$</li>
+                        <li>C2: $$ 01011101_2 + 1_2 = 01011110_2 $$ (Este é $$ -B $$)</li>
+                    </ul>
+                    <li>Somar $$ A $$ com C2 de $$ B $$:</li>
+                    <pre>
+  10001001  (A)
++ 01011110  (-B)
+----------
+  11100111
+                    </pre>
+                    <li>Carry-out: 0. Resultado negativo. Para obter a magnitude, calcule o C2 de $$ 11100111_2 $$.</li>
+                    <ul>
+                        <li>C1: $$ 00011000_2 $$</li>
+                        <li>C2: $$ 00011000_2 + 1_2 = 00011001_2 $$ ($$ 25_{10} $$)</li>
+                    </ul>
+                </ol>
+                <p>Resultado: <span class="highlight">$$ -25_{10} $$</span></p>
+            </ul>
+        </div>
+
+        <h4>3.4. Complemento de 10 (Ten's Complement)</h4>
+        <p>Análogo ao Complemento de Dois para decimais. Para $$ A - B $$:</p>
+        <ol>
+            <li>Calcule o Complemento de 9 de $$ B $$ (subtraindo cada dígito de 9).</li>
+            <li>Some 1 para obter o Complemento de 10 de $$ B $$.</li>
+            <li>Some $$ A $$ com o Complemento de 10 de $$ B $$.</li>
+            <li>Se houver carry-out (1): o resultado é positivo, descarte o carry.</li>
+            <li>Se não houver carry-out (0): o resultado é negativo, e o valor é o Complemento de 10 do resultado obtido.</li>
+        </ol>
+
+        <div class="example-box">
+            <h4>Exemplo Detalhado:</h4>
+            <ul>
+                <li><strong>Subtração $$ 12345 - 09753 $$:</strong></li>
+                <ol>
+                    <li>C9 de $$ 09753 $$ (com 5 dígitos para alinhar com $$ 12345 $$):</li>
+                    <pre>
+  99999
+- 09753
+-------
+  90246
+                    </pre>
+                    <li>C10 de $$ 09753 $$: $$ 90246 + 1 = 90247 $$</li>
+                    <li>Somar minuendo com C10 do subtraendo:</li>
+                    <pre>
+  12345
++ 90247
+-------
+(1)02592
+                    </pre>
+                    <li>Carry-out é 1: resultado positivo, descarte o carry.</li>
+                </ol>
+                <p>Resultado: $$ 02592_{10} = 2592_{10} $$</p>
+            </ul>
+        </div>
+
+        <h4>3.5. Aritmética em Hexadecimal</h4>
+        <p>Soma e subtração funcionam como em decimal, mas com base 16. Dígitos A-F representam 10-15.</p>
+
+        <div class="example-box">
+            <h4>Exemplos Detalhados:</h4>
+            <ul>
+                <li><strong>Soma $$ 1F2_{16} + 0D8_{16} $$:</strong></li>
+                <ol>
+                    <li>Unidades: $$ 2 + 8 = 10_{10} = A_{16} $$</li>
+                    <li>16^1: $$ F + D = 15_{10} + 13_{10} = 28_{10} $$. $$ 28_{10} - 16 = 12_{10} = C_{16} $$. Carry de 1.</li>
+                    <li>16^2: $$ 1 + 0 + (\text{carry } 1) = 2_{10} = 2_{16} $$</li>
+                </ol>
+                <p>Resultado: $$ 2CA_{16} $$</p>
+            </ul>
+        </div>
+
+        <div class="solution-box">
+            <h4>Exercício Resolvido: Soma $$ 1A4D_{16} + C26_{16} $$:</h4>
+            <ol>
+                <li>Unidades: $$ D + 6 = 13_{10} + 6_{10} = 19_{10} $$. $$ 19_{10} - 16 = 3_{10} = 3_{16} $$. Carry de 1.</li>
+                <li>16^1: $$ 4 + 2 + (\text{carry } 1) = 7_{10} = 7_{16} $$</li>
+                <li>16^2: $$ A + C = 10_{10} + 12_{10} = 22_{10} $$. $$ 22_{10} - 16 = 6_{10} = 6_{16} $$. Carry de 1.</li>
+                <li>16^3: $$ 1 + 0 + (\text{carry } 1) = 2_{10} = 2_{16} $$</li>
+            </ol>
+            <p>Resultado: <span class="highlight">$$ 2673_{16} $$</span></p>
+        </div>
+
+        <div class="example-box">
+            <h4>Exemplos Detalhados (Subtração Hexadecimal):</h4>
+            <ul>
+                <li><strong>Subtração $$ 9A6_{16} - 038_{16} $$:</strong></li>
+                <ol>
+                    <li>Unidades: $$ 6 - 8 $$. Empresta 1 de $$ A $$ ($$ 16_{10} $$). $$ A $$ vira $$ 9 $$. $$ 6 $$ vira $$ 16+6 = 22_{10} $$. $$ 22_{10} - 8_{10} = 14_{10} = E_{16} $$.</li>
+                    <li>16^1: $$ 9 - 3 = 6_{10} = 6_{16} $$</li>
+                    <li>16^2: $$ 9 - 0 = 9_{10} = 9_{16} $$</li>
+                </ol>
+                <p>Resultado: $$ 96E_{16} $$</p>
+            </ul>
+        </div>
+
+        <div class="solution-box">
+            <h4>Exercício Resolvido: Subtração $$ 1A4D_{16} - C26_{16} $$:</h4>
+            <ol>
+                <li>Unidades: $$ D - 6 = 13_{10} - 6_{10} = 7_{10} = 7_{16} $$</li>
+                <li>16^1: $$ 4 - 2 = 2_{10} = 2_{16} $$</li>
+                <li>16^2: $$ A - C = 10_{10} - 12_{10} $$. Empresta 1 de $$ 1 $$ ($$ 16_{10} $$). $$ 1 $$ vira $$ 0 $$. $$ A $$ vira $$ 16+10 = 26_{10} $$. $$ 26_{10} - 12_{10} = 14_{10} = E_{16} $$.</li>
+                <li>16^3: $$ 0 - 0 = 0_{10} = 0_{16} $$</li>
+            </ol>
+            <p>Resultado: <span class="highlight">$$ E27_{16} $$</span></p>
+        </div>
+
+        <h2>Representação em Ponto Flutuante (IEEE 754)</h2>
+
+        <h3>1. Estrutura Geral (Precisão Simples - 32 bits)</h3>
+        <p>Um número é representado como:</p>
+        $$ (-1)^S \times 1.M \times 2^{(E - Bias)} $$
+        <ul>
+            <li><strong>S (Sinal):</strong> 1 bit (0=positivo, 1=negativo)</li>
+            <li><strong>E (Expoente):</strong> 8 bits, em "excesso de 127" (Bias). Expoente real = $$ E_{armazenado} - 127 $$</li>
+            <li><strong>M (Mantissa/Fração):</strong> 23 bits. A parte fracionária do número normalizado $$ 1.M $$. O '1' antes do ponto é implícito e não é armazenado.</li>
+        </ul>
+
+        <h3>2. Conversão de Decimal para Ponto Flutuante IEEE 754</h3>
+
+        <div class="example-box">
+            <h4>Exemplos Detalhados:</h4>
+            <ul>
+                <li><strong>Converter $$ 432_{10} $$ para IEEE 754 precisão simples:</strong></li>
+                <ol>
+                    <li><strong>Converter para binário e normalizar:</strong>
+                        $$ 432_{10} = 110110000_2 $$
+                        Normalizando (mover ponto 8 posições à esquerda): $$ 1.10110000 \times 2^8 $$
+                    </li>
+                    <li><strong>Sinal (S):</strong> $$ 432 $$ é positivo $$ \rightarrow S = 0 $$</li>
+                    <li><strong>Expoente (E):</strong> Expoente real é $$ 8 $$. Expoente armazenado $$ = 8 + 127 = 135_{10} = 10000111_2 $$</li>
+                    <li><strong>Mantissa (M):</strong> Parte fracionária de $$ 1.10110000 $$ é $$.10110000$$. Completar para 23 bits: $$ 10110000000000000000000_2 $$</li>
+                    <li><strong>Montar (S | E | M):</strong> <span class="highlight">$$ 0 \ 10000111 \ 10110000000000000000000_2 $$</span></li>
+                    <li><strong>Em Hexadecimal:</strong> Agrupar de 4 em 4: $$ 0100 \ 0011 \ 1101 \ 1000 \ 0000 \ 0000 \ 0000 \ 0000_2 = 43D80000_{16} $$</li>
+                </ol>
+                <li><strong>Converter $$ 1.5_{10} $$ para IEEE 754 precisão simples:</strong></li>
+                <ol>
+                    <li><strong>Converter para binário e normalizar:</strong>
+                        $$ 1.5_{10} = 1.1_2 $$
+                        Normalizando (ponto já está na posição): $$ 1.1 \times 2^0 $$
+                    </li>
+                    <li><strong>Sinal (S):</strong> $$ 1.5 $$ é positivo $$ \rightarrow S = 0 $$</li>
+                    <li><strong>Expoente (E):</strong> Expoente real é $$ 0 $$. Expoente armazenado $$ = 0 + 127 = 127_{10} = 01111111_2 $$</li>
+                    <li><strong>Mantissa (M):</strong> Parte fracionária de $$ 1.1 $$ é $$.1$$. Completar para 23 bits: $$ 10000000000000000000000_2 $$</li>
+                    <li><strong>Montar (S | E | M):</strong> <span class="highlight">$$ 0 \ 01111111 \ 10000000000000000000000_2 $$</span></li>
+                    <li><strong>Em Hexadecimal:</strong> $$ 0011 \ 1111 \ 1100 \ 0000 \ 0000 \ 0000 \ 0000 \ 0000_2 = 3FC00000_{16} $$</li>
+                </ol>
+                <li><strong>Converter $$ -3.75_{10} $$ para IEEE 754 precisão simples:</strong></li>
+                <ol>
+                    <li><strong>Converter magnitude para binário e normalizar:</strong>
+                        $$ 3.75_{10} = 11.11_2 $$
+                        Normalizando (mover ponto 1 posição à esquerda): $$ 1.111 \times 2^1 $$
+                    </li>
+                    <li><strong>Sinal (S):</strong> Número é negativo $$ \rightarrow S = 1 $$</li>
+                    <li><strong>Expoente (E):</strong> Expoente real é $$ 1 $$. Expoente armazenado $$ = 1 + 127 = 128_{10} = 10000000_2 $$</li>
+                    <li><strong>Mantissa (M):</strong> Parte fracionária de $$ 1.111 $$ é $$.111$$. Completar para 23 bits: $$ 11100000000000000000000_2 $$</li>
+                    <li><strong>Montar (S | E | M):</strong> <span class="highlight">$$ 1 \ 10000000 \ 11100000000000000000000_2 $$</span></li>
+                    <li><strong>Em Hexadecimal:</strong> $$ 1100 \ 0000 \ 0111 \ 0000 \ 0000 \ 0000 \ 0000 \ 0000_2 = C0700000_{16} $$</li>
+                </ol>
+                <li><strong>Converter $$ -118.625_{10} $$ para IEEE 754 precisão simples:</strong></li>
+                <ol>
+                    <li><strong>Converter magnitude para binário e normalizar:</strong>
+                        $$ 118.625_{10} = 1110110.101_2 $$
+                        Normalizando (mover ponto 6 posições à esquerda): $$ 1.110110101 \times 2^6 $$
+                    </li>
+                    <li><strong>Sinal (S):</strong> Número é negativo $$ \rightarrow S = 1 $$</li>
+                    <li><strong>Expoente (E):</strong> Expoente real é $$ 6 $$. Expoente armazenado $$ = 6 + 127 = 133_{10} = 10000101_2 $$</li>
+                    <li><strong>Mantissa (M):</strong> Parte fracionária de $$ 1.110110101 $$ é $$.110110101$$. Completar para 23 bits: $$ 11011010100000000000000_2 $$</li>
+                    <li><strong>Montar (S | E | M):</strong> <span class="highlight">$$ 1 \ 10000101 \ 11011010100000000000000_2 $$</span></li>
+                    <li><strong>Em Hexadecimal:</strong> $$ 1100 \ 0010 \ 1110 \ 1101 \ 0100 \ 0000 \ 0000 \ 0000_2 = C2ED4000_{16} $$</li>
+                </ol>
+            </ul>
+        </div>
+
+        <h3>3. Conversão de IEEE 754 para Decimal</h3>
+
+        <div class="example-box">
+            <h4>Exemplos Detalhados:</h4>
+            <ul>
+                <li><strong>Converter $$ (+1.101 \times 2^5)_2 $$ para decimal:</strong></li>
+                <ol>
+                    <li>Número binário normalizado: $$ 1.101 \times 2^5 $$</li>
+                    <li>Mover o ponto binário 5 posições para a direita (expoente $$ +5 $$): $$ 110100.0_2 $$</li>
+                    <li>Converter para decimal: $$ 1 \times 2^5 + 1 \times 2^4 + 0 \times 2^3 + 1 \times 2^2 + 0 \times 2^1 + 0 \times 2^0 $$
+                        $$ = 32 + 16 + 0 + 4 + 0 + 0 = 52_{10} $$
+                    </li>
+                </ol>
+                <p>Resultado: <span class="highlight">$$ +52_{10} $$</span></p>
+                <li><strong>Converter $$ (-1.01011 \times 2^{-6})_2 $$ para decimal:</strong></li>
+                <ol>
+                    <li>Representação IEEE 754: $$ 1 \ 01111001 \ 01011000000000000000000_2 $$</li>
+                    <li>Sinal (S): $$ 1 \rightarrow $$ Negativo.</li>
+                    <li>Expoente Armazenado (E): $$ 01111001_2 = 121_{10} $$.</li>
+                    <li>Expoente Real (E_real): $$ 121 - 127 = -6 $$.</li>
+                    <li>Mantissa Normalizada: $$ 1.01011_2 $$</li>
+                    <li>Calcular valor: $$ 1.01011 \times 2^{-6} $$. Mover ponto 6 posições à esquerda: $$ 0.00000101011_2 $$</li>
+                    <li>Converter para decimal: $$ 1 \times 2^{-6} + 1 \times 2^{-8} + 1 \times 2^{-10} + 1 \times 2^{-11} $$
+                        $$ = 0.015625 + 0.00390625 + 0.0009765625 + 0.00048828125 $$
+                        $$ = 0.02099609375_{10} $$
+                    </li>
+                </ol>
+                <p>Resultado: <span class="highlight">$$ -0.02099609375_{10} $$</span></p>
+                <li><strong>Converter $$ (+1.1110011001 \times 2^{10})_2 $$ para decimal:</strong></li>
+                <ol>
+                    <li>Representação IEEE 754: $$ 0 \ 10001001 \ 11100110010000000000000_2 $$</li>
+                    <li>Sinal (S): $$ 0 \rightarrow $$ Positivo.</li>
+                    <li>Expoente Armazenado (E): $$ 10001001_2 = 137_{10} $$.</li>
+                    <li>Expoente Real (E_real): $$ 137 - 127 = 10 $$.</li>
+                    <li>Mantissa Normalizada: $$ 1.1110011001_2 $$</li>
+                    <li>Calcular valor: $$ 1.1110011001 \times 2^{10} $$. Mover ponto 10 posições à direita: $$ 11110011001.0_2 $$</li>
+                    <li>Converter para decimal: $$ 1 \times 2^{10} + 1 \times 2^9 + 1 \times 2^8 + 1 \times 2^7 + 1 \times 2^4 + 1 \times 2^3 + 1 \times 2^0 $$
+                        $$ = 1024 + 512 + 256 + 128 + 16 + 8 + 1 = 1945_{10} $$
+                    </li>
+                </ol>
+                <p>Resultado: <span class="highlight">$$ +1945_{10} $$</span></p>
+                <li><strong>Converter $$ (-1.010101 \times 2^3)_2 $$ para decimal:</strong></li>
+                <ol>
+                    <li>Representação IEEE 754: $$ 1 \ 10000010 \ 01010100000000000000000_2 $$</li>
+                    <li>Sinal (S): $$ 1 \rightarrow $$ Negativo.</li>
+                    <li>Expoente Armazenado (E): $$ 10000010_2 = 130_{10} $$.</li>
+                    <li>Expoente Real (E_real): $$ 130 - 127 = 3 $$.</li>
+                    <li>Mantissa Normalizada: $$ 1.010101_2 $$</li>
+                    <li>Calcular valor: $$ 1.010101 \times 2^3 $$. Mover ponto 3 posições à direita: $$ 1010.101_2 $$</li>
+                    <li>Converter para decimal: $$ 1 \times 2^3 + 1 \times 2^1 + 1 \times 2^{-1} + 1 \times 2^{-3} $$
+                        $$ = 8 + 2 + 0.5 + 0.125 = 10.625_{10} $$
+                    </li>
+                </ol>
+                <p>Resultado: <span class="highlight">$$ -10.625_{10} $$</span></p>
+                <li><strong>Converter $$ (+1.0000011 \times 2^{-2})_2 $$ para decimal:</strong></li>
+                <ol>
+                    <li>Representação IEEE 754: $$ 0 \ 01111101 \ 00000110000000000000000_2 $$</li>
+                    <li>Sinal (S): $$ 0 \rightarrow $$ Positivo.</li>
+                    <li>Expoente Armazenado (E): $$ 01111101_2 = 125_{10} $$.</li>
+                    <li>Expoente Real (E_real): $$ 125 - 127 = -2 $$.</li>
+                    <li>Mantissa Normalizada: $$ 1.0000011_2 $$</li>
+                    <li>Calcular valor: $$ 1.0000011 \times 2^{-2} $$. Mover ponto 2 posições à esquerda: $$ 0.010000011_2 $$</li>
+                    <li>Converter para decimal: $$ 1 \times 2^{-2} + 1 \times 2^{-8} + 1 \times 2^{-9} $$
+                        $$ = 0.25 + 0.00390625 + 0.001953125 = 0.255859375_{10} $$
+                    </li>
+                </ol>
+                <p>Resultado: <span class="highlight">$$ +0.255859375_{10} $$</span></p>
+                <li><strong>Converter $$ (-1.11010000011 \times 2^{-3})_2 $$ para decimal:</strong></li>
+                <ol>
+                    <li>Representação IEEE 754: $$ 1 \ 01111100 \ 11010000011000000000000_2 $$</li>
+                    <li>Sinal (S): $$ 1 \rightarrow $$ Negativo.</li>
+                    <li>Expoente Armazenado (E): $$ 01111100_2 = 124_{10} $$.</li>
+                    <li>Expoente Real (E_real): $$ 124 - 127 = -3 $$.</li>
+                    <li>Mantissa Normalizada: $$ 1.11010000011_2 $$</li>
+                    <li>Calcular valor: $$ 1.11010000011 \times 2^{-3} $$. Mover ponto 3 posições à esquerda: $$ 0.00111010000011_2 $$</li>
+                    <li>Converter para decimal: $$ 1 \times 2^{-3} + 1 \times 2^{-4} + 1 \times 2^{-5} + 1 \times 2^{-7} + 1 \times 2^{-13} + 1 \times 2^{-14} $$
+                        $$ = 0.125 + 0.0625 + 0.03125 + 0.0078125 + 0.0001220703125 + 0.00006103515625 $$
+                        $$ = 0.22674560546875_{10} $$
+                    </li>
+                </ol>
+                <p>Resultado: <span class="highlight">$$ -0.22674560546875_{10} $$</span></p>
+            </ul>
+        </div>
+
+        <h3>4. Casos Especiais em Ponto Flutuante IEEE 754 (Precisão Simples)</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Tipo</th>
+                    <th>Sinal (S)</th>
+                    <th>Expoente (8 bits)</th>
+                    <th>Mantissa (23 bits)</th>
+                    <th>Valor / Fórmula</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Normalizado</strong></td>
+                    <td>$$ \pm $$</td>
+                    <td>$$ 0 < E < 255 $$</td>
+                    <td>Qualquer padrão de bits</td>
+                    <td>$$ (-1)^S \times 1.M \times 2^{(E - 127)} $$</td>
+                </tr>
+                <tr>
+                    <td><strong>Desnormalizado</strong></td>
+                    <td>$$ \pm $$</td>
+                    <td>$$ 00000000_2 $$</td>
+                    <td>Não-zero</td>
+                    <td>$$ (-1)^S \times 0.M \times 2^{(-126)} $$</td>
+                </tr>
+                <tr>
+                    <td><strong>Zero</strong></td>
+                    <td>$$ \pm $$</td>
+                    <td>$$ 00000000_2 $$</td>
+                    <td>$$ 000\dots0_2 $$</td>
+                    <td>$$ \pm 0 $$</td>
+                </tr>
+                <tr>
+                    <td><strong>Infinito</strong></td>
+                    <td>$$ \pm $$</td>
+                    <td>$$ 11111111_2 $$</td>
+                    <td>$$ 000\dots0_2 $$</td>
+                    <td>$$ \pm \infty $$</td>
+                </tr>
+                <tr>
+                    <td><strong>NaN</strong></td>
+                    <td>$$ \pm $$</td>
+                    <td>$$ 11111111_2 $$</td>
+                    <td>Não-zero</td>
+                    <td>Not a Number</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="example-box">
+            <h4>Análise Detalhada de $$ +2^{-128} $$ (Desnormalizado):</h4>
+            <ul>
+                <li><strong>Representar $$ +1.0 \times 2^{-128} $$ em IEEE 754 Precisão Simples:</strong></li>
+                <ol>
+                    <li><strong>Expoente Real:</strong> $$ -128 $$.</li>
+                    <li><strong>Verificação:</strong> Como $$ -128 $$ é menor que o menor expoente real normalizado ($$ -126 $$), este número é desnormalizado.</li>
+                    <li><strong>Conversão para Forma Desnormalizada:</strong>
+                        <p>Queremos a forma $$ 0.M \times 2^{-126} $$.</p>
+                        <p>Começamos com $$ 1.0 \times 2^{-128} $$. Para mudar $$ 2^{-128} $$ para $$ 2^{-126} $$, precisamos "multiplicar" por $$ 2^2 $$, o que significa dividir a mantissa por $$ 2^2 $$ (mover o ponto 2 casas para a esquerda).</p>
+                        $$ 1.0 \times 2^{-128} = 0.01 \times 2^{-126} $$
+                    </li>
+                    <li><strong>Sinal (S):</strong> Positivo $$ \rightarrow S = 0 $$</li>
+                    <li><strong>Expoente Armazenado (E):</strong> Para desnormalizados, <span class="highlight">$$ 00000000_2 $$</span></li>
+                    <li><strong>Mantissa (M):</strong> Parte fracionária de $$ 0.01 $$ é $$.01$$. Completar para 23 bits: $$ 01000000000000000000000_2 $$</li>
+                    <li><strong>Montar (S | E | M):</strong> <span class="highlight">$$ 0 \ 00000000 \ 01000000000000000000000_2 $$</span></li>
+                </ol>
+            </ul>
+        </div>
+
+    </div>
+</body>
+</html>

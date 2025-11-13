@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Os Superpoderes dos Teoremas da Álgebra Booleana! 🕵️‍♀️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #e0f7fa; /* Azul clarinho */
+            color: #333;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            width: 100%;
+            max-width: 950px;
+            background-color: #ffffff;
+            padding: 30px 40px;
+            border-radius: 25px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            border: 3px solid #00bcd4; /* Ciano vibrante */
+        }
+        h1 {
+            font-family: 'Comic Neue', cursive;
+            color: #00796b; /* Verde-azulado escuro */
+            text-align: center;
+            font-size: 3em;
+            margin-bottom: 30px;
+            border-bottom: 4px solid #0097a7;
+            padding-bottom: 18px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        h2 {
+            font-family: 'Comic Neue', cursive;
+            color: #d32f2f; /* Vermelho forte */
+            font-size: 2.4em;
+            margin-top: 40px;
+            border-left: 10px solid #ef5350;
+            padding-left: 18px;
+            background-color: #ffebee; /* Fundo rosa claro */
+            border-radius: 12px;
+            padding-top: 8px;
+            padding-bottom: 8px;
+            box-shadow: 2px 2px 8px rgba(0,0,0,0.05);
+        }
+        h2 .math-title {
+            font-size: 0.8em;
+            color: #880e4f; /* Vinho */
+            margin-left: 10px;
+        }
+        h3 {
+            font-family: 'Comic Neue', cursive;
+            color: #43a047; /* Verde vibrante */
+            font-size: 1.9em;
+            margin-top: 30px;
+            border-bottom: 2px dashed #a5d6a7;
+            padding-bottom: 12px;
+        }
+        h4 {
+            font-family: 'Poppins', sans-serif;
+            color: #1976d2; /* Azul escuro */
+            font-size: 1.4em;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            border-left: 5px solid #2196f3;
+            padding-left: 10px;
+        }
+        p {
+            margin-bottom: 15px;
+            font-size: 1.15em;
+            color: #424242;
+        }
+        ul {
+            list-style-type: none;
+            padding-left: 25px;
+        }
+        ul li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 35px;
+            font-size: 1.1em;
+            color: #555;
+        }
+        ul li::before {
+            content: '✨'; /* Emoji de brilho */
+            position: absolute;
+            left: 0;
+            color: #ffeb3b; /* Amarelo */
+        }
+        strong {
+            color: #ff5722; /* Laranja avermelhado */
+            font-weight: 700;
+        }
+        .highlight {
+            background-color: #fff9c4; /* Amarelo muito claro */
+            padding: 2px 6px;
+            border-radius: 6px;
+            box-shadow: 1px 1px 3px rgba(0,0,0,0.05);
+        }
+        .code-block {
+            background-color: #e3f2fd; /* Azul bebê */
+            border-left: 6px solid #2196f3; /* Azul */
+            padding: 18px;
+            margin: 25px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1em;
+            border-radius: 10px;
+            overflow-x: auto;
+            color: #3f51b5; /* Azul índigo */
+            box-shadow: inset 0 0 8px rgba(0,0,0,0.05);
+        }
+        .emoji {
+            font-size: 1.2em;
+            margin-right: 8px;
+        }
+        .math {
+            font-family: 'Times New Roman', serif;
+            font-style: italic;
+            font-size: 1.3em;
+            background-color: #fce4ec; /* Rosa muito claro */
+            padding: 2px 7px;
+            border-radius: 5px;
+            color: #ad1457; /* Vinho escuro */
+            white-space: nowrap; /* Para evitar quebras de linha em expressões */
+            display: inline-block; /* Garante que o padding funcione bem */
+            line-height: 1.5; /* Ajusta a altura da linha para o MathJax */
+        }
+        .theorem-intro {
+            background-color: #e8f5e9; /* Verde pálido */
+            border-left: 8px solid #66bb6a;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            color: #388e3c;
+            font-size: 1.1em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🕵️‍♀️ Os Superpoderes dos Teoremas da Álgebra Booleana! 🧠</h1>
+
+        <p>Olá, futuro detetive da lógica! Prepare-se para desvendar os segredos da Álgebra Booleana. Cada "teorema" é como uma regra mágica que nos ajuda a simplificar problemas complexos, como se estivéssemos organizando um monte de brinquedos para deixar tudo mais fácil de entender e usar!</p>
+        <p class="theorem-intro">Lembre-se: o símbolo <span class="math">$$+$$</span> significa "OU", o símbolo <span class="math">$$*$$</span> (ou nada entre as letras) significa "E", e o símbolo <span class="math">$$\overline{A}$$</span> (ou <span class="math">$$~A$$</span>) significa "NÃO" ou "O OPOSTO DE"!</p>
+
+        <h2>1. Teorema da Identidade <span class="math-title">($$A + A = A$$ e $$A * A = A$$)</span></h2>
+        <h3>🤔 Como funciona:</h3>
+        <p>Se você tem uma coisa e depois "OU" tem a mesma coisa de novo, ou "E" tem a mesma coisa de novo, você ainda tem aquela mesma coisa. Ela não se multiplica nem some! É como se fosse a identidade da coisa.</p>
+        <h4>💡 Exemplo Fácil:</h4>
+        <ul>
+            <li><span class="emoji">🍦</span> Se você tem um sorvete <span class="math">$$+$$</span> outro sorvete igual, você ainda tem um sorvete. (<span class="math">$$Sorvete + Sorvete = Sorvete$$</span>)</li>
+            <li><span class="emoji">⚽</span> Se você tem uma bola <span class="math">$$*$$</span> outra bola igual, você ainda tem uma bola. (<span class="math">$$Bola * Bola = Bola$$</span>)</li>
+        </ul>
+        <h4>🚀 Exemplo Médio:</h4>
+        <ul>
+            <li><span class="emoji">💡</span> Para saber se "a luz está acesa <span class="math">$$+$$</span> a luz está acesa", basta verificar se "a luz está acesa". (<span class="math">$$Luz + Luz = Luz$$</span>)</li>
+            <li><span class="emoji">✏️</span> Para que seja verdade que "você tem um lápis <span class="math">$$*$$</span> você tem um lápis", basta que "você tenha um lápis". (<span class="math">$$Lapis * Lapis = Lapis$$</span>)</li>
+        </ul>
+        <h4>⚡ Exemplo Difícil:</h4>
+        <ul>
+            <li><span class="emoji">🔌</span> Em um circuito eletrônico, se um sinal elétrico <span class="math">$$A$$</span> (que pode ser LIGADO ou DESLIGADO) é combinado com ele mesmo por uma porta "OU" ou "E", o resultado é o próprio sinal <span class="math">$$A$$</span>. Isso mostra que a informação idêntica não se "perde" nem se "cria".</li>
+        </ul>
+
+        <h2>2. Teorema da Dupla Negação <span class="math-title">($$\overline{\overline{A}} = A$$)</span></h2>
+        <h3>🤔 Como funciona:</h3>
+        <p>É como dizer "NÃO, NÃO". Duas negações seguidas se anulam e você volta ao que era antes! Pense em um interruptor que você aperta duas vezes: ele volta para o estado inicial.</p>
+        <h4>💡 Exemplo Fácil:</h4>
+        <ul>
+            <li><span class="emoji">🚫🚫</span> <strong class="highlight">NÃO</strong> (<strong class="highlight">NÃO</strong> quero sorvete) = Quero sorvete!</li>
+        </ul>
+        <h4>🚀 Exemplo Médio:</h4>
+        <ul>
+            <li><span class="emoji">🚪</span> Se a porta está <span class="math">$$\overline{fechada}$$</span> (ou seja, aberta), e você a <span class="math">$$\overline{abre}$$</span> (ou seja, fecha) de novo, ela volta a estar fechada. (<span class="math">$$\overline{\overline{Fechada}} = Fechada$$</span>)</li>
+        </ul>
+        <h4>⚡ Exemplo Difícil:</h4>
+        <ul>
+            <li><span class="emoji">💻</span> Em programação, se uma variável <span class="math">$$A$$</span> é `false`, <span class="math">$$\overline{A}$$</span> (NÃO <span class="math">$$A$$</span>) é `true`. Aplicar <span class="math">$$\overline{\phantom{A}}$$</span> de novo, <span class="math">$$\overline{\overline{A}}$$</span> (NÃO NÃO <span class="math">$$A$$</span>), fará com que ela volte a ser `false`, que é o valor original de <span class="math">$$A$$</span>. Isso é útil para reverter estados ou condições lógicas.</li>
+        </ul>
+
+        <h2>3. Teorema Comutativa <span class="math-title">($$A + B = B + A$$ e $$A * B = B * A$$)</span></h2>
+        <h3>🤔 Como funciona:</h3>
+        <p>A ordem das coisas não importa quando você está juntando (<span class="math">$$+$$</span> "OU") ou combinando (<span class="math">$$*$$</span> "E"). É como somar <span class="math">$$2 + 3$$</span>, que é o mesmo que <span class="math">$$3 + 2$$</span>!</p>
+        <h4>💡 Exemplo Fácil:</h4>
+        <ul>
+            <li><span class="emoji">🎁</span> Comprar uma bola <span class="math">$$+$$</span> um carrinho é o mesmo que comprar um carrinho <span class="math">$$+$$</span> uma bola. (<span class="math">$$Bola + Carrinho = Carrinho + Bola$$</span>)</li>
+            <li><span class="emoji">🎂🥤</span> Para ter bolo <span class="math">$$*$$</span> guaraná, não importa se você pega o bolo primeiro e depois o guaraná, ou o guaraná e depois o bolo. (<span class="math">$$Bolo * Guaraná = Guaraná * Bolo$$</span>)</li>
+        </ul>
+        <h4>🚀 Exemplo Médio:</h4>
+        <ul>
+            <li><span class="emoji">💡</span> Para acender uma luz, você pode ligar o interruptor da sala (<span class="math">$$A$$</span>) <span class="math">$$+$$</span> o interruptor do corredor (<span class="math">$$B$$</span>). Não importa qual você liga primeiro, o resultado é o mesmo: a luz acende. (<span class="math">$$A + B = B + A$$</span>)</li>
+        </ul>
+        <h4>⚡ Exemplo Difícil:</h4>
+        <ul>
+            <li><span class="emoji">⚙️</span> Em circuitos lógicos, se você tem uma porta "OU" com entradas <span class="math">$$A$$</span> e <span class="math">$$B$$</span>, a saída é a mesma se as entradas fossem <span class="math">$$B$$</span> e <span class="math">$$A$$</span>. O mesmo vale para uma porta "E". Isso é importante para os engenheiros, pois eles podem organizar os fios do circuito de várias formas sem mudar o que ele faz.</li>
+        </ul>
+
+        <h2>4. Teorema Associativa <span class="math-title">(($$A + B) + C = A + (B + C)$$ e $$(A * B) * C = A * (B * C)$$)</span></h2>
+        <h3>🤔 Como funciona:</h3>
+        <p>Quando você tem três ou mais coisas para juntar (<span class="math">$$+$$</span> "OU") ou combinar (<span class="math">$$*$$</span> "E"), não importa como você agrupa as primeiras. O resultado final é o mesmo!</p>
+        <h4>💡 Exemplo Fácil:</h4>
+        <ul>
+            <li><span class="emoji">👨‍👩‍👧‍👦</span> Se você vai brincar com João (<span class="math">$$A$$</span>), Maria (<span class="math">$$B$$</span>) e Pedro (<span class="math">$$C$$</span>). Se você primeiro se junta com João e Maria <span class="math">$$(A + B)$$</span> e depois com Pedro <span class="math">$$+ C$$</span>, é o mesmo que se juntar com João <span class="math">$$A +$$</span> e depois com Maria e Pedro juntos <span class="math">$$(B + C)$$</span>.</li>
+        </ul>
+        <h4>🚀 Exemplo Médio:</h4>
+        <ul>
+            <li><span class="emoji">🥪</span> Para fazer um sanduíche, você pode colocar queijo (<span class="math">$$A$$</span>) <span class="math">$$*$$</span> presunto (<span class="math">$$B$$</span>) primeiro <span class="math">$$(A * B)$$</span>, e depois o alface (<span class="math">$$C$$</span>) <span class="math">$$* C$$</span>. Ou pode colocar o queijo <span class="math">$$A *$$</span>, e depois o presunto (<span class="math">$$B$$</span>) <span class="math">$$*$$</span> o alface (<span class="math">$$C$$</span>) juntos <span class="math">$$(B * C)$$</span>. O sanduíche final é o mesmo!</li>
+        </ul>
+        <h4>⚡ Exemplo Difícil:</h4>
+        <ul>
+            <li><span class="emoji">💻</span> Em sistemas digitais, se você tem três sinais <span class="math">$$A$$</span>, <span class="math">$$B$$</span> e <span class="math">$$C$$</span>, e precisa combiná-los com portas lógicas. Se você usa duas portas "OU", pode primeiro combinar <span class="math">$$A$$</span> e <span class="math">$$B$$</span>, e o resultado combinar com <span class="math">$$C$$</span>. Ou pode combinar <span class="math">$$B$$</span> e <span class="math">$$C$$</span>, e o resultado combinar com <span class="math">$$A$$</span>. A expressão final e o comportamento lógico serão idênticos, o que ajuda a projetar sistemas complexos de forma flexível.</li>
+        </ul>
+
+        <h2>5. Teorema Distributiva <span class="math-title">($$A * (B + C) = A * B + A * C$$ e $$A + (B * C) = (A + B) * (A + C)$$)</span></h2>
+        <h3>🤔 Como funciona:</h3>
+        <p>É como se você tivesse um presente (<span class="math">$$A$$</span>) e quisesse dar ele para duas pessoas (<span class="math">$$B$$</span> e <span class="math">$$C$$</span>). Você pode dar o presente para <span class="math">$$B$$</span> e para <span class="math">$$C$$</span> separadamente (<span class="math">$$A*B + A*C$$</span>). A segunda forma é um pouco mais complicada, mas pense que se você tem um bolo (<span class="math">$$A$$</span>) e precisa escolher entre levar suco (<span class="math">$$B$$</span>) e refrigerante (<span class="math">$$C$$</span>), você pode pensar: "Vou levar o bolo <span class="math">$$+$$</span> o suco" <span class="math">$$*$$</span> "Vou levar o bolo <span class="math">$$+$$</span> o refrigerante".</p>
+        <h4>💡 Exemplo Fácil:</h4>
+        <ul>
+            <li><span class="emoji">✏️</span> Se você tem um lápis (<span class="math">$$A$$</span>) e quer usá-lo para desenhar um sol (<span class="math">$$B$$</span>) <span class="math">$$+$$</span> uma nuvem (<span class="math">$$C$$</span>), é o mesmo que usar o lápis para o sol (<span class="math">$$A*B$$</span>) <span class="math">$$+$$</span> usar o lápis para a nuvem (<span class="math">$$A*C$$</span>). (<span class="math">$$A * (B + C) = A * B + A * C$$</span>)</li>
+        </ul>
+        <h4>🚀 Exemplo Médio:</h4>
+        <ul>
+            <li><span class="emoji">🎟️</span> Para entrar em um parque, você precisa ter um ingresso (<span class="math">$$A$$</span>) <span class="math">$$*$$</span> (ser criança (<span class="math">$$B$$</span>) <span class="math">$$+$$</span> ser adulto (<span class="math">$$C$$</span>)). Isso é o mesmo que precisar ter (um ingresso <span class="math">$$*$$</span> ser criança (<span class="math">$$A*B$$</span>)) <span class="math">$$+$$</span> (ter um ingresso <span class="math">$$*$$</span> ser adulto (<span class="math">$$A*C$$</span>)).</li>
+        </ul>
+        <h4>⚡ Exemplo Difícil:</h4>
+        <ul>
+            <li><span class="emoji">🚨</span> Num sistema de alarme: o alarme toca se (o sensor da porta (<span class="math">$$A$$</span>) estiver ativado) <span class="math">$$*$$</span> (a janela (<span class="math">$$B$$</span>) estiver aberta <span class="math">$$+$$</span> a luz (<span class="math">$$C$$</span>) estiver acesa). (<span class="math">$$A * (B + C)$$</span>). Isso é logicamente equivalente a: (o sensor da porta (<span class="math">$$A$$</span>) estiver ativado <span class="math">$$*$$</span> a janela (<span class="math">$$B$$</span>) estiver aberta) <span class="math">$$+$$</span> (o sensor da porta (<span class="math">$$A$$</span>) estiver ativado <span class="math">$$*$$</span> a luz (<span class="math">$$C$$</span>) estiver acesa). (<span class="math">$$A * B + A * C$$</span>). Essa lei ajuda a reescrever e simplificar as condições para o alarme tocar.</li>
+        </ul>
+
+        <h2>6. Teorema da Absorção / Redundância <span class="math-title">($$A + (A * B) = A$$ e $$A * (A + B) = A$$)</span></h2>
+        <h3>🤔 Como funciona:</h3>
+        <p>Se você já tem algo (<span class="math">$$A$$</span>), e você adiciona a isso "aquela coisa (<span class="math">$$A$$</span>) <span class="math">$$*$$</span> outra coisa (<span class="math">$$B$$</span>)", a "outra coisa" não faz diferença, porque você já tinha "<span class="math">$$A$$</span>". É como se o "<span class="math">$$A$$</span>" principal absorvesse o resto. Ele já é suficiente!</p>
+        <h4>💡 Exemplo Fácil:</h4>
+        <ul>
+            <li><span class="emoji">🍎</span> Se você já tem uma maçã (<span class="math">$$A$$</span>), e alguém te oferece uma maçã <span class="math">$$*$$</span> uma banana (<span class="math">$$A*B$$</span>), você ainda só tem uma maçã (<span class="math">$$A$$</span>)! A banana não "muda" o fato de você ter a maçã. (<span class="math">$$A + (A * B) = A$$</span>)</li>
+        </ul>
+        <h4>🚀 Exemplo Médio:</h4>
+        <ul>
+            <li><span class="emoji">🎮</span> Para ganhar um jogo você precisa ter a chave (<span class="math">$$A$$</span>). Se a regra diz que você ganha se tiver a chave (<span class="math">$$A$$</span>) <span class="math">$$+$$</span> se tiver (a chave (<span class="math">$$A$$</span>) <span class="math">$$*$$</span> o mapa (<span class="math">$$B$$</span>)), então na verdade você só precisa da chave (<span class="math">$$A$$</span>) para ganhar. O "E o mapa" é redundante.</li>
+        </ul>
+        <h4>⚡ Exemplo Difícil:</h4>
+        <ul>
+            <li><span class="emoji">💡</span> Em otimização de circuitos, se uma expressão é <span class="math">$$A + (A * B)$$</span>, podemos simplificá-la para <span class="math">$$A$$</span >. Isso significa que o sinal <span class="math">$$B$$</span> é desnecessário para determinar o resultado final quando <span class="math">$$A$$</span> já está presente, economizando componentes e energia no circuito. O mesmo vale para <span class="math">$$A * (A + B) = A$$</span>.</li>
+        </ul>
+
+        <h2>7. Teoremas Especiais com 0 e 1</h2>
+        <h3>🤔 Como funciona:</h3>
+        <p>Lembre-se que <span class="math">$$0$$</span> é "DESLIGADO/FALSO" e <span class="math">$$1$$</span> é "LIGADO/VERDADEIRO". Essas regras mostram como eles se comportam com qualquer coisa (<span class="math">$$A$$</span>).</p>
+        <h4>💡 Exemplo Fácil:</h4>
+        <ul>
+            <li><span class="emoji">🧸</span> Ter um brinquedo (<span class="math">$$A$$</span>) <span class="math">$$+$$</span> nada (<span class="math">$$0$$</span>) = ter um brinquedo (<span class="math">$$A$$</span>).</li>
+            <li><span class="emoji">🎉</span> Ter um brinquedo (<span class="math">$$A$$</span>) <span class="math">$$+$$</span> tudo (<span class="math">$$1$$</span>) = ter tudo (<span class="math">$$1$$</span>).</li>
+            <li><span class="emoji">🗑️</span> Ter um brinquedo (<span class="math">$$A$$</span>) <span class="math">$$*$$</span> nada (<span class="math">$$0$$</span>) = ter nada (<span class="math">$$0$$</span>).</li>
+            <li><span class="emoji">🎁</span> Ter um brinquedo (<span class="math">$$A$$</span>) <span class="math">$$*$$</span> tudo (<span class="math">$$1$$</span>) = ter um brinquedo (<span class="math">$$A$$</span>).</li>
+        </ul>
+        <h4>🚀 Exemplo Médio:</h4>
+        <ul>
+            <li><span class="emoji">💡</span> Se a luz do quarto está acesa/apagada (<span class="math">$$A$$</span>) <span class="math">$$+$$</span> a luz da rua está apagada (<span class="math">$$0$$</span>), a condição geral é a mesma que a luz do quarto (<span class="math">$$A$$</span>). (<span class="math">$$A + 0 = A$$</span>)</li>
+            <li><span class="emoji">☀️</span> Se a luz do quarto (<span class="math">$$A$$</span>) <span class="math">$$+$$</span> o sol (que está sempre LIGADO, <span class="math">$$1$$</span>), então a condição é sempre LIGADA (<span class="math">$$1$$</span>). (<span class="math">$$A + 1 = 1$$</span>)</li>
+            <li><span class="emoji">🌑</span> Se a luz do quarto (<span class="math">$$A$$</span>) <span class="math">$$*$$</span> a escuridão total (<span class="math">$$0$$</span>), então tudo está DESLIGADO (<span class="math">$$0$$</span>). (<span class="math">$$A * 0 = 0$$</span>)</li>
+            <li><span class="emoji">✨</span> Se a luz do quarto (<span class="math">$$A$$</span>) <span class="math">$$*$$</span> a luz do dia (que é sempre <span class="math">$$1$$</span>), então o resultado é a luz do quarto (<span class="math">$$A$$</span>). (<span class="math">$$A * 1 = A$$</span>)</li>
+        </ul>
+        <h4>⚡ Exemplo Difícil:</h4>
+        <ul>
+            <li><span class="emoji">🔒</span> Em um sistema de segurança:
+                <ul>
+                    <li><span class="math">$$Alarme (A) + 0$$</span>: o estado do alarme depende apenas de <span class="math">$$A$$</span>.</li>
+                    <li><span class="math">$$Alarme (A) + 1$$</span>: o alarme estará sempre ativado (<span class="math">$$1$$</span>), independente de <span class="math">$$A$$</span>.</li>
+                    <li><span class="math">$$Alarme (A) * 0$$</span>: o alarme nunca dispara (<span class="math">$$0$$</span>), independente de <span class="math">$$A$$</span>.</li>
+                    <li><span class="math">$$Alarme (A) * 1$$</span>: o estado do alarme depende apenas de <span class="math">$$A$$</span>.</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h2>8. Teorema do Complemento <span class="math-title">($$A + \overline{A} = 1$$ e $$A * \overline{A} = 0$$)</span></h2>
+        <h3>🤔 Como funciona:</h3>
+        <ul>
+            <li><span class="emoji">✅❌</span> Se você tem algo (<span class="math">$$A$$</span>) <span class="math">$$+$$</span> o oposto dele (<span class="math">$$\overline{A}$$</span>), um dos dois SEMPRE será verdadeiro. Então, a resposta é sempre "verdadeiro" (<span class="math">$$1$$</span>).</li>
+            <li><span class="emoji">🚫</span> Se você tem algo (<span class="math">$$A$$</span>) <span class="math">$$*$$</span> o oposto dele (<span class="math">$$\overline{A}$$</span>), isso NUNCA pode ser verdade ao mesmo tempo. Então, a resposta é sempre "falso" (<span class="math">$$0$$</span>).</li>
+        </ul>
+        <h4>💡 Exemplo Fácil:</h4>
+        <ul>
+            <li><span class="emoji">🌞🌙</span> Ser dia (<span class="math">$$A$$</span>) <span class="math">$$+$$</span> ser ~dia (noite) (<span class="math">$$\overline{A}$$</span>) = Sempre Verdadeiro (<span class="math">$$1$$</span>)!</li>
+            <li><span class="emoji">🤷‍♀️</span> Ser dia (<span class="math">$$A$$</span>) <span class="math">$$*$$</span> ser ~dia (noite) (<span class="math">$$\overline{A}$$</span>) = Nunca Verdadeiro (<span class="math">$$0$$</span>)!</li>
+        </ul>
+        <h4>🚀 Exemplo Médio:</h4>
+        <ul>
+            <li><span class="emoji">🚪</span> A porta está aberta (<span class="math">$$A$$</span>) <span class="math">$$+$$</span> a porta está ~aberta (fechada) (<span class="math">$$\overline{A}$$</span>): A porta <strong class="highlight">sempre</strong> está em um desses dois estados (<span class="math">$$1$$</span>).</li>
+            <li><span class="emoji">🤯</span> A porta está aberta (<span class="math">$$A$$</span>) <span class="math">$$*$$</span> a porta está ~aberta (fechada) (<span class="math">$$\overline{A}$$</span>): A porta <strong class="highlight">nunca</strong> pode estar aberta e fechada ao mesmo tempo (<span class="math">$$0$$</span>).</li>
+        </ul>
+        <h4>⚡ Exemplo Difícil:</h4>
+        <ul>
+            <li><span class="emoji">📡</span> Em um sistema de detecção de presença:
+                <ul>
+                    <li>Se o sensor detecta uma pessoa (<span class="math">$$A$$</span>) <span class="math">$$+$$</span> o sensor ~detecta (não detecta) uma pessoa (<span class="math">$$\overline{A}$$</span>), a condição <span class="math">$$A + \overline{A}$$</span> é sempre <span class="highlight">true</span> (<span class="math">$$1$$</span>), o que pode ser usado para verificar se o sensor está funcionando corretamente.</li>
+                    <li>Se o sensor detecta uma pessoa (<span class="math">$$A$$</span>) <span class="math">$$*$$</span> o sensor ~detecta (não detecta) uma pessoa (<span class="math">$$\overline{A}$$</span>) ao mesmo tempo, a condição <span class="math">$$A * \overline{A}$$</span> é sempre <span class="highlight">false</span> (<span class="math">$$0$$</span>), indicando uma falha no sensor ou uma situação impossível.</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h2>9. Leis de De Morgan <span class="math-title">($$\overline{(A + B)} = \overline{A} * \overline{B}$$ e <span class="math">$$\overline{(A * B)} = \overline{A} + \overline{B}$$)</span></h2>
+        <h3>🤔 Como funciona:</h3>
+        <p>Essas leis são super importantes para inverter condições complexas! Elas nos mostram como o "NÃO" se espalha quando temos "OU" ou "E".</p>
+        <ul>
+            <li><span class="emoji">🔄</span> **Primeira Lei:** <span class="math">$$\overline{(A + B)} = \overline{A} * \overline{B}$$</span>
+                <ul>
+                    <li>"NÃO (gosto de maçã <span class="math">$$+$$</span> gosto de banana)" é o mesmo que "NÃO gosto de maçã <span class="math">$$*$$</span> NÃO gosto de banana".</li>
+                </ul>
+            </li>
+            <li><span class="emoji">🔄</span> **Segunda Lei:** <span class="math">$$\overline{(A * B)} = \overline{A} + \overline{B}$$</span>
+                <ul>
+                    <li>"NÃO (tem sol <span class="math">$$*$$</span> tem calor)" é o mesmo que "NÃO tem sol <span class="math">$$+$$</span> NÃO tem calor".</li>
+                </ul>
+            </li>
+        </ul>
+        <h4>💡 Exemplo Fácil:</h4>
+        <ul>
+            <li><span class="emoji">🚫🍰🍦</span> <span class="math">$$\overline{(QueroBolo + QueroSorvete)}$$</span> = <span class="math">$$\overline{QueroBolo} * \overline{QueroSorvete}$$</span>.</li>
+            <li><span class="emoji">☁️🥶</span> <span class="math">$$\overline{(TemSol * TemCalor)}$$</span> = <span class="math">$$\overline{TemSol} + \overline{TemCalor}$$</span>.</li>
+        </ul>
+        <h4>🚀 Exemplo Médio:</h4>
+        <ul>
+            <li><span class="emoji">🎂</span> Se <span class="math">$$\overline{(Tem10Anos + Tem11Anos)}$$</span>, significa que <span class="math">$$\overline{Tem10Anos} * \overline{Tem11Anos}$$</span>.</li>
+            <li><span class="emoji">📺</span> Se <span class="math">$$\overline{(LuzAcesa * TVLigada)}$$</span>, significa que <span class="math">$$\overline{LuzAcesa} + \overline{TVLigada}$$</span>.</li>
+        </ul>
+        <h4>⚡ Exemplo Difícil:</h4>
+        <ul>
+            <li><span class="emoji">🚪🔒</span> A condição para <span class="math">$$\overline{PermitirEntrada}$$</span> é que <span class="math">$$\overline{(CartaoValido + BiometriaFunciona)}$$</span>. Pela lei de De Morgan, isso é o mesmo que dizer que <span class="math">$$\overline{CartaoValido} * \overline{BiometriaFunciona}$$</span>.</li>
+            <li><span class="emoji">🚨</span> A condição para <span class="math">$$\overline{DispararAlarme}$$</span> é que <span class="math">$$\overline{(SensorPortaAtivado * SensorJanelaAtivado)}$$</span >. Pela lei de De Morgan, isso é o mesmo que dizer que <span class="math">$$\overline{SensorPortaAtivado} + \overline{SensorJanelaAtivado}$$</span>.</li>
+        </ul>
+
+        <h2>10. Teoremas de Complemento em Expressões <span class="math-title">($$A + (\overline{A} * B) = A + B$$ e $$A * (\overline{A} + B) = A * B$$)</span></h2>
+        <h3>🤔 Como funciona:</h3>
+        <p>Essas regras ajudam a simplificar expressões onde você tem uma variável (<span class="math">$$A$$</span>) e ela mesma negada (<span class="math">$$\overline{A}$$</span>) em outra parte da expressão. É como se o <span class="math">$$\overline{A}$$</span> fosse "absorvido" ou "ignorado" de certa forma, tornando a expressão mais simples.</p>
+        <h4>💡 Exemplo Fácil:</h4>
+        <ul>
+            <li><span class="emoji">🐶🐱</span> Ter um cachorro (<span class="math">$$A$$</span>) <span class="math">$$+$$</span> (<span class="math">$$\overline{A}$$</span> ter um cachorro <span class="math">$$*$$</span> ter um gato (<span class="math">$$B$$</span>)) = Ter um cachorro (<span class="math">$$A$$</span>) <span class="math">$$+$$</span> ter um gato (<span class="math">$$B$$</span>). (<span class="math">$$A + (\overline{A} * B) = A + B$$</span>)</li>
+            <li><span class="emoji">🐶🐱</span> Ter um cachorro (<span class="math">$$A$$</span>) <span class="math">$$*$$</span> (<span class="math">$$\overline{A}$$</span > ter um cachorro <span class="math">$$+$$</span> ter um gato (<span class="math">$$B$$</span>)) = Ter um cachorro (<span class="math">$$A$$</span>) <span class="math">$$*$$</span> ter um gato (<span class="math">$$B$$</span>). (<span class="math">$$A * (\overline{A} + B) = A * B$$</span >)</li>
+        </ul>
+        <h4>🚀 Exemplo Médio:</h4>
+        <ul>
+            <li><span class="emoji">🥳🗓️</span> Se <span class="math">$$PodeIrFesta (A)$$</span> <span class="math">$$+$$</span> (<span class="math">$$\overline{PodeIrFesta} (\overline{A})$$</span> <span class="math">$$*$$</span> <span class="math">$$FestaSabado (B)$$</span>), então <span class="math">$$PodeIrFesta (A) + FestaSabado (B)$$</span>. (<span class="math">$$A + (\overline{A} * B) = A + B$$</span>)</li>
+            <li><span class="emoji">✈️🚗</span> Se <span class="math">$$VaiViajar (A)$$</span> <span class="math">$$*$$</span> (<span class="math">$$\overline{VaiViajar} (\overline{A})$$</span> <span class="math">$$+$$</span> <span class="math">$$VaiDeCarro (B)$$</span>), então <span class="math">$$VaiViajar (A) * VaiDeCarro (B)$$</span>. (<span class="math">$$A * (\overline{A} + B) = A * B$$</span>)</li>
+        </ul>
+        <h4>⚡ Exemplo Difícil:</h4>
+        <ul>
+            <li><span class="emoji">🔑</span> Para um usuário acessar um recurso (<span class="math">$$Acesso$$</span >):
+                <ul>
+                    <li><span class="math">$$Acesso = (Usuário\_VIP + (\overline{Usuário\_VIP} * Assinatura\_Paga))$$</span> pode ser simplificado para <span class="math">$$Acesso = (Usuário\_VIP + Assinatura\_Paga)$$</span>.</li>
+                    <li><span class="math">$$Alerta = (Sensor\_Ativado * (\overline{Sensor\_Ativado} + Bateria\_Fraca))$$</span> pode ser simplificado para <span class="math">$$Alerta = (Sensor\_Ativado * Bateria\_Fraca)$$</span>.</li>
+                </ul>
+            </li>
+        </ul>
+
+        <p>Espero que com esses superpoderes e exemplos, você se sinta um verdadeiro gênio da lógica! Continue praticando e desvendando os mistérios do mundo digital! 🚀</p>
+    </div>
+</body>
+</html>

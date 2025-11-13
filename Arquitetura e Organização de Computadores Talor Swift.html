@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Matemática Secreta da Taylor Swift: Uma Eras Tour pelos Bits e Bytes! 🎤✨</title>
+    <!-- Removed Google Fonts link as it's not present in the new CSS -->
+    <script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [['$$','$$'], ['\\(','\\)']],
+                displayMath: [['$$$$','$$$$'], ['\\[','\\]']]
+            },
+            "HTML-CSS": { availableFonts: ["TeX"] }
+        });
+    </script>
+    <style>
+        body {
+            font-family: 'Georgia', serif; /* Fonte clássica e elegante */
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #F8F8F8; /* Fundo neutro */
+            color: #333; /* Cor de texto padrão */
+        }
+        .container {
+            max-width: 950px;
+            margin: 20px auto;
+            background-color: #FFFFFF;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+            border: 2px solid #D3D3D3; /* Borda suave */
+        }
+        h1 {
+            text-align: center;
+            color: #6A0DAD; /* Roxo escuro */
+            font-size: 2.8em;
+            margin-bottom: 35px;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+            padding: 15px 0;
+            background-color: #F8F8F8;
+            border-radius: 15px;
+        }
+        h2 {
+            font-size: 2em;
+            margin-top: 45px;
+            display: flex;
+            align-items: center;
+            padding-bottom: 15px;
+            border-bottom: 2px solid; /* A cor será definida pelo módulo do álbum */
+            font-weight: bold;
+        }
+        h2 img {
+            margin-right: 20px;
+            border-radius: 10px; /* Bordas levemente arredondadas para as capas */
+            border: 4px solid; /* A cor será definida pelo módulo do álbum */
+            box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+        }
+        h3 {
+            font-size: 1.5em;
+            margin-top: 25px;
+            margin-left: 100px; /* Alinhado com o texto abaixo do H2 */
+            color: inherit; /* A cor será definida pelo módulo do álbum */
+        }
+        p {
+            margin-bottom: 18px;
+            text-align: justify;
+            font-size: 1.1em;
+            padding-left: 20px;
+        }
+        ul {
+            list-style-type: disc;
+            padding-left: 40px;
+            margin-bottom: 18px;
+        }
+        ul li {
+            margin-bottom: 8px;
+        }
+        strong {
+            font-weight: bold;
+            color: #6A0DAD; /* Roxo escuro para destaque */
+        }
+
+        /* Estilo base para cada módulo de álbum */
+        .album-module {
+            margin-bottom: 40px;
+            padding: 25px;
+            border-radius: 18px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.2s ease-in-out;
+        }
+        .album-module:hover {
+            transform: translateY(-5px);
+        }
+        
+        /* Paletas de Cores para cada álbum */
+
+      /* 🌿 Taylor Swift (Debut) - Verde Natural e Azul Aquático */
+.debut {
+    background: linear-gradient(to right, #CFE8D5, #E6F2EA);
+    border: 3px solid #6AA84F; /* Verde Folha */
+}
+.debut h2 { color: #3B7A57; border-color: #6AA84F; }
+.debut h2 img { border-color: #3B7A57; }
+.debut h3 { color: #6AA84F; }
+.debut strong { color: #4E9A51; }
+.debut ul li { color: #3B7A57; }
+
+/* 💛 Fearless (Taylor’s Version) - Dourado e Creme */
+.fearless {
+    background: linear-gradient(to right, #FFF5CC, #FFF8E1);
+    border: 3px solid #D4AF37; /* Gold metálico */
+}
+.fearless h2 { color: #B8860B; border-color: #D4AF37; }
+.fearless h2 img { border-color: #B8860B; }
+.fearless h3 { color: #FFD700; }
+.fearless strong { color: #DAA520; }
+.fearless ul li { color: #B8860B; }
+
+/* 💜 Speak Now - Roxo e Lilás Suave */
+.speak-now {
+    background: linear-gradient(to right, #E6D8F7, #F4E8FF);
+    border: 3px solid #A020F0; /* Purple forte */
+}
+.speak-now h2 { color: #800080; border-color: #A020F0; }
+.speak-now h2 img { border-color: #800080; }
+.speak-now h3 { color: #BA55D3; }
+.speak-now strong { color: #9370DB; }
+.speak-now ul li { color: #8A2BE2; }
+
+/* ❤️ Red (Taylor’s Version) - Vermelho Escuro e Bege */
+.red {
+    background: linear-gradient(to right, #FFEAEA, #FFF5F5);
+    border: 3px solid #8B0000; /* Dark Red */
+}
+.red h2 { color: #B22222; border-color: #8B0000; }
+.red h2 img { border-color: #B22222; }
+.red h3 { color: #DC143C; }
+.red strong { color: #A52A2A; }
+.red ul li { color: #B22222; }
+
+/* 💙 1989 (Taylor’s Version) - Azul Pastel e Bege Claro */
+.nineteen89 {
+    background: linear-gradient(to right, #CDE8FA, #E8F2F8);
+    border: 33px solid #7EC8E3; /* Sky Blue */
+}
+.nineteen89 h2 { color: #4682B4; border-color: #7EC8E3; }
+.nineteen89 h2 img { border-color: #4682B4; }
+.nineteen89 h3 { color: #1E90FF; }
+.nineteen89 strong { color: #6495ED; }
+.nineteen89 ul li { color: #4682B4; }
+
+/* 🖤 Reputation - Preto, Cinza e Prata */
+.reputation {
+    background: linear-gradient(to right, #2C2C2C, #4F4F4F);
+    border: 3px solid #1C1C1C;
+    color: #E0E0E0;
+}
+.reputation h2 { color: #C0C0C0; border-color: #1C1C1C; }
+.reputation h2 img { border-color: #C0C0C0; }
+.reputation h3 { color: #B0C4DE; }
+.reputation strong { color: #D3D3D3; }
+.reputation ul li { color: #DCDCDC; }
+
+/* 💖 Lover - Rosa e Azul Pastel */
+.lover {
+    background: linear-gradient(to right, #FFE6F2, #EAF4FF);
+    border: 3px solid #FFB6C1; /* Rosa Claro */
+}
+.lover h2 { color: #FF69B4; border-color: #FFB6C1; }
+.lover h2 img { border-color: #FF69B4; }
+.lover h3 { color: #87CEFA; }
+.lover strong { color: #FF1493; }
+.lover ul li { color: #FF69B4; }
+
+/* 🌫️ Folklore - Cinza e Off-White */
+.folklore {
+    background: linear-gradient(to right, #E8E8E8, #F5F5F5);
+    border: 3px solid #A9A9A9;
+}
+.folklore h2 { color: #696969; border-color: #A9A9A9; }
+.folklore h2 img { border-color: #696969; }
+.folklore h3 { color: #808080; }
+.folklore strong { color: #707070; }
+.folklore ul li { color: #696969; }
+
+/* 🍂 Evermore - Marrom, Cobre e Dourado Suave */
+.evermore {
+    background: linear-gradient(to right, #F3E2C7, #E6CBA8);
+    border: 3px solid #C19A6B; /* Camel */
+}
+.evermore h2 { color: #8B4513; border-color: #C19A6B; }
+.evermore h2 img { border-color: #8B4513; }
+.evermore h3 { color: #CD853F; }
+.evermore strong { color: #A0522D; }
+.evermore ul li { color: #8B4513; }
+
+
+        /* Midnights - Azul Escuro */
+       /* Midnights - Azul petróleo, vinho e lavanda metálica */
+.midnights {
+    background: linear-gradient(to right, #1C273A, #3a5178, #1C273A); /* Azul -> Metálico -> Vinho */
+    border: 3px solid #6B394A; /* Vinho queimado */
+    color: #9CA4BE; /* Azul lavanda frio */
+    border-radius: 10px;
+    box-shadow: 0 0 20px #A8B6D950;
+}
+
+.midnights h2 {
+    color: #A8B6D9; /* Azul claro cintilante */
+    border-color: #6B394A; /* Vinho queimado */
+}
+
+.midnights h2 img {
+    border-color: #4C5C78; /* Bege rosado */
+}
+
+.midnights h3 {
+    color: #4C5C78; /* Azul metálico acinzentado */
+}
+
+.midnights strong {
+    color: #6B394A; /* Vinho queimado */
+}
+
+.midnights ul li {
+    color: #A8B6D9; /* Azul claro cintilante */
+}
+
+        /* The Tortured Poets Department - Preto/Branco/Sepia */
+        .ttpd {
+            background: linear-gradient(to right,#F5F3EF, #E8E2D6); /* WhiteSmoke to LightGray */
+            border: 3px solid #4B4035; /* Charcoal */
+            color: #4B4035; /* Charcoal for text */
+        }
+        .ttpd h2 { color: #1A1A1A; /* Darkest Gray */ border-color: #8B6E4E; }
+        .ttpd h2 img { border-color: #CBBBA0; }
+        .ttpd h3 { color: #8B6E4E; /* DimGray */ }
+        .ttpd strong { color: #1A1A1A; /* Black */ }
+        .ttpd ul li { color: #4B4035; }
+
+        /* The Life of a Show Girl - Rosa/Ouro/Brilho (Conclusão) */
+        .showgirl {
+        background: linear-gradient(to right, #3FBF9B30, #FFB34730); /* Verde piscina para dourado alaranjado */
+        border: 3px solid #FF8040; /* Laranja queimado */
+        border-radius: 10px;
+        box-shadow: 0 0 15px #FFB34750;
+    }
+    .showgirl h2 {
+    color: #FFB347; /* Dourado alaranjado */
+    border-color: #3FBF9B;
+    }
+    .showgirl h3 {
+    color: #FF8040; /* Laranja vivo */
+    }
+    .showgirl strong {
+    color: #1C5D53; /* Verde petróleo para contraste */
+    }
+    .showgirl ul li {
+    color: #3FBF9B; /* Verde piscina */
+    }
+        /* Estilos para as tabelas gerais */
+               table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        table th, table td {
+            border: 1px solid #CFE8D5; /* Usando uma cor clara da paleta Debut para a borda */
+            padding: 15px 20px;
+            text-align: left;
+            font-size: 1em;
+        }
+        table th {
+            background-color: #3B7A57; /* Usando o verde mais escuro do Debut para o cabeçalho */
+            color: white;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        table tr:nth-child(even) {
+            background-color: #E6F2EA; /* Usando um verde claro do Debut para linhas pares */
+        }
+        table tr:hover {
+            background-color: #CFE8D5; /* Um verde um pouco mais intenso para o hover */
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>A Matemática Secreta da Taylor Swift: Uma Eras Tour pelos Bits e Bytes! 🎤✨</h1>
+        <p>Olá, Swiftie! Você já se perguntou como o seu celular toca "Cruel Summer" ou como o site da Ticketmaster sabe quantos ingressos vender? É tudo sobre números, mas não do jeito que a gente aprende na escola! Prepare-se para desvendar os segredos da computação com um toque da magia da Taylor! ✨</p>
+        <p>Vamos embarcar nesta jornada, passando por cada "era" musical da nossa rainha, para entender como os computadores contam e fazem contas! 🎶</p>
+
+        <div class="album-module debut">
+            <h2 id="debut-module"><img src="file:\\C:\Users\lcarra22\OneDrive - azureford\Documents\a\img\Debut.jpg" alt="Taylor Swift (Debut)"> 1. Debut Era: Os Diferentes Jeitos de Contar! 🤠</h2>
+            <p>Assim como a Taylor começou com o country e foi evoluindo, os números também têm "eras" diferentes! </p>
+            <p>Pense nas suas primeiras experiências com o amor, como com Brandon Borello, que inspirou "Tim McGraw", ou Sam Armstrong, que levou a "Should've Said No". Cada relacionamento é uma forma diferente de "contar" a história do seu coração, com suas próprias regras e perspectivas, assim como decimal, binário ou hexadecimal são diferentes bases numéricas para representar o mesmo valor.</p>
+
+            <h3>1.1. Nosso Jeito de Contar (Decimal)</h3>
+            <p>É o nosso dia a dia, como contar o número de álbuns da Taylor (11, por enquanto!) ou quantos prêmios ela já ganhou. Usamos 10 símbolos (0 a 9) e cada posição importa! </p>
+            <p>Um número $$N$$ em nossa base 10 é representado pela soma de cada dígito multiplicado pela potência da base 10 correspondente à sua posição:</p>
+            $$ (N)_{10} = A_n \times 10^n + A_{n-1} \times 10^{n-1} + \dots + A_1 \times 10^1 + A_0 \times 10^0 $$
+
+            <div class="example-box">
+                <h4>Exemplo: O número $$ (1234)_{10} $$</h4>
+                $$ (1234)_{10} = 1 \times 10^3 + 2 \times 10^2 + 3 \times 10^1 + 4 \times 10^0 $$
+                $$ = 1000 + 200 + 30 + 4 = 1234 $$
+                <p>Para números com parte fracionária, como $$ 1234.567_{10} $$, a representação se estende a potências negativas:</p>
+                $$ 1 \times 10^3 + 2 \times 10^2 + 3 \times 10^1 + 4 \times 10^0 + 5 \times 10^{-1} + 6 \times 10^{-2} + 7 \times 10^{-3} $$
+                $$ = 1000 + 200 + 30 + 4 + 0.5 + 0.06 + 0.007 $$
+            </div>
+
+            <h3>1.2. O Jeito do Computador (Binário)</h3>
+            <p>O computador é mais como um interruptor de luz: só entende "ligado" (1) ou "desligado" (0). É o sistema <span class="highlight">Binário</span>! Cada 0 ou 1 é um "bit", como uma notinha em uma melodia. 🎼</p>
+
+            <h3>1.3. O Jeito Rápido para Setlists Grandes (Hexadecimal)</h3>
+            <p>Imagina escrever a setlist da Eras Tour em 0s e 1s? Seria enorme! Por isso, existe o <span class="highlight">Hexadecimal</span>, um jeito mais curto de escrever muitos 0s e 1s. Ele usa 16 símbolos (0-9 e A-F). É como o atalho para uma ponte musical, tipo "Long Live"!</p>
+
+            <div class="example-box">
+                <h4>Tabela de Conversão das Eras! ✨</h4>
+                <p>Veja como os mesmos números podem ser escritos em diferentes "linguagens":</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nosso Jeito (Decimal)</th>
+                            <th>Computador (Binário)</th>
+                            <th>Jeito Rápido (Hexa)</th>
+                            <th>Outro Jeito (Octal)</th>
+                        </tr>
+                    </thead>
+                     <tbody>
+                <tr><td>0</td><td>0</td><td>0</td><td>0000</td></tr>
+                <tr><td>1</td><td>1</td><td>1</td><td>0001</td></tr>
+                <tr><td>2</td><td>2</td><td>2</td><td>0010</td></tr>
+                <tr><td>3</td><td>3</td><td>3</td><td>0011</td></tr>
+                <tr><td>4</td><td>4</td><td>4</td><td>0100</td></tr>
+                <tr><td>5</td><td>5</td><td>5</td><td>0101</td></tr>
+                <tr><td>6</td><td>6</td><td>6</td><td>0110</td></tr>
+                <tr><td>7</td><td>7</td><td>7</td><td>0111</td></tr>
+                <tr><td>8</td><td>8</td><td>10</td><td>1000</td></tr>
+                <tr><td>9</td><td>9</td><td>11</td><td>1001</td></tr>
+                <tr><td>10</td><td>A</td><td>12</td><td>1010</td></tr>
+                <tr><td>11</td><td>B</td><td>13</td><td>1011</td></tr>
+                <tr><td>12</td><td>C</td><td>14</td><td>1100</td></tr>
+                <tr><td>13</td><td>D</td><td>15</td><td>1101</td></tr>
+                <tr><td>14</td><td>E</td><td>16</td><td>1110</td></tr>
+                <tr><td>15</td><td>F</td><td>17</td><td>1111</td></tr>
+                <tr><td>16</td><td>10</td><td>20</td><td>10000</td></tr>
+                <tr><td>17</td><td>11</td><td>21</td><td>10001</td></tr>
+            </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="album-module fearless">
+            <h2 id="fearless-module"><img src="file:\\C:\Users\lcarra22\OneDrive - azureford\Documents\a\img\Fearless.jpg" alt="Fearless (Taylor’s Version)"> 2. Fearless Era: Transformando Números de um Jeito para o Outro! 💛</h2>
+            <p>Ser "Fearless" é não ter medo de mudar! Vamos transformar os números, como a Taylor transformou uma garota country em uma estrela pop!</p>
+            <p>Pense na transição do relacionamento com Joe Jonas, que terminou em uma ligação de 27 segundos. Essa mudança abrupta de um estado para outro, de "Forever & Always" para o fim, é como converter um número de decimal para binário: uma transformação completa de como a informação é percebida e processada. As canções "Last Kiss" e "Mr. Perfectly Fine" também refletem essa transformação de sentimentos.</p>
+
+            <h3>2.1. Do Nosso Jeito para o Computador (Decimal para Binário) - Regra 1: Divisões Sucessivas</h3>
+            <p>É como quebrar uma música longa em pedacinhos para o computador entender. Usamos o truque de "dividir e pegar o resto".</p>
+            <div class="example-box">
+                <h4>Exemplo: Ensinar o número $$ 439_{10} $$ ao computador (Binário):</h4>
+                <pre>
+439 &divide; 2 = 219  Resto 1
+219 &divide; 2 = 109  Resto 1
+109 &divide; 2 = 54   Resto 1
+54  &divide; 2 = 27   Resto 0
+27  &divide; 2 = 13   Resto 1
+13  &divide; 2 = 6    Resto 1
+6   &divide; 2 = 3    Resto 0
+3   &divide; 2 = 1    Resto 1
+1   &divide; 2 = 0    Resto 1
+                </pre>
+                <p>Pegue os restos de baixo para cima: <span class="highlight">$$ (110110111)_2 $$</span>!</p>
+                <p>Então, $$ (439)_{10} $$ é $$ (110110111)_2 $$! ✨</p>
+            </div>
+
+            <h3>2.2. Do Computador para o Nosso Jeito (Binário para Decimal)</h3>
+            <p>Para entender o que o computador diz, usamos um truque de "lâmpadas acesas e apagadas", somando os valores das posições.</p>
+            <div class="example-box">
+                <h4>Exemplo: Entender o número $$ (10110111)_2 $$ do computador:</h4>
+                $$ (N)_{10} = 1 \times 2^7 + 0 \times 2^6 + 1 \times 2^5 + 1 \times 2^4 + 0 \times 2^3 + 1 \times 2^2 + 1 \times 2^1 + 1 \times 2^0 $$
+                $$ = 128 + 0 + 32 + 16 + 0 + 4 + 2 + 1 $$
+                $$ = (183)_{10} $$
+                <p>Então, $$ (10110111)_2 $$ do computador é $$ (183)_{10} $$ no nosso jeito! Que "Love Story"! 💖</p>
+            </div>
+
+            <h3>2.3. Do Computador para o Jeito Rápido (Binário para Hexadecimal)</h3>
+            <p>Para o jeito rápido, é só agrupar os números do computador de 4 em 4! É como dividir um verso em pequenas frases musicais.</p>
+            <div class="example-box">
+                <h4>Exemplo: Transformar $$ (110110111)_2 $$ para Hexadecimal:</h4>
+                <ol>
+                    <li>Pegue o número $$ 110110111 $$.</li>
+                    <li>Comece da direita e junte 4 números. Se não tiver 4, coloque zeros na frente: <br>
+                        `0001` `1011` `0111`
+                    </li>
+                    <li>Agora, olhe na Tabela Mágica lá em cima:</li>
+                    <ul>
+                        <li>$$ 0001_2 = 1_{16} $$</li>
+                        <li>$$ 1011_2 = B_{16} $$</li>
+                        <li>$$ 0111_2 = 7_{16} $$</li>
+                    </ul>
+                </ol>
+                <p>Juntando tudo: <span class="highlight">$$ (1B7)_{16} $$</span>! Viu como é mais curto? 😎</p>
+            </div>
+        </div>
+
+        <div class="album-module speak-now">
+            <h2 id="speak-now-module"><img src="file:\\C:\Users\lcarra22\OneDrive - azureford\Documents\a\img\Speak Now.jpg" alt="Speak Now"> 3. Speak Now Era: Números Felizes e Tristes! 💜</h2>
+            <p>Nessa era, a Taylor falava o que sentia! Os números também podem ser felizes (positivos) ou tristes (negativos). Os computadores usam um "bit de sinal" para isso!</p>
+            <p>Assim como os sentimentos em "Back to December", inspirada em Taylor Lautner, podem ser de arrependimento (um "número negativo") após um término amigável, ou a dor em "Dear John", sobre John Mayer, que é claramente um "número muito negativo". O Complemento de Dois é como a capacidade da Taylor de transformar essas experiências, por mais dolorosas que fossem, em algo que o computador (ou seus fãs) pode processar e entender, mudando o "sinal" da emoção.</p>
+
+            <h3>3.1. Sinal-Magnitude (Jeito Simples, mas com Desvantagens)</h3>
+            <p>É como colocar um sinal de mais ou menos na frente do número. O primeiro "bit" (o primeiro 0 ou 1) diz se é positivo ou negativo, e o resto diz o valor. Mas tem um problema: o zero pode ser $$ +0 $$ ou $$ -0 $$!</p>
+            <div class="example-box">
+                <h4>Exemplo: Usando 8 bits</h4>
+                <ul>
+                    <li>$$ +18_{10} = 00010010_2 $$ (sinal 0, magnitude $$ 0010010_2 = 18_{10} $$)</li>
+                    <li>$$ -18_{10} = 10010010_2 $$ (sinal 1, magnitude $$ 0010010_2 = 18_{10} $$)</li>
+                </ul>
+                <p>Expandindo para 16 bits, o bit de sinal se move e o meio é preenchido com zeros:</p>
+                <ul>
+                    <li>$$ +18_{10} = 00010010_2 \rightarrow 0000000000010010_2 $$</li>
+                    <li>$$ -18_{10} = 10010010_2 \rightarrow 1000000000010010_2 $$</li>
+                </ul>
+            </div>
+
+            <h3>3.2. Complemento de Dois (Jeito Mágico e Eficiente dos Computadores)</h3>
+            <p>Esse é o truque favorito do computador para transformar um número positivo em negativo (e vice-versa), porque facilita as contas. É como quando a Taylor muda o tom de uma música de feliz para melancólico, mas ela continua sendo a mesma música!</p>
+            <p>Para negar um número (transformar $$ N $$ em $$ -N $$):</p>
+            <ol>
+                <li>Inverta todos os bits (0 vira 1, 1 vira 0).</li>
+                <li>Some 1 ao resultado.</li>
+            </ol>
+            <div class="example-box">
+                <h4>Exemplo: Transformar $$ +2_{10} $$ em $$ -2_{10} $$ (com 8 bits):</h4>
+                <ol>
+                    <li>$$ +2_{10} $$ em binário (8 bits): $$ 00000010_2 $$</li>
+                    <li>Inverta todos os bits: $$ 11111101_2 $$</li>
+                    <li>Some 1: $$ 11111101_2 + 00000001_2 = 11111110_2 $$</li>
+                </ol>
+                <p>Então, $$ -2_{10} $$ é <span class="highlight">$$ 11111110_2 $$</span> para o computador! Que "Enchanted" truque! ✨</p>
+            </div>
+
+            <div class="solution-box">
+                <h4>Exercício Resolvido: Transformar $$ -53_{10} $$ para o jeito do computador (8 bits):</h4>
+                <ol>
+                    <li>Represente $$ +53_{10} $$ em binário (8 bits): $$ 00110101_2 $$</li>
+                    <li>Inverta todos os bits: $$ 11001010_2 $$</li>
+                    <li>Some 1: $$ 11001010_2 + 00000001_2 = 11001011_2 $$</li>
+                </ol>
+                <p>Então, <span class="highlight">$$ -53_{10} $$ é $$ 11001011_2 $$</span> para o computador! 🥳</p>
+            </div>
+            <p>Para expandir um número em Complemento de Dois para mais bits, basta repetir o bit de sinal nas posições adicionais à esquerda (extensão de sinal):</p>
+            <div class="example-box">
+                <h4>Exemplo: $$ 10101010_2 $$ (8 bits C2) para 16 bits C2:</h4>
+                <p>O MSB é 1 (negativo), então preenche-se com 1s à esquerda:</p>
+                $$ 10101010_2 \rightarrow 1111111110101010_2 $$
+            </div>
+        </div>
+
+        <div class="album-module red">
+            <h2 id="red-module"><img src="file:\\C:\Users\lcarra22\OneDrive - azureford\Documents\a\img\RED.jpg" alt="Red (Taylor’s Version)"> 4. Red Era: Fazendo Contas Intensas! ❤️‍🔥</h2>
+            <p>A era Red é cheia de emoções, e as contas dos computadores também podem ser intensas! Mas eles têm um jeito simples de fazer tudo, até somar e subtrair!</p>
+            <p>As "contas intensas" desta era nos lembram dos relacionamentos dramáticos como o com Jake Gyllenhaal, que inspirou músicas como "All Too Well" e "We Are Never Ever Getting Back Together". Somar e subtrair binários é como a Taylor tentando entender a "equação" de um relacionamento: adicionando momentos bons, subtraindo as mágoas, e às vezes, como em "Red", simplesmente tentando decifrar a intensidade de tudo. Mesmo um relacionamento mais leve, como com Conor Kennedy, pode ser uma "soma" de sentimentos que culmina em "Begin Again".</p>
+
+            <h3>4.1. Adição Binária (Como Juntar Versos de Música)</h3>
+            <p>É como juntar dois versos de uma música. As regras são simples:</p>
+            <ul>
+                <li>$$ 0 + 0 = 0 $$</li>
+                <li>$$ 0 + 1 = 1 $$</li>
+                <li>$$ 1 + 0 = 1 $$</li>
+                <li>$$ 1 + 1 = 0 $$ e vai 1 para o próximo (carry).</li>
+            </ul>
+            <div class="example-box">
+                <h4>Exemplo: Somar $$ (0110)_2 $$ com $$ (0101)_2 $$:</h4>
+                <pre>
+  0110  (6)
++ 0101  (5)
+------
+  1011 (11)
+                </pre>
+                <p>O resultado $$ (1011)_2 $$ é $$ 11_{10} $$! Como um "All Too Well (10 Minute Version)"! 🧣</p>
+                <h4>Exemplo com carry:</h4>
+                <pre>
+  <sup>1</sup>  (carry)
+  1110  (ou -2 em C2 4-bits)
++ 0101  (+5)
+------
+(1)0011 (ou +3 em C2 4-bits)
+                </pre>
+                <p>Em Complemento de Dois, o carry que "sai" (o 1 extra) é descartado. O resultado $$ (0011)_2 $$ é $$ +3_{10} $$!</p>
+            </div>
+
+            <h3>4.2. Subtração Binária (Como Resolver um Problema de Coração)</h3>
+            <p>Para subtrair $$ A - B $$, o computador usa o truque do Complemento de Dois de $$ B $$ e soma: $$ A + (-B) $$.</p>
+            <div class="example-box">
+                <h4>Exemplo: Subtrair $$ 17 - 7 = 10 $$ (usando 5 bits):</h4>
+                <ul>
+                    <li>$$ 17_{10} = 10001_2 $$ (Minuendo)</li>
+                    <li>$$ 7_{10} = 00111_2 $$ (Subtraendo)</li>
+                </ul>
+                <ol>
+                    <li>Achar o Complemento de Dois de $$ 00111_2 $$:
+                        <ul>
+                            <li>Inverter: $$ 11000_2 $$</li>
+                            <li>Somar 1: $$ 11001_2 $$ (Este é o $$ -7 $$)</li>
+                        </ul>
+                    </li>
+                    <li>Somar o minuendo com o C2 do subtraendo:</li>
+                    <pre>
+  10001  (17)
++ 11001  (-7 em C2)
+-------
+(1)01010
+                    </pre>
+                    <li>O carry-out (o 1 extra) é descartado.</li>
+                </ol>
+                <p>Resultado: $$ 01010_2 = 10_{10} $$!</p>
+            </div>
+
+            <div class="solution-box">
+                <h4>Exercício Resolvido: Subtração $$ (10100010)_2 - (10001001)_2 $$ (8 bits C2):</h4>
+                <ul>
+                    <li>Minuendo $$ A = 10100010_2 $$</li>
+                    <li>Subtraendo $$ B = 10001001_2 $$</li>
+                </ul>
+                <ol>
+                    <li>Obter o Complemento de Dois de $$ B $$ ($$ 10001001_2 $$):
+                        <ul>
+                            <li>Inverter: $$ 01110110_2 $$</li>
+                            <li>Somar 1: $$ 01110111_2 $$ (Este é $$ -B $$)</li>
+                        </ul>
+                    </li>
+                    <li>Somar $$ A $$ com o Complemento de Dois de $$ B $$:</li>
+                    <pre>
+  10100010  (A)
++ 01110111  (-B)
+----------
+(1)00011001
+                    </pre>
+                    <li>O carry-out (o 1 extra) é descartado.</li>
+                </ol>
+                <p>Resultado: <span class="highlight">$$ 00011001_2 $$ ($$ +25_{10} $$)</span>. ❤️</p>
+            </div>
+
+            <h3>4.3. Complemento de 10 (Subtração Decimal com truques)</h3>
+            <p>É uma forma de subtrair números decimais usando a mesma ideia do Complemento de Dois, mas com base 10. É um truque para fazer $$ A - B $$ virar $$ A + (-B) $$.</p>
+            <div class="example-box">
+                <h4>Exemplo: Subtração $$ 12345 - 09753 $$:</h4>
+                <ol>
+                    <li>Calcular o "Complemento de 9" de $$ 09753 $$: $$ 99999 - 09753 = 90246 $$</li>
+                    <li>Calcular o "Complemento de 10" de $$ 09753 $$: $$ 90246 + 1 = 90247 $$</li>
+                    <li>Somar o primeiro número com o Complemento de 10:</li>
+                    <pre>
+  12345
++ 90247
+-------
+(1)02592
+                    </pre>
+                    <li>O '1' que sobra na frente (carry-out) é descartado.</li>
+                </ol>
+                <p>Resultado: $$ 02592_{10} = 2592_{10} $$.</p>
+            </div>
+
+            <h3>4.4. Aritmética Hexadecimal (Contas com o Jeito Rápido)</h3>
+            <p>Podemos somar e subtrair diretamente em hexadecimal, lembrando que a base é 16 e A-F valem 10-15.</p>
+            <div class="example-box">
+                <h4>Exemplo: Soma $$ 1F2_{16} + 0D8_{16} $$:</h4>
+                <ol>
+                    <li><strong>Coluna da direita:</strong> $$ 2 + 8 = 10_{10} $$. Em hexa, $$ 10_{10} = A_{16} $$.</li>
+                    <li><strong>Coluna do meio:</strong> $$ F + D = 15_{10} + 13_{10} = 28_{10} $$. $$ 28_{10} - 16 = 12_{10} $$. Em hexa, $$ 12_{10} = C_{16} $$. Vai 1 para a próxima coluna (carry).</li>
+                    <li><strong>Coluna da esquerda:</strong> $$ 1 + 0 + (\text{carry } 1) = 2_{10} $$. Em hexa, $$ 2_{10} = 2_{16} $$.</li>
+                </ol>
+                <p>Resultado: $$ 2CA_{16} $$.</p>
+            </div>
+            <div class="solution-box">
+                <h4>Exercício Resolvido: Subtração $$ 1A4D_{16} - C26_{16} $$:</h4>
+                <ol>
+                    <li><strong>Coluna da direita:</strong> $$ D - 6 = 13_{10} - 6_{10} = 7_{10} = 7_{16} $$.</li>
+                    <li><strong>Coluna do meio:</strong> $$ 4 - 2 = 2_{10} = 2_{16} $$.</li>
+                    <li><strong>Coluna da esquerda:</strong> $$ A - C = 10_{10} - 12_{10} $$. Não dá! Empresta 1 da próxima coluna (que vale 16). O $$ 1 $$ vira $$ 0 $$. O $$ A $$ vira $$ 16 + A = 16 + 10 = 26_{10} $$. $$ 26_{10} - 12_{10} = 14_{10} = E_{16} $$.</li>
+                    <li><strong>Última coluna:</strong> $$ 0 - 0 = 0_{10} = 0_{16} $$.</li>
+                </ol>
+                <p>Resultado: <span class="highlight">$$ E27_{16} $$</span> (ou $$ 0E27_{16} $$).</p>
+            </div>
+        </div>
+
+        <div class="album-module nineteen89">
+            <h2 id="1989-module"><img src="file:\\C:\Users\lcarra22\OneDrive - azureford\Documents\a\img\1989.jpg" alt="1989 (Taylor’s Version)"> 5. 1989 Era: Números Quebrados e o "Ponto Flutuante"! 🗽</h2>
+            <p>Na era 1989, a Taylor foi para a cidade grande! E lá, os números podem ser mais complexos, com vírgulas, como o preço de um ingresso ($$ 149.99 $$) ou a duração de uma música (3.45 minutos). O computador usa uma "régua mágica" chamada <span class="highlight">Ponto Flutuante</span> (padrão IEEE 754)!</p>
+            <p>Essa "régua mágica" e os "números quebrados" lembram a complexidade e a visibilidade de relacionamentos como o com Harry Styles, que inspirou músicas como "Style", "Out of the Woods" e "I Wish You Would". Assim como o ponto flutuante permite representar números muito grandes ou muito pequenos, o relacionamento de Taylor com Harry foi marcado por altos e baixos intensos e pela constante flutuação da atenção da mídia, que tentava "normalizar" cada detalhe.</p>
+            <p>É como se a vírgula pudesse "flutuar" para qualquer lugar, para representar números gigantes ou super pequenininhos. O computador guarda 3 informações principais em 32 bits (precisão simples):</p>
+            <ul>
+                <li><span class="highlight">S (Sinal):</span> 1 bit (0=positivo, 1=negativo).</li>
+                <li><span class="highlight">E (Expoente):</span> 8 bits. É o expoente real mais um "bias" (um número mágico de $$ 127 $$). Então, $$ E_{real} = E_{armazenado} - 127 $$.</li>
+                <li><span class="highlight">M (Mantissa):</span> 23 bits. São os dígitos da parte fracionária do número, mas com um truque: o $$ 1 $$ antes da vírgula é sempre imaginário e não é guardado!</li>
+            </ul>
+            <p>A fórmula para entender o número é: $$ \text{Valor} = (-1)^S \times 1.M \times 2^{(E - 127)} $$</p>
+
+            <div class="example-box">
+                <h4>Exemplo: Como o computador guarda o número $$ 432_{10} $$?</h4>
+                <ol>
+                    <li><strong>Converter para binário e normalizar:</strong>
+                        $$ 432_{10} = 110110000_2 $$
+                        Normalizando (movendo a vírgula 8 posições para a esquerda): $$ 1.10110000 \times 2^8 $$
+                    </li>
+                    <li><strong>Sinal (S):</strong> $$ 432 $$ é positivo $$ \rightarrow S = 0 $$</li>
+                    <li><strong>Expoente (E):</strong> Expoente real é $$ 8 $$. Expoente armazenado $$ = 8 + 127 = 135_{10} = 10000111_2 $$</li>
+                    <li><strong>Mantissa (M):</strong> A parte depois do $$ 1. $$ em $$ 1.10110000 $$ é $$.10110000$$. Completar para 23 bits: $$ 10110000000000000000000_2 $$</li>
+                    <li><strong>Montar (S | E | M):</strong> <span class="highlight">$$ 0 \ 10000111 \ 10110000000000000000000_2 $$</span></li>
+                    <li><strong>Em Hexadecimal:</strong> Agrupar de 4 em 4 bits: $$ 0100 \ 0011 \ 1101 \ 1000 \ 0000 \ 0000 \ 0000 \ 0000_2 = 43D80000_{16} $$</li>
+                </ol>
+            </div>
+            <div class="solution-box">
+                <h4>Exemplo: Como o computador guarda o número $$ -118.625_{10} $$?</h4>
+                <ol>
+                    <li><strong>Converter magnitude para binário e normalizar:</strong>
+                        $$ 118.625_{10} = 1110110.101_2 $$
+                        Normalizando (movendo a vírgula 6 posições para a esquerda): $$ 1.110110101 \times 2^6 $$
+                    </li>
+                    <li><strong>Sinal (S):</strong> Número é negativo $$ \rightarrow S = 1 $$</li>
+                    <li><strong>Expoente (E):</strong> Expoente real é $$ 6 $$. Expoente armazenado $$ = 6 + 127 = 133_{10} = 10000101_2 $$</li>
+                    <li><strong>Mantissa (M):</strong> A parte depois do $$ 1. $$ em $$ 1.110110101 $$ é $$.110110101$$. Completar para 23 bits: $$ 11011010100000000000000_2 $$</li>
+                    <li><strong>Montar (S | E | M):</strong> <span class="highlight">$$ 1 \ 10000101 \ 11011010100000000000000_2 $$</span></li>
+                    <li><strong>Em Hexadecimal:</strong> $$ 1100 \ 0010 \ 1110 \ 1101 \ 0100 \ 0000 \ 0000 \ 0000_2 = C2ED4000_{16} $$</li>
+                </ol>
+                <p>É assim que o computador guarda $$ -118.625 $$! Como um segredo bem guardado em "Blank Space"! 📝</p>
+            </div>
+        </div>
+
+        <div class="album-module reputation">
+            <h2 id="reputation-module"><img src="file:\\C:\Users\lcarra22\OneDrive - azureford\Documents\a\img\Reputation.jpg" alt="Reputation"> 6. Reputation Era: Revelando os Segredos (IEEE 754 para Decimal)! 🐍</h2>
+            <p>Na era Reputation, a Taylor revelou seus sentimentos e verdades. Agora, vamos fazer o contrário: pegar o código do computador e descobrir qual número ele representa!</p>
+            <p>É como pegar o código binário (S | E | M) e transformá-lo de volta em um número decimal que a gente entende.</p>
+            <p>Esta "revelação de segredos" é muito parecida com a própria era Reputation. Após a turbulência pública com Calvin Harris e o rápido romance com Tom Hiddleston, a Taylor usou músicas como "Look What You Made Me Do" e "Getaway Car" para "traduzir" as complexas emoções e narrativas para o público, revelando a verdade por trás dos "bits" da mídia. Entender o valor decimal de um número IEEE 754 é como decifrar a verdadeira história por trás das manchetes.</p>
+            <ol>
+                <li>Extrair S, E, M dos 32 bits.</li>
+                <li>Calcular o Expoente Real: $$ E_{real} = E_{armazenado} - 127 $$.</li>
+                <li>Reconstruir a Mantissa Normalizada: $$ 1.M $$.</li>
+                <li>Multiplicar $$ 1.M $$ por $$ 2^{E_{real}} $$ (mover a vírgula).</li>
+                <li>Converter o resultado binário para decimal.</li>
+            </ol>
+            <div class="example-box">
+                <h4>Exemplo: Qual o valor de $$ 0 \ 10001001 \ 11100110010000000000000_2 $$?</h4>
+                <ol>
+                    <li><strong>Sinal (S):</strong> $$ 0 \rightarrow $$ Positivo.</li>
+                    <li><strong>Expoente Armazenado (E):</strong> $$ 10001001_2 = 137_{10} $$.</li>
+                    <li><strong>Expoente Real (E_real):</strong> $$ 137 - 127 = 10 $$.</li>
+                    <li><strong>Mantissa Normalizada:</strong> $$ 1.1110011001_2 $$</li>
+                    <li><strong>Calcular o Valor:</strong> Multiplicar $$ 1.1110011001_2 $$ por $$ 2^{10} $$. (Mover a vírgula 10 posições à direita)
+                        $$ 1.1110011001 \times 2^{10} \rightarrow 11110011001.0_2 $$
+                    </li>
+                    <li><strong>Converter para Decimal:</strong>
+                        $$ 11110011001_2 = 1 \times 2^{10} + 1 \times 2^9 + 1 \times 2^8 + 1 \times 2^7 + 0 \times 2^6 + 0 \times 2^5 + 1 \times 2^4 + 1 \times 2^3 + 0 \times 2^2 + 0 \times 2^1 + 1 \times 2^0 $$
+                        $$ = 1024 + 512 + 256 + 128 + 0 + 0 + 16 + 8 + 0 + 0 + 1 = 1945_{10} $$
+                    </li>
+                </ol>
+                <p>Resultado: <span class="highlight">$$ +1945_{10} $$</span>. Como um segredo revelado em "Look What You Made Me Do"! 🤫</p>
+            </div>
+            <div class="solution-box">
+                <h4>Exercício Resolvido: Qual o valor de $$ 1 \ 01111100 \ 11010000011000000000000_2 $$?</h4>
+                <ol>
+                    <li><strong>Sinal (S):</strong> $$ 1 \rightarrow $$ Negativo.</li>
+                    <li><strong>Expoente Armazenado (E):</strong> $$ 01111100_2 = 124_{10} $$.</li>
+                    <li><strong>Expoente Real (E_real):</strong> $$ 124 - 127 = -3 $$.</li>
+                    <li><strong>Mantissa Normalizada:</strong> $$ 1.11010000011_2 $$.</li>
+                    <li><strong>Calcular o Valor:</strong> Multiplicar $$ 1.11010000011_2 $$ por $$ 2^{-3} $$. (Mover a vírgula 3 posições à esquerda)
+                        $$ 1.11010000011 \times 2^{-3} \rightarrow 0.00111010000011_2 $$
+                    </li>
+                    <li><strong>Converter para Decimal:</strong>
+                        $$ 0.00111010000011_2 = 1 \times 2^{-3} + 1 \times 2^{-4} + 1 \times 2^{-5} + 1 \times 2^{-7} + 1 \times 2^{-13} + 1 \times 2^{-14} $$
+                        $$ = 0.125 + 0.0625 + 0.03125 + 0.0078125 + 0.0001220703125 + 0.00006103515625 $$
+                        $$ = 0.22674560546875_{10} $$
+                    </li>
+                </ol>
+                <p>Resultado: <span class="highlight">$$ -0.22674560546875_{10} $$</span>. 🐍</p>
+            </div>
+        </div>
+
+        <div class="album-module lover">
+            <h2 id="lover-module"><img src="file:\\C:\Users\lcarra22\OneDrive - azureford\Documents\a\img\Lover.jpg" alt="Lover"> 7. Lover Era: Abraçando Todos os Números (Casos Especiais)! 💖</h2>
+            <p>Na era Lover, a Taylor abraça todas as formas de amor, e o IEEE 754 também abraça todos os tipos de números, até os mais "diferentões"! </p>
+            <p>Além dos números normais, ele tem códigos especiais para representar coisas como zero, infinito e até "Não é um Número" (NaN), como um relacionamento complicado que não tem um valor claro! 😉</p>
+            <p>O relacionamento mais longo e discreto de Taylor com Joe Alwyn, que inspirou "Lover", "Cornelia Street" e "The Archer", é como o IEEE 754 "abraçando todos os números". Ele engloba a vastidão do "infinito" do amor, a sutileza dos "números desnormalizados" que representam os momentos mais privados, e o "zero" do término, que para o público pode parecer um "Não é um Número" (NaN) pela falta de explicações. É a complexidade de uma história de amor que possui todos os "casos especiais".</p>
+
+            <h3>Tabela de Casos Especiais IEEE 754 (Precisão Simples)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tipo</th>
+                        <th>Sinal (S)</th>
+                        <th>Expoente (8 bits)</th>
+                        <th>Mantissa (23 bits)</th>
+                        <th>Valor / Significado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Normalizado</strong></td>
+                        <td>$$ \pm $$</td>
+                        <td>$$ 0 < E < 255 $$</td>
+                        <td>Qualquer padrão de bits</td>
+                        <td>$$ (-1)^S \times 1.M \times 2^{(E - 127)} $$</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Desnormalizado</strong></td>
+                        <td>$$ \pm $$</td>
+                        <td>$$ 00000000_2 $$</td>
+                        <td>Não-zero</td>
+                        <td>$$ (-1)^S \times 0.M \times 2^{(-126)} $$</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Zero</strong></td>
+                        <td>$$ \pm $$</td>
+                        <td>$$ 00000000_2 $$</td>
+                        <td>$$ 000\dots0_2 $$</td>
+                        <td>$$ \pm 0 $$</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Infinito</strong></td>
+                        <td>$$ \pm $$</td>
+                        <td>$$ 11111111_2 $$</td>
+                        <td>$$ 000\dots0_2 $$</td>
+                        <td>$$ \pm \infty $$</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Não é um Número (NaN)</strong></td>
+                        <td>$$ \pm $$</td>
+                        <td>$$ 11111111_2 $$</td>
+                        <td>Não-zero</td>
+                        <td>Not a Number (resultado de operação inválida)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Números Desnormalizados: Tão Pequenos Que Quase Não Existem!</h3>
+            <p>Imagine um número tão, tão, tão pequeno que ele mal aparece no radar, como um sussurro em uma "Delicate" canção. Para esses números, o computador usa um truque especial: ele coloca o Expoente todo de zeros e muda a fórmula!</p>
+            <div class="example-box">
+                <h4>Exemplo: Representar $$ +1.0 \times 2^{-128} $$ (muito, muito pequeno!)</h4>
+                <ol>
+                    <li><strong>Expoente Real:</strong> $$ -128 $$.</li>
+                    <li><strong>Verificação:</strong> O menor expoente real normalizado é $$ -126 $$. Como $$ -128 $$ é menor, este número será <span class="highlight">desnormalizado</span>.</li>
+                    <li><strong>Conversão para Forma Desnormalizada:</strong>
+                        <p>A fórmula para desnormalizados usa $$ 2^{-126} $$. Precisamos ajustar a mantissa. Para ir de $$ 2^{-128} $$ para $$ 2^{-126} $$, a vírgula em $$ 1.0 $$ precisa andar 2 posições para a esquerda:</p>
+                        $$ 1.0 \times 2^{-128} = 0.01 \times 2^{-126} $$
+                    </li>
+                    <li><strong>Sinal (S):</strong> Positivo $$ \rightarrow S = 0 $$</li>
+                    <li><strong>Expoente Armazenado (E):</strong> Para desnormalizados, é sempre <span class="highlight">$$ 00000000_2 $$</span>.</li>
+                    <li><strong>Mantissa (M):</strong> A parte depois do $$ 0. $$ em $$ 0.01 $$ é $$.01$$. Completar para 23 bits: $$ 01000000000000000000000_2 $$</li>
+                </ol>
+                <p>Juntando tudo (S | E | M):</p>
+                <pre>
+0 | 00000000 | 01000000000000000000000
+                </pre>
+                <p>É um código super especial para números que são quase invisíveis! 🤫</p>
+            </div>
+        </div>
+
+        <div class="album-module folklore">
+            <h2 id="folklore-module"><img src="file:\\C:\Users\lcarra22\OneDrive - azureford\Documents\a\img\Folklore.jpg" alt="Folklore"> 8. Folklore Era: Contando Histórias com Números! 🌲</h2>
+            <p>A era Folklore nos trouxe histórias profundas e complexas. Os números também podem contar histórias complexas dentro do computador. Cada 0 e 1 é um pedacinho de uma narrativa digital!</p>
+            <p>As narrativas introspectivas de "Folklore" e "Evermore" podem ser vistas como o computador processando os "bits" de um relacionamento significativo, como o com Joe Alwyn, que terminou no silêncio. Músicas como "The 1" e "Peace" refletem sobre o passado, transformando a "data" bruta de experiências em histórias e compreensões. É como o computador refinando e interpretando dados complexos para construir uma narrativa coerente.</p>
+            <p>Pense que cada cálculo que o computador faz é como a Taylor compondo uma nova música. Ele pega os "bits" (as palavras, as notas), processa e cria algo novo e incrível!</p>
+            <p>Você é como um "Cardigan" quentinho que está entendendo tudo! 🍂</p>
+        </div>
+
+        <div class="album-module evermore">
+            <h2 id="evermore-module"><img src="file:\\C:\Users\lcarra22\OneDrive - azureford\Documents\a\img\Evermore.jpg" alt="Evermore"> 9. Evermore Era: A Continuação da Jornada! 🧡</h2>
+            <p>Evermore é a irmã de Folklore, a continuação de uma história linda! E a sua jornada no mundo da computação também continua. Cada vez que você usa seu celular, joga um game ou assiste a um clipe da Taylor, está interagindo com esses números secretos!</p>
+            <p>A matemática dos computadores é a base para toda a tecnologia que amamos. É como o "Willow" que cresce e se expande, sempre buscando novas formas de ser!</p>
+            <p>A "continuação da jornada" em "Evermore", com músicas como "You're Losing Me", mostra que mesmo após o fim de um relacionamento, o "processamento" emocional continua. Novas reflexões e perspectivas surgem, assim como a computação sempre encontra novas maneiras de evoluir e processar informações, expandindo o entendimento de um conjunto de dados.</p>
+        </div>
+
+        <div class="album-module midnights">
+            <h2 id="midnights-module"><img src="file:\\C:\Users\lcarra22\OneDrive - azureford\Documents\a\img\Midnights.jpg" alt="Midnights"> 10. Midnights Era: Os Números que nos Mantêm Acordados! 🌃</h2>
+            <p>Midnights explora os pensamentos mais profundos da Taylor em noites sem dormir. E os números, às vezes, também nos fazem pensar muito! Mas com o que aprendemos, você já pode desvendar muitos mistérios!</p>
+            <p>Desde a música "Anti-Hero" até a hora exata em que o clipe de "Karma" saiu, tudo é traduzido em 0s e 1s para o computador. É um universo fascinante que funciona enquanto a gente dorme!</p>
+            <p>As "noites sem dormir" de "Midnights" são como os complexos algoritmos que o computador executa para resolver problemas, muitas vezes revisitando dados antigos e fazendo "cálculos" intensos sobre relacionamentos passados. É a era onde a "Mastermind" da Taylor, e a sua, se aprofunda nos mistérios dos números e das emoções, transformando cada experiência em um dado valioso para futuras "equações".</p>
+            <p>Você é uma "Mastermind" da matemática computacional! 🌟</p>
+        </div>
+
+        <div class="album-module ttpd">
+            <h2 id="ttpd-module"><img src="file:\\C:\Users\lcarra22\OneDrive - azureford\Documents\a\img\TTPD.jpg" alt="The Tortured Poets Department"> 11. The Tortured Poets Department: Escrevendo o Código! 🖋️</h2>
+            <p>Em TTPD, a Taylor escreve seus sentimentos mais íntimos, transformando-os em arte. No mundo da computação, os programadores são como poetas que escrevem "códigos" (sequências de 0s e 1s ou linguagens que viram 0s e 1s) para fazer os computadores funcionarem.</p>
+            <p>Cada linha de código é uma instrução, um comando, que o computador entende graças a esses sistemas de números que você acabou de aprender. É a sua "Smallest Man Who Ever Lived" de linha de código que faz a diferença!</p>
+            <p>Esta era, com o lançamento de "The Tortured Poets Department", é o exemplo perfeito de "escrever o código". As músicas como "The Smallest Man Who Ever Lived" e "I Can Fix Him (No Really I Can)", inspiradas no breve e polêmico relacionamento com Matty Healy, são como novas linhas de código que a Taylor escreve para processar e registrar uma experiência. E enquanto o código do passado é analisado, um novo "algoritmo" de felicidade está sendo escrito com Travis Kelce, inspirando músicas como "The Alchemy". É a constante criação de novos programas emocionais, transformando a vida em arte e dados.</p>
+            <p>Você agora tem o conhecimento para escrever seus próprios "poemas" tecnológicos! 📜</p>
+        </div>
+
+        <div class="album-module showgirl">
+            <h2>Sua Eras Tour da Matemática Acabou! 🥳</h2>
+            <p>Parabéns, Swiftie! Você completou sua "Eras Tour" pela matemática dos computadores! Espero que tenha sido divertido e que você se sinta uma verdadeira especialista em bits e bytes, assim como a Taylor é uma especialista em músicas e eras! Continue explorando e aprendendo, o mundo da tecnologia é cheio de magia e "Easter Eggs" esperando por você! ✨💻</p>
+        </div>
+    </div>
+</body>
+</html>

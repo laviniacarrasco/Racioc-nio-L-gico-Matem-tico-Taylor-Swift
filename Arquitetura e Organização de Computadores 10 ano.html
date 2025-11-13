@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Como os Computadores Contam! 🤖🔢</title>
+    <style>
+        :root {
+            --primary-color: #007bff;
+            --secondary-color: #28a745;
+            --accent-color: #ffc107;
+            --background-light: #e6f2ff;
+            --background-medium: #f9f9f9;
+            --text-color: #333;
+            --highlight-color: #ffe0b2;
+        }
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: var(--background-light);
+            color: var(--text-color);
+            font-size: 18px;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            border: 3px solid var(--primary-color);
+        }
+        h1, h2, h3, h4 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 { font-size: 2.5em; }
+        h2 { font-size: 2em; color: var(--secondary-color); }
+        h3 { font-size: 1.5em; color: var(--accent-color); }
+        p { margin-bottom: 15px; }
+        .emoji { font-size: 1.5em; vertical-align: middle; }
+        .example-box, .solution-box {
+            border: 2px dashed var(--accent-color);
+            padding: 15px;
+            margin: 20px 0;
+            background-color: var(--background-medium);
+            border-radius: 10px;
+        }
+        .solution-box {
+            border-color: var(--secondary-color);
+            background-color: #e0ffe0;
+        }
+        pre {
+            background-color: #eee;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1em;
+            border: 1px solid #ccc;
+        }
+        ul, ol {
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+        li { margin-bottom: 8px; }
+        .highlight {
+            background-color: var(--highlight-color);
+            padding: 3px 6px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .math-expr {
+            font-family: 'Times New Roman', serif;
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        th { background-color: var(--primary-color); color: white; }
+        td { background-color: #f0f8ff; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Como os Computadores Contam e Fazem Contas! 🤖✨</h1>
+        <p>Olá, amiguinho(a)! Você já se perguntou como seu computador, tablet ou celular entende os números e faz contas? Eles têm um jeito muito especial de fazer isso! É como um código secreto! 🤫</p>
+
+        <h2>1. Os Códigos Secretos dos Números! 🔢</h2>
+
+        <h3>1.1. Nosso Jeito de Contar (Decimal)</h3>
+        <p>Nós, humanos, usamos um sistema de números que tem 10 símbolos: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9. Por isso, chamamos de <span class="highlight">Sistema Decimal</span>. Cada lugar onde um número está vale 10 vezes mais!</p>
+        <div class="example-box">
+            <p><strong>Exemplo:</strong> O número <span class="math-expr">123</span></p>
+            <ul>
+                <li>1 centena (1 × 100)</li>
+                <li>2 dezenas (2 × 10)</li>
+                <li>3 unidades (3 × 1)</li>
+            </ul>
+            <p>Juntando tudo: 100 + 20 + 3 = <span class="math-expr">123</span>!</p>
+        </div>
+
+        <h3>1.2. O Jeito dos Computadores (Binário)</h3>
+        <p>Os computadores só entendem 0 e 1. É como ligar (1) ou desligar (0) uma lâmpada! Por isso, chamamos de <span class="highlight">Sistema Binário</span>. Cada lugar vale 2 vezes mais!</p>
+
+        <h3>1.3. O Jeito Rápido (Hexadecimal)</h3>
+        <p>Para não escrever números binários longos, usamos o <span class="highlight">Sistema Hexadecimal</span>, que tem 16 símbolos (0-9 e A-F). 🚀</p>
+
+        <div class="example-box">
+            <h4>Tabela Mágica de Números! ✨</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Decimal</th><th>Binário</th><th>Hexa</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>0</td><td>0000</td><td>0</td></tr>
+                    <tr><td>1</td><td>0001</td><td>1</td></tr>
+                    <tr><td>2</td><td>0010</td><td>2</td></tr>
+                    <tr><td>3</td><td>0011</td><td>3</td></tr>
+                    <tr><td>4</td><td>0100</td><td>4</td></tr>
+                    <tr><td>5</td><td>0101</td><td>5</td></tr>
+                    <tr><td>6</td><td>0110</td><td>6</td></tr>
+                    <tr><td>7</td><td>0111</td><td>7</td></tr>
+                    <tr><td>8</td><td>1000</td><td>8</td></tr>
+                    <tr><td>9</td><td>1001</td><td>9</td></tr>
+                    <tr><td>10</td><td>1010</td><td>A</td></tr>
+                    <tr><td>11</td><td>1011</td><td>B</td></tr>
+                    <tr><td>12</td><td>1100</td><td>C</td></tr>
+                    <tr><td>13</td><td>1101</td><td>D</td></tr>
+                    <tr><td>14</td><td>1110</td><td>E</td></tr>
+                    <tr><td>15</td><td>1111</td><td>F</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2>2. Transformando Números (Conversões)! 🔄</h2>
+
+        <h3>2.1. Decimal para Binário</h3>
+        <div class="example-box">
+            <h4>Exemplo: 13 para binário</h4>
+            <ol>
+                <li>13 ÷ 2 = 6, sobra 1</li>
+                <li>6 ÷ 2 = 3, sobra 0</li>
+                <li>3 ÷ 2 = 1, sobra 1</li>
+                <li>1 ÷ 2 = 0, sobra 1</li>
+            </ol>
+            <p>De baixo para cima: <span class="math-expr">1101</span></p>
+            <p>13 decimal = 1101 binário!</p>
+        </div>
+
+        <h3>2.2. Binário para Decimal</h3>
+        <div class="example-box">
+            <h4>Exemplo: 1101 para decimal</h4>
+            <ul>
+                <li>1×8 + 1×4 + 0×2 + 1×1 = 13</li>
+            </ul>
+            <p>Logo, 1101 binário = 13 decimal!</p>
+        </div>
+
+        <h3>2.3. Binário para Hexadecimal</h3>
+        <div class="example-box">
+            <h4>Exemplo: 110110111 → Hexa</h4>
+            <p>0001 1011 0111 → 1B7</p>
+        </div>
+
+        <h2>3. Números Felizes e Tristes (Positivos e Negativos)! ➕➖</h2>
+        <p>O primeiro bit indica o sinal!</p>
+        <ul>
+            <li>0 → positivo</li>
+            <li>1 → negativo</li>
+        </ul>
+
+        <h3>Complemento de Dois</h3>
+        <div class="example-box">
+            <h4>Exemplo: +5 → -5</h4>
+            <p>+5 = 00000101</p>
+            <p>Inverte: 11111010</p>
+            <p>Soma 1: 11111010 + 1 = 11111011</p>
+            <p>-5 = 11111011</p>
+        </div>
+
+        <div class="solution-box">
+            <h4>Exemplo: -53</h4>
+            <p>+53 = 00110101 → inverte = 11001010 → soma 1 = 11001011</p>
+        </div>
+
+        <h2>4. Números com Vírgula (Ponto Flutuante)! 📏</h2>
+        <div class="example-box">
+            <h4>Exemplo: 1.5</h4>
+            <pre>
+S | E | M
+0 | 01111111 | 10000000000000000000000
+            </pre>
+        </div>
+
+        <div class="solution-box">
+            <h4>Exemplo: -3.75</h4>
+            <pre>
+S | E | M
+1 | 10000000 | 11100000000000000000000
+            </pre>
+        </div>
+
+        <h2>Fim da Aventura! 🚀</h2>
+        <p>Parabéns! Você desvendou os segredos da matemática dos computadores! 💻✨</p>
+    </div>
+</body>
+</html>
